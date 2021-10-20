@@ -1,0 +1,240 @@
+<!-- <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Distinctions </h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" *ngFor="let header of distinctionHeaders">{{header}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let dist of listDistinctions">
+                                        <td>
+                                            <img [lazyLoad]="dist.logo" [defaultImage]="'assets/images/user.png'"
+                                                style="border-radius:100%; height:48px; width:48px;">
+                                        </td>
+                                        <td [ngSwitch]="dist.typeD">
+                                            <span *ngSwitchCase="'Nationale'"
+                                                class="badge badge-success">{{dist.typeD}}</span>
+                                            <span *ngSwitchCase="'Régionale'"
+                                                class="badge badge-info">{{dist.typeD}}</span>
+                                            <span *ngSwitchCase="'Internationale'"
+                                                class="badge badge-warning">{{dist.typeD}}</span>
+
+                                        </td>
+                                        <td>{{dist.designation}}</td>
+                                        <td>{{dist.dateObtention}}</td>
+                                        <td>{{dist.duree}}</td>
+
+                                        <td [ngSwitch]="dist.uniteDuree">
+                                            <span *ngSwitchCase="'Année'"
+                                                class="badge badge-success">{{dist.uniteDuree}}</span>
+                                            <span *ngSwitchCase="'Mois'"
+                                                class="badge badge-info">{{dist.uniteDuree}}</span>
+                                            <span *ngSwitchCase="'Jours'"
+                                                class="badge badge-warning">{{dist.uniteDuree}}</span>
+
+                                        </td>
+                                        <td>{{dist.produitService?.refProduit}}</td>
+                                        <td><a (click)="onClickShowDist(dist._id)" href="javascript:;"
+                                                class="text text-info"><i class="fa fa-eye"></i></a>&nbsp;
+                                            |&nbsp;
+                                            <a (click)="onClickEditDist(dist._id)" href="javascript:;"
+                                                class="text text-warning"><i class="fa fa-edit"></i></a>&nbsp;
+                                            |&nbsp;
+                                            <a (click)="setDistToDelete(dist._id)"
+                                                (click)="open(deleteModalDistinction)" href="javascript:;"
+                                                class="text text-danger"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #deleteModalDistinction let-modal>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer la distinction
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container" style="padding: 20px 20px;">
+                            <div style="text-align: center;margin-bottom: 15px;  ">
+                                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                                    aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="text-align: center;">
+                                Êtes-vous sûr?
+                            </h4>
+                        </div>
+                        <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+                            <p style="line-height:15px;">
+                                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                                annulé.</p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer" style="text-align: center;">
+                        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')"
+                            href="javascript:;" data-dismiss="modal">
+
+                            Annuler
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteDist()"
+                            (click)="modal.dismiss('Cross click')">
+                            Supprimer
+                        </button>
+
+                    </div>
+                </div>
+
+            </ng-template>
+
+        </div>
+    </div>
+</div> -->
+
+<p-toast></p-toast>
+<div class="container-fluid">
+
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search..." />
+                        </span>
+
+
+                    </div>
+                    <br/>
+                    <div class="clearfix"></div>
+
+                    <div class="card">
+                        <p-table #dt2 [value]="listDistinctions" styleClass="p-datatable-striped p_datatable-sm" [rows]="15" [paginator]="true"
+                            [globalFilterFields]="['typeD','designation','dateObtention','duree','uniteDuree','designation']"
+                            responsiveLayout="scroll" [rowHover]="true" dataKey="id" [resizableColumns]="true"
+                            [autoLayout]="true">
+
+
+                            <ng-template pTemplate="header">
+                                <tr>
+
+                                    <th style="width: 5rem">Logo</th>
+                                    <th *ngFor="let col of atrDistinction" pSortableColumn="{{col.field}}"
+                                        [style.width]="col.width">
+                                        {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+                                        <p-columnFilter type="text" field="{{col.field}}" display="menu"></p-columnFilter>
+                                    </th>
+
+                                    <th style="width: 6rem">Action</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dist>
+                                <tr style="height: 1rem;">
+                                    <td>
+                                        <img [lazyLoad]="dist.logo" [defaultImage]="'assets/images/user.png'"
+                                            style="border-radius:100%; height:48px; width:48px;">
+                                    </td>
+                                    <td [ngSwitch]="dist.typeD">
+                                        <span *ngSwitchCase="'Nationale'"
+                                            class="badge badge-success">{{dist.typeD}}</span>
+                                        <span *ngSwitchCase="'Régionale'" class="badge badge-info">{{dist.typeD}}</span>
+                                        <span *ngSwitchCase="'Internationale'"
+                                            class="badge badge-warning">{{dist.typeD}}</span>
+
+                                    </td>
+                                    <td>{{dist.translations[0]?.__designation}}</td>
+                                    <td>{{dist.produitService?.translations[0]?.__designation}}</td>
+                                    <td>{{dist.dateObtention | date:'dd/MM/yyyy'}}</td>
+                                    <td [ngSwitch]="dist.uniteDuree">{{dist.duree }} <span *ngSwitchCase="'Année'"
+                                            class="badge badge-success">{{dist.uniteDuree}}</span>
+                                        <span *ngSwitchCase="'Mois'" class="badge badge-info">{{dist.uniteDuree}}</span>
+                                        <span *ngSwitchCase="'Jour'"
+                                            class="badge badge-warning">{{dist.uniteDuree}}</span>
+                                    </td>
+
+
+                                    <td><a (click)="onClickShowDist(dist._id)" href="javascript:;"
+                                            class="text text-info"><i class="fa fa-eye"></i></a>&nbsp;
+                                        |&nbsp;
+                                        <a (click)="onClickEditDist(dist._id)" href="javascript:;"
+                                            class="text text-warning"><i class="fa fa-edit"></i></a>&nbsp;
+                                        |&nbsp;
+                                        <a (click)="setDistToDelete(dist._id)" (click)="open(deleteModalDistinction)"
+                                            href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+
+                        </p-table>
+
+
+                        <ng-template #deleteModalDistinction let-modal>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer la distinction
+                                    </h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container" style="padding: 20px 20px;">
+                                        <div style="text-align: center;margin-bottom: 15px;  ">
+                                            <i class="fa fa-exclamation-triangle fa-5x"
+                                                style="text-align: center; color: red;" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 20px;">
+                                        <h4 style="text-align: center;">
+                                            Êtes-vous sûr?
+                                        </h4>
+                                    </div>
+                                    <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+                                        <p style="line-height:15px;">
+                                            Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas
+                                            être
+                                            annulé.</p>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer" style="text-align: center;">
+                                    <button type="button" class="btn btn-secondary"
+                                        (click)="modal.dismiss('Cross click')" href="javascript:;" data-dismiss="modal">
+
+                                        Annuler
+                                    </button>
+                                    &nbsp;
+                                    <button type="button" class="btn btn-primary" href="javascript:;"
+                                        (click)="onClickDeleteDist()" (click)="modal.dismiss('Cross click')">
+                                        Supprimer
+                                    </button>
+
+                                </div>
+                            </div>
+
+                        </ng-template>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

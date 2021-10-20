@@ -1,0 +1,1269 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <ngb-tabset class="tab-coupon profile-tabs">
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <app-feather-icons [icon]="'box'"></app-feather-icons>Produit
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <form class="needs-validation" [formGroup]="productForm" *ngIf="productForm" novalidate>
+                                    <ngb-tabset class="tab-coupon profile-tabs">
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                                                    class="badge badge-info">1</span>
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="row product-adding">
+                                                    <div class="col-xl-5">
+                                                        <div class="add-product form-group">
+                                                            <label><span>*</span> Image Produit:</label>
+                                                            <div class="row">
+                                                                <div class="col-xl-9 xl-50 col-sm-6 col-9"
+                                                                    [ngSwitch]="urlToShow.includes('assets/')">
+                                                                    <!--<img src="assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1">-->
+                                                                    <img *ngSwitchCase="false" alt=""
+                                                                        class="img-fluid image_zoom_1"
+                                                                        [lazyLoad]="urlToShow"
+                                                                        [defaultImage]="'assets/images/pro3/1.jpg'"
+                                                                        class="img-fluid image_zoom_1">
+                                                                    <img *ngSwitchDefault alt=""
+                                                                        class="img-fluid image_zoom_1"
+                                                                        [lazyLoad]="'assets/images/pro3/1.jpg'"
+                                                                        class="img-fluid image_zoom_1">
+                                                                </div>
+                                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                                    <ul class="file-upload-product">
+                                                                        <li *ngFor="let item of url; let i=index">
+                                                                            <div class="box-input-file">
+                                                                                <a (click)="readUrl($event,i)">
+                                                                                    <input class="upload">
+                                                                                    <img class="imgUpload" alt=""
+                                                                                        [src]="item.img"
+                                                                                        style="border-radius:100%; height:48px; width:48px;">
+                                                                                </a>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-7">
+                                                        <div class="add-product-form">
+                                                            <div class="form-group row">
+                                                                <label for="refProduit"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Réference:</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="refProduit" type="text"
+                                                                    formControlName="refProduit" name="refProduit"
+                                                                    required>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="typePS"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type
+                                                                    Produit:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" id="typePS"
+                                                                    name="typePS" [data]="listTP"
+                                                                    formControlName="typePS"
+                                                                    [settings]="dropdownTPSettings"
+                                                                    [placeholder]="'-- Select Type Produit--'">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Nouveau</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-nv">
+                                                                        <input class="radio_animated" id="oui-nv"
+                                                                            type="radio" value="Oui" name="nouveau"
+                                                                            formControlName="nouveau" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-nv">
+                                                                        <input class="radio_animated" id="non-nv"
+                                                                            type="radio" value="Non" name="nouveau"
+                                                                            formControlName="nouveau" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="designation"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Designation
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="designation" type="text"
+                                                                    formControlName="designation" required>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="slogan"
+                                                                    class="col-xl-3 col-sm-4"><span>*</span>Slogan
+                                                                    :</label>
+                                                                <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                                                    <textarea class="form-control" name="slogan"
+                                                                        id="slogan" cols="30" rows="2"
+                                                                        formControlName="slogan"></textarea>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="madeIn"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>MadeIn:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" name="madeIn"
+                                                                    [placeholder]="'-- Select Pays --'"
+                                                                    [settings]="dropdownMISettings"
+                                                                    formControlName="madeIn" [data]="listMI">
+                                                                    <ng-template #optionsTemplate let-item
+                                                                        let-option="option" let-id="id"
+                                                                        let-isSelected="isSelected">
+                                                                        <div
+                                                                            style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                                                            <img [src]="getMI[id].image"
+                                                                                style="width: 18px; margin: 0 20px;" />
+                                                                            <label style="color: #333;min-width: 130px;"
+                                                                                [ngStyle]="{ 'color': getMI[id].isDisabled? 'lightgrey':''}">
+                                                                                {{getMI[id].item_text}}
+                                                                            </label>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                    <ng-template #optionSelectedTemplate
+                                                                        let-option="option" let-id="id">
+                                                                        <div>
+                                                                            <img [src]="getMI[id].image"
+                                                                                style="width: 18px; margin-right: 2px;" />
+                                                                            {{option}}
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label
+                                                                    class="col-xl-3 col-sm-4"><span>*</span>Descriptif
+                                                                    :</label>
+                                                                <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                                                    <textarea class="form-control" name="descriptif"
+                                                                        id="descriptif" cols="30" rows="2"
+                                                                        formControlName="descriptif"></textarea>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="resumeDescriptif"
+                                                                    class="col-xl-3 col-sm-4"><span>*</span>Résumé desc
+                                                                    :</label>
+                                                                <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                                                    <textarea class="form-control"
+                                                                        name="resumeDescriptif" id="resumeDescriptif"
+                                                                        cols="30" rows="2"
+                                                                        formControlName="resumeDescriptif"></textarea>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                                                    class="badge badge-info">2</span>
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="row product-adding">
+                                                    <div class="col-xl-5">
+                                                        <div class="add-product form-group">
+                                                            <label><span>*</span> Code Barre:</label>
+                                                            <div class="row">
+                                                                <div class="col-xl-9 xl-50 col-sm-6 col-9"
+                                                                    [ngSwitch]="urlCB.img.includes('assets/')">
+                                                                    <img *ngSwitchCase="false" alt=""
+                                                                        class="img-fluid image_zoom_1"
+                                                                        [lazyLoad]="urlCB.img"
+                                                                        [defaultImage]="'assets/images/pro3/1.jpg'"
+                                                                        class="img-fluid image_zoom_1">
+                                                                    <img *ngSwitchDefault alt=""
+                                                                        class="img-fluid image_zoom_1"
+                                                                        [lazyLoad]="'assets/images/pro3/1.jpg'"
+                                                                        class="img-fluid image_zoom_1">
+                                                                </div>
+                                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                                    <ul class="file-upload-product">
+                                                                        <li>
+                                                                            <div class="box-input-file">
+                                                                                <input class="upload"
+                                                                                    (change)="readUrlCB($event)"
+                                                                                    disabled>
+                                                                                <img class="imgUpload" alt=""
+                                                                                    [src]="urlCB.img"
+                                                                                    style="border-radius:100%; height:48px; width:48px;">
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-7">
+                                                        <div class="add-product-form">
+                                                            <div class="form-group row">
+                                                                <label for="tag"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Tag:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" id="tag"
+                                                                    name="tag" [data]="listTag" formControlName="tag"
+                                                                    [settings]="dropdownTagSettings"
+                                                                    [placeholder]="'-- Select Tag --'">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Virtuel:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-vt">
+                                                                        <input class="radio_animated" id="oui-vt"
+                                                                            type="radio" value="Oui" name="virtuel"
+                                                                            formControlName="virtuel" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-vt">
+                                                                        <input class="radio_animated" id="non-vt"
+                                                                            type="radio" value="Non" name="virtuel"
+                                                                            formControlName="virtuel" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Téléchargeable:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-tele">
+                                                                        <input class="radio_animated" id="oui-tele"
+                                                                            type="radio" value="Oui"
+                                                                            name="telechargeable"
+                                                                            formControlName="telechargeable" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-tele">
+                                                                        <input class="radio_animated" id="non-tele"
+                                                                            type="radio" value="Non"
+                                                                            name="telechargeable"
+                                                                            formControlName="telechargeable" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="urlExterne"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Url
+                                                                    externe
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="urlExterne" type="text"
+                                                                    formControlName="urlExterne" required>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="msgBtnComExterne"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Message
+                                                                    Btn
+                                                                    Externe
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="msgBtnComExterne" type="text"
+                                                                    formControlName="msgBtnComExterne" required>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Affichage publique:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-affpub">
+                                                                        <input class="radio_animated" id="oui-affpub"
+                                                                            type="radio" value="Oui" name="affPublique"
+                                                                            formControlName="affPublique" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-affpub">
+                                                                        <input class="radio_animated" id="non-affpub"
+                                                                            type="radio" value="Non" name="affPublique"
+                                                                            formControlName="affPublique" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Affichage Tarif:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label *ngFor="let at of listAT; let i=index"
+                                                                        class="d-block" [for]="'afftar-'+i">
+                                                                        <input class="radio_animated" [id]="'afftar-'+i"
+                                                                            type="radio" [value]="at" name="affTarif"
+                                                                            formControlName="affTarif" />
+                                                                        {{at}}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Vente Seule:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-vs">
+                                                                        <input class="radio_animated" id="oui-vs"
+                                                                            type="radio" value="Oui" name="venteSeule"
+                                                                            formControlName="venteSeule" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-vs">
+                                                                        <input class="radio_animated" id="non-vs"
+                                                                            type="radio" value="Non" name="venteSeule"
+                                                                            formControlName="venteSeule" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                                                    class="badge badge-info">3</span>
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="row product-adding">
+                                                    <div class="col-xl-5">
+                                                        <div class="add-product form-group">
+                                                            <label><span>*</span> Code QR:</label>
+                                                            <div class="row">
+                                                                <div class="col-xl-9 xl-50 col-sm-6 col-9"
+                                                                    [ngSwitch]="urlQR.img.includes('assets/')">
+                                                                    <img *ngSwitchCase="false" alt=""
+                                                                        class="img-fluid image_zoom_1"
+                                                                        [lazyLoad]="urlQR.img"
+                                                                        [defaultImage]="'assets/images/pro3/1.jpg'"
+                                                                        class="img-fluid image_zoom_1">
+                                                                    <img *ngSwitchDefault alt=""
+                                                                        class="img-fluid image_zoom_1"
+                                                                        [lazyLoad]="'assets/images/pro3/1.jpg'"
+                                                                        class="img-fluid image_zoom_1">
+                                                                </div>
+                                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                                    <ul class="file-upload-product">
+                                                                        <li>
+                                                                            <div class="box-input-file">
+                                                                                <input class="upload"
+                                                                                    (change)="readUrlQR($event)"
+                                                                                    disabled>
+                                                                                <img class="imgUpload" alt=""
+                                                                                    [src]="urlQR.img"
+                                                                                    style="border-radius:100%; height:48px; width:48px;">
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-7">
+                                                        <div class="add-product-form">
+                                                            <div class="form-group row">
+                                                                <label for="typeVente"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type
+                                                                    Vente:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" id="typeVente"
+                                                                    name="typeVente" [data]="listTV"
+                                                                    formControlName="typeVente"
+                                                                    [settings]="dropdownTVSettings"
+                                                                    [placeholder]="'-- Select Type Vente--'">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="uniteProduit"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Unité
+                                                                    Produit:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" id="uniteProduit"
+                                                                    name="uniteProduit" [data]="listUP"
+                                                                    formControlName="uniteProduit"
+                                                                    [settings]="dropdownUPSettings"
+                                                                    [placeholder]="'-- Select Unité Produit--'">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>Qte
+                                                                    Min :</label>
+                                                                <div class="qty-box1">
+                                                                    <div class="input-group">
+                                                                        <i class="fa fa-minus btnGtr1"
+                                                                            (click)="decrement('min')"></i>
+                                                                        <input class="touchspin1 text-center"
+                                                                            name="minCom" type="text"
+                                                                            formControlName="minCommande" required>
+                                                                        <i class="fa fa-plus btnLess1"
+                                                                            (click)="increment('min')"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>Qte
+                                                                    Max :</label>
+                                                                <div class="qty-box1">
+                                                                    <div class="input-group">
+                                                                        <i class="fa fa-minus btnGtr1"
+                                                                            (click)="decrement('max')"></i>
+                                                                        <input class="touchspin1 text-center"
+                                                                            name="maxCom" type="text"
+                                                                            formControlName="maxCommande" required>
+                                                                        <i class="fa fa-plus btnLess1"
+                                                                            (click)="increment('max')"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="typeTarif"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type
+                                                                    Tarif:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" id="typeTarif"
+                                                                    name="typeTarif" [data]="listTT"
+                                                                    formControlName="typeTarif"
+                                                                    [settings]="dropdownTTSettings"
+                                                                    [placeholder]="'-- Select Type Tarif--'">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="tarifUHT"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Tarif
+                                                                    UHT :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="tarifUHT" type="number"
+                                                                    formControlName="tarifUHT" required="">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="tVA"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>TVA
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7" id="tVA"
+                                                                    type="number" formControlName="tVA" required="">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="pays"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Product
+                                                                    Pays:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" name="pays"
+                                                                    [placeholder]="'-- Select Pays --'"
+                                                                    [settings]="dropdownPaysSettings"
+                                                                    formControlName="pays" [data]="listPays">
+                                                                    <ng-template #optionsTemplate let-item
+                                                                        let-option="option" let-id="id"
+                                                                        let-isSelected="isSelected">
+                                                                        <div
+                                                                            style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                                                            <img [src]="getPays[id].image"
+                                                                                style="width: 18px; margin: 0 20px;" />
+                                                                            <label style="color: #333;min-width: 130px;"
+                                                                                [ngStyle]="{ 'color': getPays[id].isDisabled? 'lightgrey':''}">
+                                                                                {{getPays[id].item_text}}
+                                                                            </label>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                    <ng-template #optionSelectedTemplate
+                                                                        let-option="option" let-id="id">
+                                                                        <div>
+                                                                            <img [src]="getPays[id].image"
+                                                                                style="width: 18px; margin-right: 2px;" />
+                                                                            {{option}}
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                                                    class="badge badge-info">4</span>
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="row product-adding">
+                                                    <div class="col-xl-5">
+                                                        <div class="add-product-form">
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Tarif Variable Par Saison:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-tvs">
+                                                                        <input class="radio_animated" id="oui-tvs"
+                                                                            type="radio" value="Oui"
+                                                                            name="tarVarParSaison"
+                                                                            formControlName="tarVarParSaison" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-tvs">
+                                                                        <input class="radio_animated" id="non-tvs"
+                                                                            type="radio" value="Non"
+                                                                            name="tarVarParSaison"
+                                                                            formControlName="tarVarParSaison" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Tarif Variable Par Zone
+                                                                    Géographique:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-tvzg">
+                                                                        <input class="radio_animated" id="oui-tvzg"
+                                                                            type="radio" value="Oui"
+                                                                            name="tarVarParZoneGeo"
+                                                                            formControlName="tarVarParZoneGeo" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-tvzg">
+                                                                        <input class="radio_animated" id="non-tvzg"
+                                                                            type="radio" value="Non"
+                                                                            name="tarVarParZoneGeo"
+                                                                            formControlName="tarVarParZoneGeo" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Tarif Variable Par
+                                                                    Distributeur:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-tvd">
+                                                                        <input class="radio_animated" id="oui-tvd"
+                                                                            type="radio" value="Oui"
+                                                                            name="tarVarParDsbtr"
+                                                                            formControlName="tarVarParDsbtr" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-tvd">
+                                                                        <input class="radio_animated" id="non-tvd"
+                                                                            type="radio" value="Non"
+                                                                            name="tarVarParDsbtr"
+                                                                            formControlName="tarVarParDsbtr" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Tarif Variable Par
+                                                                    Variante:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-tvv">
+                                                                        <input class="radio_animated" id="oui-tvv"
+                                                                            type="radio" value="Oui"
+                                                                            name="tarVarParVrte"
+                                                                            formControlName="tarVarParVrte" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-tvv">
+                                                                        <input class="radio_animated" id="non-tvv"
+                                                                            type="radio" value="Non"
+                                                                            name="tarVarParVrte"
+                                                                            formControlName="tarVarParVrte" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Tarif Variable Par
+                                                                    Quantité:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-tvq">
+                                                                        <input class="radio_animated" id="oui-tvq"
+                                                                            type="radio" value="Oui" name="tarVarParQte"
+                                                                            formControlName="tarVarParQte" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-tvq">
+                                                                        <input class="radio_animated" id="non-tvq"
+                                                                            type="radio" value="Non" name="tarVarParQte"
+                                                                            formControlName="tarVarParQte" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-7">
+                                                        <div class="add-product-form">
+                                                            <div class="form-group row">
+                                                                <label for="notation"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Notation
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="notation" type="number"
+                                                                    formControlName="notation" required="">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Afficher Avis:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-aa">
+                                                                        <input class="radio_animated" id="oui-aa"
+                                                                            type="radio" value="Oui" name="affAvis"
+                                                                            formControlName="affAvis" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-aa">
+                                                                        <input class="radio_animated" id="non-aa"
+                                                                            type="radio" value="Non" name="affAvis"
+                                                                            formControlName="affAvis" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="etatPub"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Etat
+                                                                    Publication:</label>
+                                                                <ng-multiselect-dropdown
+                                                                    class="col-xl-8 col-sm-7 m-0 p-0" id="etatPub"
+                                                                    name="etatPub" [data]="listEP"
+                                                                    formControlName="etatPub"
+                                                                    [settings]="dropdownEPSettings"
+                                                                    [placeholder]="'-- Select Etat Publication --'">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="msgAchat"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Message
+                                                                    à l'achat
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="msgAchat" type="text" formControlName="msgAchat"
+                                                                    required>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="ordreAff"
+                                                                    class="col-xl-3 col-sm-4 mb-0"><span>*</span>Ordre
+                                                                    affichage
+                                                                    :</label>
+                                                                <input class="form-control col-xl-8 col-sm-7"
+                                                                    id="ordreAff" type="number"
+                                                                    formControlName="ordreAff" required>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Gestion de stock:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-gs">
+                                                                        <input class="radio_animated" id="oui-gs"
+                                                                            type="radio" value="Oui" name="gestStock"
+                                                                            formControlName="gestStock" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-gs">
+                                                                        <input class="radio_animated" id="non-gs"
+                                                                            type="radio" value="Non" name="gestStock"
+                                                                            formControlName="gestStock" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>
+                                                                    Indiquer etat stock:</label>
+                                                                <div
+                                                                    class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                                                    <label class="d-block" for="oui-ies">
+                                                                        <input class="radio_animated" id="oui-ies"
+                                                                            type="radio" value="Oui" name="indEtatStock"
+                                                                            formControlName="indEtatStock" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-ies">
+                                                                        <input class="radio_animated" id="non-ies"
+                                                                            type="radio" value="Non" name="indEtatStock"
+                                                                            formControlName="indEtatStock" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                    </ngb-tabset>
+                                </form>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="cloud"></i> Tarifs Saisonniers
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Tarifs saisonniers du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of tsHeaders">{{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let ts of listTarifSaisonniers">
+                                                        <td>{{ts.labelTarif}}</td>
+                                                        <td>{{ts.saison}}</td>
+                                                        <td>{{ts.couleurSaison}}</td>
+                                                        <td>{{ts.monnaie}}</td>
+                                                        <td>{{ts.tarifUHT}}</td>
+                                                        <td><a (click)="onClickShowTs(ts._id)" href="javascript:;"
+                                                                class="text text-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="layout"></i> Grille Tarifaire
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Grille Tarifaire du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of gtHeaders">{{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let gt of listGrillesTarifaires">
+                                                        <td>{{gt.ref_grille}}</td>
+                                                        <td>{{gt.qte_inf}}</td>
+                                                        <td>{{gt.qte_sup}}</td>
+                                                        <td>{{gt.tarif_unitaire_ht}}</td>
+                                                        <td>{{gt.valeur}}</td>
+                                                        <td>{{gt.monnaie}}</td>
+                                                        <td><a (click)="onClickShowGt(gt._id)" href="javascript:;"
+                                                                class="text text-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="life-buoy"></i> Tarif Unitaire Variable
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Tarifs unitaires variables du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of tuvHeaders">{{header}}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let tuv of listTarifsUnitairesVariables">
+                                                        <td>{{tuv.description}}</td>
+                                                        <td>{{tuv.commentaire}}</td>
+                                                        <td>{{tuv.monnaie}}</td>
+                                                        <td>{{tuv.tarifUHT}}</td>
+                                                        <td><a (click)="onClickShowTuv(tuv._id)" href="javascript:;"
+                                                                class="text text-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="life-buoy"></i> Annotation
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Annotations du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of annotationsHeaders">
+                                                            {{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let annot of listAnnotations">
+                                                        <td>{{annot.date}}</td>
+                                                        <td>{{annot.email}}</td>
+                                                        <td>{{annot.commentaire}}</td>
+                                                        <td>{{annot.note}}</td>
+                                                        <td><a (click)="onClickShowAnnot(annot._id)" href="javascript:;"
+                                                                class="text text-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="file-plus"></i> Distinction
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Distinctions du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of distinctionHeaders">
+                                                            {{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let dist of listDistinctions">
+                                                        <td>
+                                                            <img [lazyLoad]="dist.logo"
+                                                                [defaultImage]="'assets/images/user.png'"
+                                                                style="border-radius:100%; height:48px; width:48px;">
+                                                        </td>
+                                                        <td [ngSwitch]="dist.typeD">
+                                                            <span *ngSwitchCase="'Nationale'"
+                                                                class="badge badge-success">{{dist.typeD}}</span>
+                                                            <span *ngSwitchCase="'Régionale'"
+                                                                class="badge badge-info">{{dist.typeD}}</span>
+                                                            <span *ngSwitchCase="'Internationale'"
+                                                                class="badge badge-warning">{{dist.typeD}}</span>
+
+                                                        </td>
+                                                        <td>{{dist.designation}}</td>
+                                                        <td>{{dist.dateObtention}}</td>
+                                                        <td>{{dist.duree}}</td>
+                                                        <td [ngSwitch]="dist.uniteDuree">
+                                                            <span *ngSwitchCase="'Année'"
+                                                                class="badge badge-success">{{dist.uniteDuree}}</span>
+                                                            <span *ngSwitchCase="'Mois'"
+                                                                class="badge badge-info">{{dist.uniteDuree}}</span>
+                                                            <span *ngSwitchCase="'Jours'"
+                                                                class="badge badge-warning">{{dist.uniteDuree}}</span>
+
+                                                        </td>
+                                                        <td><a (click)="onClickShowDist(dist._id)" href="javascript:;"
+                                                                class="text text-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="activity"></i> Montée En Gamme
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Montée en gamme du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of monteeEnGammeHeaders">
+                                                            {{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let meg of listMonteeEnGammes">
+                                                        <td>
+                                                            <img [lazyLoad]="meg.iconeSymbol"
+                                                                [defaultImage]="'assets/images/user.png'"
+                                                                style="border-radius:100%; height:48px; width:48px;">
+                                                        </td>
+                                                        <td [ngSwitch]="meg.typeMonteeEnGamme">
+                                                            <span *ngSwitchCase="'Nationale'"
+                                                                class="badge badge-success">{{meg.typeMonteeEnGamme}}</span>
+                                                            <span *ngSwitchCase="'Régionale'"
+                                                                class="badge badge-info">{{meg.typeMonteeEnGamme}}</span>
+                                                            <span *ngSwitchCase="'Internationale'"
+                                                                class="badge badge-warning">{{meg.typeMonteeEnGamme}}</span>
+
+                                                        </td>
+                                                        <td>{{meg.description}}</td>
+                                                        <td><a (click)="onClickShowMeg(meg._id)" href="javascript:;"
+                                                                class="text text-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="thermometer"></i> Critère Calculable
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Critères calculables du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th >Reference</th>
+                                                        <th >Groupe</th>
+                                                        <th >Label</th>
+                                                        <th >Valeur</th>
+                                                        <th >Unité de valeur</th>
+                                                        <th >Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let critCalc of listCritereCalculables">
+                                                        <td>{{critCalc.refCritere}}</td>
+                                                        <td>{{critCalc.groupeCritere}}</td>
+                                                        <td>{{critCalc.label}}</td>
+                                                        <td>{{critCalc.valeur}}</td>
+                                                        <td>{{critCalc.uniteValeur}}</td>
+                                                        <td><a (click)="onClickShowCritCalc(critCalc._id)"
+                                                                href="javascript:;" class="text text-info"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Instance Caractéristique
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Instances caractéristiques du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"
+                                                            *ngFor="let header of instCaracteristiquesHeaders">
+                                                            {{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let instCaract of listInstCaracteristiques">
+                                                        <td>{{instCaract.refInstCaracterist}}</td>
+                                                        <td>{{instCaract.affichagePrive}}</td>
+                                                        <td>{{instCaract.groupeCaracterist}}</td>
+                                                        <td>{{instCaract.labelCaracterist}}</td>
+                                                        <td>{{instCaract.valeurCaracterist}}</td>
+                                                        <td>{{instCaract.uniteCaracterist}}</td>
+                                                        <td>{{instCaract.ordreCaracterist}}</td>
+                                                        <td>{{instCaract.coutAdditionnel}}</td>
+                                                        <td>{{instCaract.typeCoutAdditionnel}}</td>
+                                                        <td>{{instCaract.valeurCoutAdditionnel}}</td>
+                                                        <td><a (click)="onClickShowInstCaract(instCaract._id)"
+                                                                href="javascript:;" class="text text-info"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Instance Classification
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Instances classifications du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="clearfix"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"
+                                                            *ngFor="let header of instClassificationHeaders">{{header}}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let instClassif of listInstClassifications">
+                                                        <td>{{instClassif.ref_classif_valeur}}</td>
+                                                        <td>{{instClassif.label_texte}}</td>
+                                                        <td>{{instClassif.domaine}}</td>
+                                                        <td>{{instClassif.valeur}}</td>
+                                                        <td><a (click)="onClickShowInstClassif(instClassif._id)"
+                                                                href="javascript:;" class="text text-info"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <app-feather-icons [icon]="'clipboard'"></app-feather-icons>
+                                Instance Caractéristique Variante
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                                    aria-labelledby="top-profile-tab">
+                                    <h5 class="f-w-600"> Instance Caractéristique Variante du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="package"></i> Indication Promo
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Indication Promo du produit</h5>
+                                    <div class="custom-datatable">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" *ngFor="let header of indPromoHeaders">
+                                                            {{header}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let indPromo of listIndPromo">
+                                                        <td>{{indPromo.ref_pricing_rule}}</td>
+                                                        <td>{{indPromo.period_debut}}</td>
+                                                        <td>{{indPromo.period_fin}}</td>
+                                                        <td>{{indPromo.description}}</td>
+                                                        <td>{{indPromo.commentaire}}</td>
+                                                        <td>{{indPromo.etat_pricing_rule}}</td>
+                                                        <td><a (click)="onClickShowIndPromo(indPromo._id)"
+                                                                href="javascript:;" class="text text-info"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="life-buoy"></i> Indication Frais Additionnel
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Indication Frais Additionnel du produit</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" *ngFor="let header of indFraisAddHeaders">{{header}}
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ifa of listIndFraisAdd">
+                                                    <td>{{ifa.refFrais}}</td>
+                                                    <td>{{ifa.natureCoutAdd}}</td>
+                                                    <td>{{ifa.valeurCoutAdd}}</td>
+                                                    <td>{{ifa.description}}</td>
+                                                    <td><a (click)="onClickShowIndFraisAdd(ifa._id)" href="javascript:;"
+                                                            class="text text-info"><i class="fa fa-eye"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="box"></i> Indication Stock
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Indication Stock du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="truck"></i> Expédition
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Expédition du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Garantie Assurance
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Garantie Assurance du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Contenu multimedia
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Contenu multimedia du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Instance commentaire interne
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Instance commentaire interne du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Marque
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Marque du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Produit composant
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Produit composant du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="clipboard"></i> Produit associé
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Produit associé du produit</h5>
+
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                    <div class="form-group row mb-0">
+                        <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                            <button type="button" class="btn btn-primary mr-1" (click)="editProduit()">Edit</button>
+                            <button type="button" class="btn btn-light" (click)="resetForm()">Discard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

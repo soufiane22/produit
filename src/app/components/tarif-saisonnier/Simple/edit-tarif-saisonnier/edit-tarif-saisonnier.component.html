@@ -1,0 +1,303 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="card tab2-card">
+            <div class="card-body">
+              <ngb-tabset class="tab-coupon profile-tabs">
+                <ngb-tab>
+                  <ng-template ngbTabTitle>
+                    <app-feather-icons [icon]="'cloud'"></app-feather-icons>Tarif Saisonnier
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                      aria-labelledby="top-profile-tab">
+                      <h5 class="f-w-600"> Informations</h5>
+                      <form #myForm="ngForm">
+                        <div class="row product-adding">
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>General</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="digital-add needs-validation">
+                                            <div class="form-group">
+                                                <label for="label-tarif" class="col-form-label pt-0"><span>*</span> Label Tarif</label>
+                                                <input class="form-control" id="label-tarif" type="text" [required]="true"
+                                                    [(ngModel)]="selectedTs.labelTarif" name="labelTarif" #labelTarif="ngModel">
+                                                <div *ngIf="labelTarif.invalid && (labelTarif.touched || labelTarif.dirty)"
+                                                    class="text text-danger">
+                                                    <div *ngIf="labelTarif.errors?.required">
+                                                        The Label Tarif is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="saison" class="col-form-label pt-0"><span>*</span> Saison</label>
+                                                <ng-multiselect-dropdown id="saison" name="saison" [data]="saisons"
+                                                    [settings]="dropdownSaisonSettings" [(ngModel)]="selectedTs.saison"
+                                                    #saison="ngModel" [placeholder]="'-- Select Saison --'" [required]="true">
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="saison.invalid && saison.touched" class="text text-danger">
+                                                    <div *ngIf="saison.errors?.required">
+                                                        The Saison is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="couleur-saison" class="col-form-label"><span>*</span> Couleur saison</label>
+                                                <ng-multiselect-dropdown id="couleur-saison" name="couleurSaison"
+                                                    [data]="couleurSaisons" [settings]="dropdownCouleurSaisonsSettings"
+                                                    [(ngModel)]="selectedTs.couleurSaison" #couleurSaison="ngModel"
+                                                    [placeholder]="'-- Select Couleur Saison --'" [required]="true">
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="couleurSaison.invalid && couleurSaison.touched" class="text text-danger">
+                                                    <div *ngIf="couleurSaison.errors?.required">
+                                                        The Couleur Saison is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="monnaie" class="col-form-label"><span>*</span> Monnaie</label>
+                                                <ng-multiselect-dropdown name="monnaie" [placeholder]="'-- Select Monnaie --'"
+                                                    [settings]="dropdownMonnaieSettings" [data]="monnaies"
+                                                    [(ngModel)]="selectedTs.monnaie" #monnaie="ngModel" [required]="true">
+                                                    <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                                                        let-isSelected="isSelected">
+                                                        <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                                            <img [src]="getMonnaies[id].image" style="width: 18px; margin: 0 20px;" />
+                                                            <label style="color: #333;min-width: 130px;"
+                                                                [ngStyle]="{ 'color': getMonnaies[id].isDisabled? 'lightgrey':''}">
+                                                                {{getMonnaies[id].item_text}}
+                                                            </label>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                                                        <div>
+                                                            <img [src]="getMonnaies[id].image"
+                                                                style="width: 18px; margin-right: 2px;" />
+                                                            {{option}}
+                                                        </div>
+                                                    </ng-template>
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="monnaie.invalid && monnaie.touched" class="text text-danger">
+                
+                                                    <div *ngIf="monnaie.errors?.required">
+                                                        The Monnaie is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tuht" class="col-form-label"><span>*</span> Tarif Unitaire HT</label>
+                                                <input class="form-control" id="tuht" type="number" [required]="true"
+                                                    [(ngModel)]="selectedTs.tarifUHT" name="tarifUHT" #tarifUHT="ngModel">
+                                                <div *ngIf="tarifUHT.invalid && (tarifUHT.touched || tarifUHT.dirty)"
+                                                    class="text text-danger">
+                
+                                                    <div *ngIf="tarifUHT.errors?.required">
+                                                        The Tarif UHT is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label"><span>*</span> Date Debut</label>
+                                                <div class="input-group col-md-12 input-grp-p">
+                                                    <input class="datepicker-here form-control digits" ngbDatepicker
+                                                        [(ngModel)]="selectedTs.dateDebut" #d="ngbDatepicker" name="dateDebut"
+                                                        #dateDebut="ngModel" [required]="true">
+                                                    <div class="input-group-append">
+                                                        <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                                                                class="fa fa-calendar"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="dateDebut.invalid && (dateDebut.touched || dateDebut.dirty)"
+                                                    class="text text-danger">
+                
+                                                    <div *ngIf="dateDebut.errors?.required">
+                                                        The Date Debut is required.
+                                                    </div>
+                                                    <div *ngIf="dateDebut.errors?.pattern">
+                                                        The format must be yyyy-mm-dd
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label"><span>*</span> Date Fin</label>
+                                                <div class="input-group col-md-12 input-grp-p">
+                                                    <input class="datepicker-here form-control digits" ngbDatepicker
+                                                        [(ngModel)]="selectedTs.dateFin" #f="ngbDatepicker" name="dateFin"
+                                                        #dateFin="ngModel" [required]="true" >
+                                                    <div class="input-group-append">
+                                                        <button class="btn calendar" (click)="f.toggle()" type="button"><i
+                                                                class="fa fa-calendar"></i></button>
+                                                    </div>
+                
+                                                </div>
+                                                <div *ngIf="dateFin.invalid && (dateFin.touched || dateFin.dirty)"
+                                                    class="text text-danger">
+                
+                                                    <div *ngIf="dateFin.errors?.required">
+                                                        The Date Fin is required.
+                                                    </div>
+                                                    <div *ngIf="dateFin.errors?.pattern">
+                                                        The format must be yyyy-mm-dd
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Distributeurs Et Zones</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="digital-add needs-validation">
+                                            <div class="form-group">
+                                                <label class="col-form-label"><span>*</span> Appliquer à tous les distributeurs</label>
+                                                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                    <label class="d-block" for="oui-dist">
+                                                        <input class="radio_animated" id="oui-dist" type="radio" value="Oui"
+                                                            name="appToAllDistrs" [(ngModel)]="selectedTs.appToAllDistrs"
+                                                            #appToAllDistrs="ngModel" [required]="true"/>
+                                                        Oui
+                                                    </label>
+                                                    <label class="d-block" for="non-dist">
+                                                        <input class="radio_animated" id="non-dist" type="radio" value="Non"
+                                                            name="appToAllDistrs" [(ngModel)]="selectedTs.appToAllDistrs"
+                                                            #appToAllDistrs="ngModel" [required]="true"/>
+                                                        Non
+                                                    </label>
+                                                </div>
+                                                <div *ngIf="appToAllDistrs.invalid && appToAllDistrs.touched" class="text text-danger">
+                
+                                                    <div *ngIf="appToAllDistrs.errors?.required">
+                                                        The Appliqué à tous les distributeurs is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label"><span>*</span> Liste des Distributeurs</label>
+                                                <ng-multiselect-dropdown id="couleur-saison" name="concernDistrs" [data]="distributeurs"
+                                                    [settings]="dropdownDistributeursSettings" [(ngModel)]="selectedTs.concernDistrs"
+                                                    #concernDistrs="ngModel" [placeholder]="'-- Select Distributeurs --'" [required]="true">
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="concernDistrs.invalid && concernDistrs.touched" class="text text-danger">
+                
+                                                    <div *ngIf="concernDistrs.errors?.required">
+                                                        The Distributeurs is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="digital-add needs-validation">
+                                            <div class="form-group">
+                                                <label class="col-form-label"><span>*</span> Appliquer à toutes les zones</label>
+                                                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                    <label class="d-block" for="oui-zone">
+                                                        <input class="radio_animated" id="oui-zone" type="radio" value="Oui"
+                                                            name="appToAllZones" [(ngModel)]="selectedTs.appToAllZones"
+                                                            #appToAllZones="ngModel" [required]="true">
+                                                        Oui
+                                                    </label>
+                                                    <label class="d-block" for="non-zone">
+                                                        <input class="radio_animated" id="non-zone" type="radio" value="Non"
+                                                            name="appToAllZones" [(ngModel)]="selectedTs.appToAllZones"
+                                                            #appToAllZones="ngModel" [required]="true">
+                                                        Non
+                                                    </label>
+                                                </div>
+                                                <div *ngIf="appToAllZones.invalid && (appToAllZones.touched || appToAllZones.dirty)"
+                                                    class="text text-danger">
+                
+                                                    <div *ngIf="appToAllZones.errors?.required">
+                                                        The Appliqué à toutes les zones is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label"> <span>*</span> Liste des zones</label>
+                                                <ng-multiselect-dropdown name="concernZones" [settings]="dropdownZoneSettings"
+                                                    [data]="zones" [(ngModel)]="selectedTs.concernZones" #concernZones="ngModel"
+                                                    [placeholder]="'-- Select Zones --'" [required]="true">
+                                                    <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                                                        let-isSelected="isSelected">
+                                                        <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                                            <img [src]="getZones[id].image" style="width: 18px; margin: 0 20px;" />
+                                                            <label style="color: #333;min-width: 130px;"
+                                                                [ngStyle]="{ 'color': getZones[id].isDisabled? 'lightgrey':''}">
+                                                                {{getZones[id].item_text}}
+                                                            </label>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                                                        <div>
+                                                            <img [src]="getZones[id].image" style="width: 18px; margin-right: 2px;" />
+                                                            {{option}}
+                                                        </div>
+                                                    </ng-template>
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="concernZones.invalid && concernZones.touched" class="text text-danger">
+                
+                                                    <div *ngIf="concernZones.errors?.required">
+                                                        The zones is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group mb-0">
+                                                <div class="product-buttons text-center">
+                                                    <button *ngIf="selectedTs.produitService" type="button" class="btn btn-primary mr-1"
+                                                        (click)="onclickEdit(myForm)">Edit</button>
+                                                    <button type="button" (click)="onclickDiscard()"
+                                                        class="btn btn-light">Discard</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                  <ng-template ngbTabTitle>
+                    <i data-feather="cloud"></i> Produit
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="account-setting">
+                      <h5 class="f-w-600">Produit associé au tarif saisonnier</h5>
+                        <form #tspForm="ngForm">
+                            <div class="form-group">
+                                <label for="saison" class="col-form-label pt-0"><span>*</span> Produit</label>
+                                <ng-multiselect-dropdown id="produit" name="produit" [data]="produits"
+                                    [settings]="dropdownProduitSettings" [(ngModel)]="selectedProduit"
+                                    #produit="ngModel" [placeholder]="'-- Select Produit --'" [required]="true">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="produit.invalid && produit.touched" class="text text-danger">
+                                    <div *ngIf="produit.errors?.required">
+                                        The Produit is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="button" class="btn btn-primary mr-1" [disabled]="tspForm.invalid"
+                                        (click)="onclickAddToTs(tspForm)">Add to tarif saisonnier</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</div>

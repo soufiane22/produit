@@ -1,0 +1,202 @@
+<div class="container-fluid">
+    <form [formGroup]="garAssurForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="contratModel" class="col-form-label"><span>*</span> Contrat modèle</label>
+                                <div class="add-product" style="width: 70%; height: 70%;">
+                                    <div class="row">
+                                        <!-- <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                            <img alt="" class="img-fluid image_zoom_1" [lazyLoad]="imageUrl"
+                                                [defaultImage]="'assets/images/pro3/1.jpg'"
+                                                class="img-fluid image_zoom_1">
+                                                <input type="file" class="form-control">
+                                        </div> -->
+                                        <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                            <ul class="file-upload-product">
+                                                <li>
+                                                    <!-- class="box-input-file" -->
+                                                    <div >
+                                                        <input class="upload" type="file" (change)="readUrl($event)">
+                                                        <!-- <img class="imgUpload" alt="" [lazyLoad]="imageUrl"
+                                                            [defaultImage]="'assets/images/user.png'"
+                                                            style="border-radius:100%; height:48px; width:48px;"> -->
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <angular-file-uploader [config]="afuConfig">
+                                </angular-file-uploader> -->
+
+                                <div *ngIf="contratModel.invalid && (contratModel.touched || contratModel.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="contratModel.errors?.required">
+                                        The Contrat modèle is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Complémentaire</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="refGarAssur" class="col-form-label"><span>*</span> Réference Garantie
+                                    Assurance</label>
+                                <input class="form-control" id="refGarAssur" type="text" required=""
+                                    formControlName="refGarAssur">
+                                <div *ngIf="refGarAssur.invalid && (refGarAssur.touched || refGarAssur.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="refGarAssur.errors?.required">
+                                        The Referentie Garantie Assurance is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="typeGarAssur" class="col-form-label"><span>*</span> Type Garantie
+                                    Assurance</label>
+                                <ng-multiselect-dropdown id="typeGarAssur" name="typeGarAssur" [data]="listTGA"
+                                    formControlName="typeGarAssur" [settings]="dropdownTGASettings"
+                                    [placeholder]="'-- Select Type Garantie Assurance --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="typeGarAssur.invalid && (typeGarAssur.touched || typeGarAssur.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="typeGarAssur.errors?.required">
+                                        The Type Garantie Assurance is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="valid_de" class="col-form-label"><span>*</span> Valide à partir de</label>
+                                <div class="input-group col-md-12 input-grp-p">
+                                    <input class="datepicker-here form-control digits" ngbDatepicker
+                                        formControlName="valid_de" #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                                                class="fa fa-calendar"></i></button>
+                                    </div>
+                                </div>
+                                <div *ngIf="valid_de.invalid && (valid_de.touched || valid_de.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="valid_de.errors?.required">
+                                        The Valide à partir de is required.
+                                    </div>
+                                    <div *ngIf="valid_de.errors?.invalidValue">
+                                        The Valide à partir de is not valid. (Format: dd/mm/yyyy)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="duree" class="col-form-label"><span>*</span> Durée Garantie</label>
+                                <input class="form-control" id="duree" type="number" required=""
+                                    formControlName="duree">
+                                <div *ngIf="duree.invalid && (duree.touched || duree.dirty)" class="text text-danger">
+
+                                    <div *ngIf="duree.errors?.required">
+                                        The Unité Durée is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="uniteDureeGar" class="col-form-label"><span>*</span> Unité Durée
+                                    Garantie</label>
+                                <ng-multiselect-dropdown id="uniteDureeGar" name="uniteDureeGar" [data]="listUDG"
+                                    formControlName="uniteDureeGar" [settings]="dropdownUDGSettings"
+                                    [placeholder]="'-- Select Unité Durée Garantie --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="uniteDureeGar.invalid && (uniteDureeGar.touched || uniteDureeGar.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="uniteDureeGar.errors?.required">
+                                        The Unité Durée Garantie Assurance is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="valeurGar" class="col-form-label"><span>*</span> Valeur Garantie</label>
+                                <input class="form-control" id="valeurGar" type="number" required=""
+                                    formControlName="valeurGar">
+                                <div *ngIf="valeurGar.invalid && (valeurGar.touched || valeurGar.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="valeurGar.errors?.required">
+                                        The Valeur garantie is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monnaie" class="col-form-label"><span>*</span> Monnaie</label>
+                                <ng-multiselect-dropdown name="monnaie" [placeholder]="'-- Select Monnaie --'"
+                                    [settings]="dropdownMonnaieSettings" formControlName="monnaie"
+                                    [data]="listMonnaies">
+                                    <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                                        let-isSelected="isSelected">
+                                        <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                            <img [src]="getMonnaies[id].image" style="width: 18px; margin: 0 20px;" />
+                                            <label style="color: #333;min-width: 130px;"
+                                                [ngStyle]="{ 'color': getMonnaies[id].isDisabled? 'lightgrey':''}">
+                                                {{getMonnaies[id].item_text}}
+                                            </label>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                                        <div>
+                                            <img [src]="getMonnaies[id].image"
+                                                style="width: 18px; margin-right: 2px;" />
+                                            {{option}}
+                                        </div>
+                                    </ng-template>
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="monnaie.invalid && (monnaie.touched||monnaie.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="monnaie.errors?.required">
+                                        The Monnaie is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="descriptif" class="col-form-label"><span>*</span> Descriptif </label>
+                                <textarea class="form-control" name="descriptif" id="" cols="30" rows="2"
+                                    formControlName="descriptif"></textarea>
+                                <div *ngIf="descriptif.invalid && (descriptif.touched || descriptif.dirty)"
+                                    class="text text-danger">
+                                    The descriptif is required
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="addGarAssur()">Add</button>
+                                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

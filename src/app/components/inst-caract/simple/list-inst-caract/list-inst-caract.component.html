@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{'inst_caract.list.title' | translate}}</h5>
+        </div>
+        <div class="card-body">
+          <div class="custom-datatable">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" *ngFor="let header of instCaractHeaders">{{header}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let instCaract of listCritCalcs">
+                    <td>{{instCaract.refInstCaracterist}}</td>
+                    <td>{{instCaract.affichagePrive}}</td>
+                    <td>{{instCaract.groupeCaracterist}}</td>
+                    <td>{{instCaract.labelCaracterist}}</td>
+                    <td>{{instCaract.valeurCaracterist}}</td>
+                    <td>{{instCaract.uniteCaracterist}}</td>
+                    <td>{{instCaract.ordreCaracterist}}</td>
+                    <td>{{instCaract.typeCoutAdditionnel}}</td>
+                    <td>{{instCaract.valeurCoutAdditionnel}}</td>
+                    <td><a (click)="onClickShowInstCaract(instCaract._id)" href="javascript:;" class="text text-info"><i
+                          class="fa fa-eye"></i></a>&nbsp;
+                      |&nbsp;
+                      <a (click)="onClickEditInstCaract(instCaract._id)" href="javascript:;"
+                        class="text text-warning"><i class="fa fa-edit"></i></a>&nbsp;
+                      |&nbsp;
+                      <a (click)="setInstCaractToDelete(instCaract._id)" (click)="open(deleteModalInstCaracteristique)"
+                        href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #deleteModalInstCaracteristique let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">{{'inst_caract.list.popup.title' | translate}}
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                {{'inst_caract.list.popup.subtitle' | translate}}
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                {{'inst_caract.list.popup.message' | translate}}</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              {{'button.cancel' | translate}}
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteInstCaract()"
+              (click)="modal.dismiss('Cross click')">
+              {{'button.delete' | translate}}
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="container-fluid">
+  <form [formGroup]="expeditionForm">
+    <div class="row product-adding">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>General</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="refExp" class="col-form-label"><span>*</span> Réference</label>
+                <input class="form-control" id="refExp" type="string" required="" formControlName="refExp">
+                <div *ngIf="refExp.invalid && (refExp.touched || refExp.dirty)" class="text text-danger">
+                  <div *ngIf="refExp.errors?.required">
+                    The Réference is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="poids" class="col-form-label"><span>*</span> Poids</label>
+                <input class="form-control" id="poids" type="number" required="" formControlName="poids">
+                <div *ngIf="poids.invalid && (poids.touched || poids.dirty)" class="text text-danger">
+                  <div *ngIf="poids.errors?.required">
+                    The Poids is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="unitePoids" class="col-form-label"><span>*</span> Unité Poids</label>
+                <ng-multiselect-dropdown id="unitePoids" name="unitePoids" [data]="listUnitePoids"
+                  formControlName="unitePoids" [settings]="dropdownUnitePoidsSettings"
+                  [placeholder]="'-- Select Unité Poids --'">
+                </ng-multiselect-dropdown>
+                <div *ngIf="unitePoids.invalid && unitePoids.touched" class="text text-danger">
+
+                  <div *ngIf="unitePoids.errors?.required">
+                    The Unité Poids is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="classeLivraison" class="col-form-label"><span>*</span> Classe Livraison</label>
+                <ng-multiselect-dropdown id="classeLivraison" name="classeLivraison" [data]="listClasseLivraison"
+                  formControlName="classeLivraison" [settings]="dropdownClasseLivraisonSettings"
+                  [placeholder]="'-- Select Classe Livraison --'">
+                </ng-multiselect-dropdown>
+                <div *ngIf="classeLivraison.invalid && classeLivraison.touched" class="text text-danger">
+
+                  <div *ngIf="classeLivraison.errors?.required">
+                    The Classe Livraison is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>Dimensions</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="largeur" class="col-form-label"><span>*</span> Largeur</label>
+                <input class="form-control" id="largeur" type="number" required="" formControlName="largeur">
+                <div *ngIf="largeur.invalid && (largeur.touched || largeur.dirty)" class="text text-danger">
+                  <div *ngIf="largeur.errors?.required">
+                    The largeur is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="hauteur" class="col-form-label"><span>*</span> Hauteur</label>
+                <input class="form-control" id="hauteur" type="number" required="" formControlName="hauteur">
+                <div *ngIf="hauteur.invalid && (hauteur.touched || hauteur.dirty)" class="text text-danger">
+                  <div *ngIf="hauteur.errors?.required">
+                    The hauteur is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="profondeur" class="col-form-label"><span>*</span> Profondeur</label>
+                <input class="form-control" id="profondeur" type="number" required="" formControlName="profondeur">
+                <div *ngIf="profondeur.invalid && (profondeur.touched || profondeur.dirty)" class="text text-danger">
+                  <div *ngIf="profondeur.errors?.required">
+                    The profondeur is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="uniteDimension" class="col-form-label"><span>*</span> Unité Dimension</label>
+                <ng-multiselect-dropdown id="uniteDimension" name="uniteDimension" [data]="listUniteDimension"
+                  formControlName="uniteDimension" [settings]="dropdownUniteDimensionSettings"
+                  [placeholder]="'-- Select Unité Dimension --'">
+                </ng-multiselect-dropdown>
+                <div *ngIf="uniteDimension.invalid && uniteDimension.touched" class="text text-danger">
+
+                  <div *ngIf="uniteDimension.errors?.required">
+                    The Unité Dimension is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <div class="product-buttons text-center">
+                  <button type="button" class="btn btn-primary mr-1" (click)="addExpedition()">Add</button>
+                  <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

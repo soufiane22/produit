@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <form [formGroup]="annoForm" *ngIf="annoForm">
+    <div class="row product-adding">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>{{'annotation.div1.title' | translate}}</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="date" class="col-form-label"><span>*</span> {{'annotation.fields.date' | translate}}</label>
+                <div class="input-group col-md-12 input-grp-p">
+                  <input class="datepicker-here form-control digits" ngbDatepicker formControlName="date"
+                    #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                  <div class="input-group-append">
+                    <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                        class="fa fa-calendar"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="col-form-label"><span>*</span> {{'annotation.fields.email' |
+                  translate}}</label>
+                <input class="form-control" id="email" type="email" required="" formControlName="email">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>{{'annotation.div2.title' | translate}}</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="note" class="col-form-label"><span>*</span> {{'annotation.fields.note' | translate}}</label>
+                <input class="form-control" id="note" type="number" required="" formControlName="note">
+              </div>
+              <div class="form-group">
+                <label class="col-form-label"><span>*</span> {{'annotation.fields.commentaire' | translate}} </label>
+                <textarea class="form-control" name="commentaire" id="" cols="30" rows="2"
+                  formControlName="commentaire"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-0">
+      <div class="product-buttons text-center">
+        <button *ngIf="annoToShow.produitService" type="button" class="btn btn-primary mr-1"
+          (click)="associatedProduct()">{{'button.go_to_product' | translate}}</button>
+        <button type="button" (click)="goToList()" class="btn btn-light">{{'button.go_to_list' | translate}}</button>
+      </div>
+    </div>
+  </form>
+</div>

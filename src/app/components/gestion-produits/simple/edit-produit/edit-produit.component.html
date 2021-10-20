@@ -1,0 +1,2068 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <div class="card-body">
+          <ngb-tabset class="tab-coupon profile-tabs">
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <app-feather-icons [icon]="'box'"></app-feather-icons>Produit
+              </ng-template>
+              <ng-template ngbTabContent>
+                <form class="needs-validation" [formGroup]="productForm" *ngIf="productForm" novalidate>
+                  <ngb-tabset class="tab-coupon profile-tabs">
+                    <ngb-tab>
+                      <ng-template ngbTabTitle>
+                        <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                          class="badge badge-info">1</span>
+                      </ng-template>
+                      <ng-template ngbTabContent>
+                        <div class="row product-adding">
+                          <div class="col-xl-5">
+                            <div class="add-product form-group">
+                              <label><span>*</span> Image Produit:</label>
+                              <div class="row">
+                                <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="urlToShow.includes('assets/')">
+                                  <!--<img src="assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1">-->
+                                  <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1"
+                                    [lazyLoad]="urlToShow" [defaultImage]="'assets/images/pro3/1.jpg'"
+                                    class="img-fluid image_zoom_1">
+                                  <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                                    [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                                </div>
+                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                  <ul class="file-upload-product">
+                                    <li *ngFor="let item of url; let i=index">
+                                      <div class="box-input-file">
+                                        <input class="upload" type="file" (change)="readUrl($event,i)">
+                                        <img class="imgUpload" alt="" [src]="item.img"
+                                          style="border-radius:100%; height:48px; width:48px;">
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div *ngIf="imgPD.invalid && (imgPD.touched || imgPD.dirty)" class="text text-danger">
+                                <div *ngIf="imgPD.errors?.required">
+                                  The Image Produit is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xl-7">
+                            <div class="add-product-form">
+                              <div class="form-group row">
+                                <label for="refProduit" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Réference:</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="refProduit" type="text"
+                                  formControlName="refProduit" name="refProduit" required>
+                                <div *ngIf="refProduit.invalid && (refProduit.touched || refProduit.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="refProduit.errors?.required">
+                                    The refProduit is required.
+                                  </div>
+                                  <div *ngIf="refProduit.errors?.pattern">
+                                    The refProduit must be a string with at least 4 characters.
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label for="typePS" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type Produit:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="typePS" name="typePS"
+                                  [data]="listTP" formControlName="typePS" [settings]="dropdownTPSettings"
+                                  [placeholder]="'-- Select Type Produit--'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="typePS.invalid && typePS.touched" class="text text-danger">
+
+                                  <div *ngIf="typePS.errors?.required">
+                                    The Type is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Nouveau</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-nv">
+                                    <input class="radio_animated" id="oui-nv" type="radio" value="Oui" name="nouveau"
+                                      formControlName="nouveau" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-nv">
+                                    <input class="radio_animated" id="non-nv" type="radio" value="Non" name="nouveau"
+                                      formControlName="nouveau" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="nouveau.invalid && nouveau.touched" class="text text-danger">
+
+                                  <div *ngIf="nouveau.errors?.required">
+                                    The Nouveau is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="__designation" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Designation
+                                  :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="__designation" type="text"
+                                  formControlName="__designation" required>
+                                <div *ngIf="__designation.invalid && (__designation.touched || __designation.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="__designation.errors?.required">
+                                    The designation is required.
+                                  </div>
+                                  <div *ngIf="__designation.errors?.pattern">
+                                    The designation must be a string with at least 4 characters.
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label for="slogan" class="col-xl-3 col-sm-4"><span>*</span>Slogan :</label>
+                                <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                  <textarea class="form-control" name="slogan" id="slogan" cols="30" rows="2"
+                                    formControlName="slogan"></textarea>
+
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="madeIn" class="col-xl-3 col-sm-4 mb-0"><span>*</span>MadeIn:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" name="madeIn"
+                                  [placeholder]="'-- Select Pays --'" [settings]="dropdownMISettings"
+                                  formControlName="madeIn" [data]="listMI">
+                                  <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                                    let-isSelected="isSelected">
+                                    <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                      <img [src]="getMI[id].image" style="width: 18px; margin: 0 20px;" />
+                                      <label style="color: #333;min-width: 130px;"
+                                        [ngStyle]="{ 'color': getMI[id].isDisabled? 'lightgrey':''}">
+                                        {{getMI[id].item_text}}
+                                      </label>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                                    <div>
+                                      <img [src]="getMI[id].image" style="width: 18px; margin-right: 2px;" />
+                                      {{option}}
+                                    </div>
+                                  </ng-template>
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="madeIn.invalid && madeIn.touched" class="text text-danger">
+                                  <div *ngIf="madeIn.errors?.required">
+                                    The madeIn is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4"><span>*</span>Descriptif :</label>
+                                <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                  <textarea class="form-control" name="__descriptif" id="__descriptif" cols="30" rows="2"
+                                    formControlName="__descriptif"></textarea>
+
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="__resumeDescriptif" class="col-xl-3 col-sm-4"><span>*</span>Résumé Descriptif
+                                  :</label>
+                                <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                  <textarea class="form-control" name="__resumeDescriptif" id="__resumeDescriptif" cols="30"
+                                    rows="2" formControlName="__resumeDescriptif"></textarea>
+
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab>
+                      <ng-template ngbTabTitle>
+                        <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                          class="badge badge-info">2</span>
+                      </ng-template>
+                      <ng-template ngbTabContent>
+                        <div class="row product-adding">
+                          <div class="col-xl-5">
+                            <div class="add-product form-group">
+                              <label><span>*</span> Code Barre:</label>
+                              <div class="row">
+                                <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="urlCB.img.includes('assets/')">
+                                  <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1"
+                                    [lazyLoad]="urlCB.img" [defaultImage]="'assets/images/pro3/1.jpg'"
+                                    class="img-fluid image_zoom_1">
+                                  <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                                    [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                                </div>
+                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                  <ul class="file-upload-product">
+                                    <li>
+                                      <div class="box-input-file">
+                                        <input class="upload" type="file" (change)="readUrlCB($event)">
+                                        <img class="imgUpload" alt="" [src]="urlCB.img"
+                                          style="border-radius:100%; height:48px; width:48px;">
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div *ngIf="refCB.invalid && (refCB.touched || refCB.dirty)" class="text text-danger">
+                                <div *ngIf="refCB.errors?.required">
+                                  The Image Produit is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xl-7">
+                            <div class="add-product-form">
+                              <div class="form-group row">
+                                <label for="__producttag" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Tag:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="__producttag" name="__producttag"
+                                  [data]="listTag" formControlName="__producttag" [settings]="dropdownTagSettings"
+                                  [placeholder]="'-- Select Tag --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="__producttag.invalid && __producttag.touched" class="text text-danger">
+
+                                  <div *ngIf="__producttag.errors?.required">
+                                    The Tag is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Virtuel:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-vt">
+                                    <input class="radio_animated" id="oui-vt" type="radio" value="Oui" name="virtuel"
+                                      formControlName="virtuel" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-vt">
+                                    <input class="radio_animated" id="non-vt" type="radio" value="Non" name="virtuel"
+                                      formControlName="virtuel" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="virtuel.invalid && virtuel.touched" class="text text-danger">
+
+                                  <div *ngIf="virtuel.errors?.required">
+                                    The Virtuel is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Téléchargeable:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-tele">
+                                    <input class="radio_animated" id="oui-tele" type="radio" value="Oui"
+                                      name="telechargeable" formControlName="telechargeable" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-tele">
+                                    <input class="radio_animated" id="non-tele" type="radio" value="Non"
+                                      name="telechargeable" formControlName="telechargeable" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="telechargeable.invalid && telechargeable.touched" class="text text-danger">
+
+                                  <div *ngIf="telechargeable.errors?.required">
+                                    The Téléchargeable is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="urlExterne" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Url externe
+                                  :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="urlExterne" type="text"
+                                  formControlName="urlExterne" required>
+                                <div *ngIf="urlExterne.invalid && (urlExterne.touched || urlExterne.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="urlExterne.errors?.required">
+                                    The urlExterne is required.
+                                  </div>
+                                  <div *ngIf="urlExterne.errors?.pattern">
+                                    The urlExterne must be a string with at least 4 characters.
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label for="__msgBtnComExterne" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Message Btn
+                                  Externe
+                                  :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="__msgBtnComExterne" type="text"
+                                  formControlName="__msgBtnComExterne" required>
+                                <div
+                                  *ngIf="__msgBtnComExterne.invalid && (__msgBtnComExterne.touched || __msgBtnComExterne.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="__msgBtnComExterne.errors?.required">
+                                    The msgBtnComExterne is required.
+                                  </div>
+                                  <div *ngIf="__msgBtnComExterne.errors?.pattern">
+                                    The msgBtnComExterne must be a string with at least 4 characters.
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Affichage publique:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-affpub">
+                                    <input class="radio_animated" id="oui-affpub" type="radio" value="Oui"
+                                      name="affPublique" formControlName="affPublique" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-affpub">
+                                    <input class="radio_animated" id="non-affpub" type="radio" value="Non"
+                                      name="affPublique" formControlName="affPublique" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="affPublique.invalid && affPublique.touched" class="text text-danger">
+
+                                  <div *ngIf="affPublique.errors?.required">
+                                    The Téléchargeable is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Affichage Tarif:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label *ngFor="let at of listAT; let i=index" class="d-block" [for]="'afftar-'+i">
+                                    <input class="radio_animated" [id]="'afftar-'+i" type="radio" [value]="at"
+                                      name="affTarif" formControlName="affTarif" />
+                                    {{at}}
+                                  </label>
+                                </div>
+                                <div *ngIf="affTarif.invalid && affTarif.touched" class="text text-danger">
+
+                                  <div *ngIf="affTarif.errors?.required">
+                                    The Affichage tarif is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Vente Seule:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-vs">
+                                    <input class="radio_animated" id="oui-vs" type="radio" value="Oui" name="venteSeule"
+                                      formControlName="venteSeule" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-vs">
+                                    <input class="radio_animated" id="non-vs" type="radio" value="Non" name="venteSeule"
+                                      formControlName="venteSeule" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="venteSeule.invalid && venteSeule.touched" class="text text-danger">
+
+                                  <div *ngIf="venteSeule.errors?.required">
+                                    The Vente Seule is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab>
+                      <ng-template ngbTabTitle>
+                        <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                          class="badge badge-info">3</span>
+                      </ng-template>
+                      <ng-template ngbTabContent>
+                        <div class="row product-adding">
+                          <div class="col-xl-5">
+                            <div class="add-product form-group">
+                              <label><span>*</span> Code QR:</label>
+                              <div class="row">
+                                <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="urlQR.img.includes('assets/')">
+                                  <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1"
+                                    [lazyLoad]="urlQR.img" [defaultImage]="'assets/images/pro3/1.jpg'"
+                                    class="img-fluid image_zoom_1">
+                                  <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                                    [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                                </div>
+                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                  <ul class="file-upload-product">
+                                    <li>
+                                      <div class="box-input-file">
+                                        <input class="upload" type="file" (change)="readUrlQR($event)">
+                                        <img class="imgUpload" alt="" [src]="urlQR.img"
+                                          style="border-radius:100%; height:48px; width:48px;">
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div *ngIf="refCB.invalid && (refCB.touched || refCB.dirty)" class="text text-danger">
+                                <div *ngIf="refCB.errors?.required">
+                                  The Image Produit is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xl-7">
+                            <div class="add-product-form">
+                              <div class="form-group row">
+                                <label for="typeVente" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type Vente:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="typeVente"
+                                  name="typeVente" [data]="listTV" formControlName="typeVente"
+                                  [settings]="dropdownTVSettings" [placeholder]="'-- Select Type Vente--'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="typeVente.invalid && typeVente.touched" class="text text-danger">
+
+                                  <div *ngIf="typeVente.errors?.required">
+                                    The Type Vente is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="uniteProduit" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Unité
+                                  Produit:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="uniteProduit"
+                                  name="uniteProduit" [data]="listUP" formControlName="uniteProduit"
+                                  [settings]="dropdownUPSettings" [placeholder]="'-- Select Unité Produit--'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="uniteProduit.invalid && uniteProduit.touched" class="text text-danger">
+
+                                  <div *ngIf="uniteProduit.errors?.required">
+                                    The Unité Produit is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>Qte Min :</label>
+                                <div class="qty-box1">
+                                  <div class="input-group">
+                                    <i class="fa fa-minus btnGtr1" (click)="decrement('min')"></i>
+                                    <input class="touchspin1 text-center" name="minCom" type="text"
+                                      formControlName="minCommande" required>
+                                    <i class="fa fa-plus btnLess1" (click)="increment('min')"></i>
+                                  </div>
+                                </div>
+                                <div
+                                  *ngIf="productForm.errors?.invalidValue && (minCommande.touched || minCommande.dirty)"
+                                  class="text text-danger">
+                                  The min commande must be less than the max commande.
+                                </div>
+                                <div *ngIf="minCommande.invalid && minCommande.touched" class="text text-danger">
+                                  <div *ngIf="minCommande.errors?.pattern">
+                                    The min commande is required.
+                                  </div>
+
+                                  <div *ngIf="minCommande.errors?.pattern">
+                                    The min commande must be great than 0.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>Qte Max :</label>
+                                <div class="qty-box1">
+                                  <div class="input-group">
+                                    <i class="fa fa-minus btnGtr1" (click)="decrement('max')"></i>
+                                    <input class="touchspin1 text-center" name="maxCom" type="text"
+                                      formControlName="maxCommande" required>
+                                    <i class="fa fa-plus btnLess1" (click)="increment('max')"></i>
+                                  </div>
+                                </div>
+                                <div
+                                  *ngIf="productForm.errors?.invalidValue && (maxCommande.touched || maxCommande.dirty)"
+                                  class="text text-danger">
+                                  The max commande must be great than the min commande.
+                                </div>
+                                <div *ngIf="maxCommande.invalid && maxCommande.touched" class="text text-danger">
+                                  <div *ngIf="minCommande.errors?.pattern">
+                                    The max commande is required.
+                                  </div>
+                                  <div *ngIf="maxCommande.errors?.pattern">
+                                    The max commande must be great than 0.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="typeTarif" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type Tarif:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="typeTarif"
+                                  name="typeTarif" [data]="listTT" formControlName="typeTarif"
+                                  [settings]="dropdownTTSettings" [placeholder]="'-- Select Type Tarif--'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="typeTarif.invalid && typeTarif.touched" class="text text-danger">
+
+                                  <div *ngIf="typeTarif.errors?.required">
+                                    The Type Tarif is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="tarifUHT" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Tarif UHT :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="tarifUHT" type="number"
+                                  formControlName="tarifUHT" required="">
+                                <div *ngIf="tarifUHT.invalid && (tarifUHT.touched || tarifUHT.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="tarifUHT.errors?.required">
+                                    The tarifUHT is required.
+                                  </div>
+                                  <div *ngIf="tarifUHT.errors?.pattern">
+                                    The tarifUHT must be a number.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="tVA" class="col-xl-3 col-sm-4 mb-0"><span>*</span>TVA :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="tVA" type="number"
+                                  formControlName="tVA" required="">
+                                <div *ngIf="tVA.invalid && (tVA.touched || tVA.dirty)" class="text text-danger">
+                                  <div *ngIf="tVA.errors?.required">
+                                    The tVA is required.
+                                  </div>
+                                  <div *ngIf="tVA.errors?.pattern">
+                                    The tVA must be a number.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="pays" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Product Pays:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" name="pays"
+                                  [placeholder]="'-- Select Pays --'" [settings]="dropdownPaysSettings"
+                                  formControlName="pays" [data]="listPays">
+                                  <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                                    let-isSelected="isSelected">
+                                    <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                      <img [src]="getPays[id].image" style="width: 18px; margin: 0 20px;" />
+                                      <label style="color: #333;min-width: 130px;"
+                                        [ngStyle]="{ 'color': getPays[id].isDisabled? 'lightgrey':''}">
+                                        {{getPays[id].item_text}}
+                                      </label>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                                    <div>
+                                      <img [src]="getPays[id].image" style="width: 18px; margin-right: 2px;" />
+                                      {{option}}
+                                    </div>
+                                  </ng-template>
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="pays.invalid && pays.touched" class="text text-danger">
+                                  <div *ngIf="pays.errors?.required">
+                                    The pays is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab>
+                      <ng-template ngbTabTitle>
+                        <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                          class="badge badge-info">4</span>
+                      </ng-template>
+                      <ng-template ngbTabContent>
+                        <div class="row product-adding">
+                          <div class="col-xl-5">
+                            <div class="add-product-form">
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Saison:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-tvs">
+                                    <input class="radio_animated" id="oui-tvs" type="radio" value="Oui"
+                                      name="tarVarParSaison" formControlName="tarVarParSaison" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-tvs">
+                                    <input class="radio_animated" id="non-tvs" type="radio" value="Non"
+                                      name="tarVarParSaison" formControlName="tarVarParSaison" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="tarVarParSaison.invalid && tarVarParSaison.touched"
+                                  class="text text-danger">
+
+                                  <div *ngIf="tarVarParSaison.errors?.required">
+                                    The Tarif Variable par saison is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Zone
+                                  Géographique:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-tvzg">
+                                    <input class="radio_animated" id="oui-tvzg" type="radio" value="Oui"
+                                      name="tarVarParZoneGeo" formControlName="tarVarParZoneGeo" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-tvzg">
+                                    <input class="radio_animated" id="non-tvzg" type="radio" value="Non"
+                                      name="tarVarParZoneGeo" formControlName="tarVarParZoneGeo" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="tarVarParZoneGeo.invalid && tarVarParZoneGeo.touched"
+                                  class="text text-danger">
+
+                                  <div *ngIf="tarVarParZoneGeo.errors?.required">
+                                    The Tarif Variable par Zone Géographique is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par
+                                  Distributeur:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-tvd">
+                                    <input class="radio_animated" id="oui-tvd" type="radio" value="Oui"
+                                      name="tarVarParDsbtr" formControlName="tarVarParDsbtr" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-tvd">
+                                    <input class="radio_animated" id="non-tvd" type="radio" value="Non"
+                                      name="tarVarParDsbtr" formControlName="tarVarParDsbtr" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="tarVarParDsbtr.invalid && tarVarParDsbtr.touched" class="text text-danger">
+
+                                  <div *ngIf="tarVarParDsbtr.errors?.required">
+                                    The Tarif Variable par Distributeur is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par
+                                  Variante:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-tvv">
+                                    <input class="radio_animated" id="oui-tvv" type="radio" value="Oui"
+                                      name="tarVarParVrte" formControlName="tarVarParVrte" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-tvv">
+                                    <input class="radio_animated" id="non-tvv" type="radio" value="Non"
+                                      name="tarVarParVrte" formControlName="tarVarParVrte" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="tarVarParVrte.invalid && tarVarParVrte.touched" class="text text-danger">
+
+                                  <div *ngIf="tarVarParVrte.errors?.required">
+                                    The Tarif Variable par Variante is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par
+                                  Quantité:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-tvq">
+                                    <input class="radio_animated" id="oui-tvq" type="radio" value="Oui"
+                                      name="tarVarParQte" formControlName="tarVarParQte" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-tvq">
+                                    <input class="radio_animated" id="non-tvq" type="radio" value="Non"
+                                      name="tarVarParQte" formControlName="tarVarParQte" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="tarVarParQte.invalid && tarVarParQte.touched" class="text text-danger">
+
+                                  <div *ngIf="tarVarParQte.errors?.required">
+                                    The Tarif Variable par Quantité is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xl-7">
+                            <div class="add-product-form">
+                              <div class="form-group row">
+                                <label for="notation" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Notation :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="notation" type="number"
+                                  formControlName="notation" required="">
+                                <div *ngIf="notation.invalid && (notation.touched || notation.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="notation.errors?.required">
+                                    The notation is required.
+                                  </div>
+                                  <div *ngIf="notation.errors?.pattern">
+                                    The notation must be a number.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Afficher Avis:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-aa">
+                                    <input class="radio_animated" id="oui-aa" type="radio" value="Oui" name="affAvis"
+                                      formControlName="affAvis" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-aa">
+                                    <input class="radio_animated" id="non-aa" type="radio" value="Non" name="affAvis"
+                                      formControlName="affAvis" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="affAvis.invalid && affAvis.touched" class="text text-danger">
+
+                                  <div *ngIf="affAvis.errors?.required">
+                                    The Afficher avis is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="etatPub" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Etat
+                                  Publication:</label>
+                                <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="etatPub" name="etatPub"
+                                  [data]="listEP" formControlName="etatPub" [settings]="dropdownEPSettings"
+                                  [placeholder]="'-- Select Etat Publication --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="etatPub.invalid && etatPub.touched" class="text text-danger">
+
+                                  <div *ngIf="etatPub.errors?.required">
+                                    The Etat publication is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="__msgAchat" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Message à l'achat
+                                  :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="__msgAchat" type="text"
+                                  formControlName="__msgAchat" required>
+                                <div *ngIf="__msgAchat.invalid && (__msgAchat.touched || __msgAchat.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="__msgAchat.errors?.required">
+                                    The message à l'achat is required.
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label for="ordreAff" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Ordre affichage
+                                  :</label>
+                                <input class="form-control col-xl-8 col-sm-7" id="ordreAff" type="number"
+                                  formControlName="ordreAff" required>
+                                <div *ngIf="ordreAff.invalid && (ordreAff.touched || ordreAff.dirty)"
+                                  class="text text-danger">
+                                  <div *ngIf="ordreAff.errors?.required">
+                                    The Ordre affichage is required.
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Gestion de stock:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-gs">
+                                    <input class="radio_animated" id="oui-gs" type="radio" value="Oui" name="gestStock"
+                                      formControlName="gestStock" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-gs">
+                                    <input class="radio_animated" id="non-gs" type="radio" value="Non" name="gestStock"
+                                      formControlName="gestStock" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="gestStock.invalid && gestStock.touched" class="text text-danger">
+
+                                  <div *ngIf="gestStock.errors?.required">
+                                    The Gestion de stock is required.
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Indiquer etat stock:</label>
+                                <div
+                                  class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                                  <label class="d-block" for="oui-ies">
+                                    <input class="radio_animated" id="oui-ies" type="radio" value="Oui"
+                                      name="indEtatStock" formControlName="indEtatStock" />
+                                    Oui
+                                  </label>
+                                  <label class="d-block" for="non-ies">
+                                    <input class="radio_animated" id="non-ies" type="radio" value="Non"
+                                      name="indEtatStock" formControlName="indEtatStock" />
+                                    Non
+                                  </label>
+                                </div>
+                                <div *ngIf="indEtatStock.invalid && indEtatStock.touched" class="text text-danger">
+
+                                  <div *ngIf="indEtatStock.errors?.required">
+                                    The Indiquer Etat Stock is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                  </ngb-tabset>
+                </form>
+                <div class="form-group row mb-0">
+                  <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                    <button type="button" class="btn btn-primary mr-1" (click)="editProduit()">Edit</button>
+                    <button type="button" class="btn btn-light" (click)="resetForm()">Discard</button>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="cloud"></i> Tarifs Saisonniers
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Tarifs saisonniers du produit</h5>
+                  <div class="custom-datatable">
+                    <button class="btn btn-primary mr-1 mb-3" style="float: right;"
+                      (click)="addTarifSaisonnier()">Add</button>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of tsHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let ts of listTarifSaisonniers">
+                            <td>{{ts.labelTarif}}</td>
+                            <td>{{ts.saison}}</td>
+                            <td>{{ts.couleurSaison}}</td>
+                            <td>{{ts.monnaie}}</td>
+                            <td>{{ts.tarifUHT}}</td>
+                            <td><a (click)="onClickShowTs(ts._id)" href="javascript:;" class="text text-info"><i
+                                  class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="onClickEditTs(ts._id)" href="javascript:;" class="text text-warning"><i
+                                  class="fa fa-edit"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="setItemToDelete(ts._id)" (click)="open(deleteModalTs)" href="javascript:;"
+                                class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="layout"></i> Grille Tarifaire
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Grille Tarifaire du produit</h5>
+                  <div class="custom-datatable">
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of gtHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let gt of listGrillesTarifaires">
+                            <td>{{gt.ref_grille}}</td>
+                            <td>{{gt.qte_inf}}</td>
+                            <td>{{gt.qte_sup}}</td>
+                            <td>{{gt.tarif_unitaire_ht}}</td>
+                            <td>{{gt.valeur}}</td>
+                            <td>{{gt.monnaie}}</td>
+                            <td><a (click)="onClickShowGt(gt._id)" href="javascript:;" class="text text-info"><i
+                                  class="fa fa-eye"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="life-buoy"></i> Tarif Unitaire Variable
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Tarifs unitaires variables du produit</h5>
+                  <div class="custom-datatable">
+                    <button class="btn btn-primary mr-1 mb-3" style="float: right;"
+                      (click)="addTarifUnitaireVariable()">Add</button>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of tuvHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let tuv of listTarifsUnitairesVariables">
+                            <td>{{tuv.description}}</td>
+                            <td>{{tuv.commentaire}}</td>
+                            <td>{{tuv.monnaie}}</td>
+                            <td>{{tuv.tarifUHT}}</td>
+                            <td><a (click)="onClickShowTuv(tuv._id)" href="javascript:;" class="text text-info"><i
+                                  class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="onClickEditTuv(tuv._id)" href="javascript:;" class="text text-warning"><i
+                                  class="fa fa-edit"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="setItemToDelete(tuv._id)" (click)="open(deleteModalTuv)" href="javascript:;"
+                                class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="life-buoy"></i> Annotation
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Annotations du produit</h5>
+
+                  <p-toast></p-toast>
+                  <div class="container-fluid">
+                    <div class="card">
+                      <p-toolbar>
+
+                        <ng-template pTemplate="right">
+                          <button pButton pRipple label="New" icon="pi pi-plus" class="btn btn-primary mr-1"
+                            (click)="addAnnot()"></button>
+                        </ng-template>
+                        <ng-template pTemplate="left">
+                          <div class="p-d-flex p-ai-center p-jc-between">
+                            <span class="p-input-icon-left">
+                              <i class="pi pi-search"></i>
+                              <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search..." />
+                            </span>
+                          </div>
+                        </ng-template>
+                      </p-toolbar>
+                      <p-table #dt2 [value]="listAnnotations" [rows]="4" [paginator]="true"
+                        [globalFilterFields]="['date','email','commentaire','note']" responsiveLayout="scroll"
+                        [rowHover]="true" dataKey="id" [resizableColumns]="true" [autoLayout]="true">
+
+
+                        <ng-template pTemplate="header">
+                          <tr>
+
+                            <th *ngFor="let col of atrAnnotation" pSortableColumn="{{col.field}}">
+                              {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+                              <!-- <a><i class="fa fa-filter"></i></a> -->
+                            </th>
+
+                            <th style="width: 10rem">Action</th>
+                          </tr>
+
+                          <tr>
+
+                            <th *ngFor="let col of atrAnnotation" [ngSwitch]="col.field">
+                              <input pInputText type="text"
+                                (input)="dt2.filter($event.target.value, col.field, 'contains')" placeholder="Search..."
+                                [style.width]="col.width" />
+
+
+                            </th>
+                            <th><i class="fa fa-cogs" style="font-size:35px"></i></th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-annot>
+                          <tr style="height: 2rem;">
+                            <td>{{annot.date}}</td>
+                            <td>{{annot.email}}</td>
+                            <td>{{annot.commentaire}}</td>
+                            <td>{{annot.note}}</td>
+                            <td><a (click)="onClickShowAnnot(annot._id)" href="javascript:;" class="text text-info"><i
+                                  class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="onClickEditAnnot(annot._id)" href="javascript:;" class="text text-warning"><i
+                                  class="fa fa-edit"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="setItemToDelete(annot._id)" (click)="open(deleteModalAnnotation)"
+                                href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+
+                          </tr>
+                        </ng-template>
+
+                      </p-table>
+                    </div>
+                  </div>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="file-plus"></i> Distinction
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Distinctions du produit</h5>
+                  <p-toast></p-toast>
+                  <div class="container-fluid">
+                    <div class="card">
+                      <p-toolbar>
+                        <ng-template pTemplate="right">
+                          <button pButton pRipple label="New" icon="pi pi-plus" class="btn btn-primary mr-1"
+                            (click)="addDist()"></button>
+                        </ng-template>
+                        <ng-template pTemplate="left">
+                          <div class="p-d-flex p-ai-center p-jc-between">
+                            <span class="p-input-icon-left">
+                              <i class="pi pi-search"></i>
+                              <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search..." />
+                            </span>
+                          </div>
+                        </ng-template>
+                      </p-toolbar>
+                      <p-table #dt2 [value]="listDistinctions" [rows]="4" [paginator]="true"
+                        [globalFilterFields]="['typeD','designation','dateObtention','duree','uniteDuree']"
+                        responsiveLayout="scroll" [rowHover]="true" dataKey="id" [resizableColumns]="true"
+                        [autoLayout]="true">
+
+
+                        <ng-template pTemplate="header">
+                          <tr>
+
+                            <th style="width: 5rem">Logo</th>
+                            <th *ngFor="let col of atrDistinction" pSortableColumn="{{col.field}}"
+                              [style.width]="col.width">
+                              {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+                            </th>
+
+                            <th style="width: 6rem">Action</th>
+                          </tr>
+
+                          <tr>
+                            <th><img [lazyLoad]="null" [defaultImage]="'assets/images/user.png'"
+                                style="border-radius:100%; height:48px; width:48px;"></th>
+                            <th *ngFor="let col of atrDistinction" [ngSwitch]="col.field">
+                              <input pInputText type="text"
+                                (input)="dt2.filter($event.target.value, col.field, 'contains')" placeholder="Search..."
+                                [style.width]="col.width" />
+
+
+                            </th>
+                            <th><i class="fa fa-cogs" style="font-size:35px"></i></th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-dist>
+                          <tr style="height: 1rem;">
+                            <td>
+                              <img [lazyLoad]="dist.logo" [defaultImage]="'assets/images/user.png'"
+                                style="border-radius:100%; height:48px; width:48px;">
+                            </td>
+                            <td [ngSwitch]="dist.typeD">
+                              <span *ngSwitchCase="'Nationale'" class="badge badge-success">{{dist.typeD}}</span>
+                              <span *ngSwitchCase="'Régionale'" class="badge badge-info">{{dist.typeD}}</span>
+                              <span *ngSwitchCase="'Internationale'" class="badge badge-warning">{{dist.typeD}}</span>
+
+                            </td>
+                            <td>{{dist.designation}}</td>
+                            <td>{{dist.dateObtention}}</td>
+                            <td>{{dist.duree}}</td>
+
+                            <td [ngSwitch]="dist.uniteDuree">
+                              <span *ngSwitchCase="'Année'" class="badge badge-success">{{dist.uniteDuree}}</span>
+                              <span *ngSwitchCase="'Mois'" class="badge badge-info">{{dist.uniteDuree}}</span>
+                              <span *ngSwitchCase="'Jour'" class="badge badge-warning">{{dist.uniteDuree}}</span>
+
+                            </td>
+                            <td><a (click)="onClickShowDist(dist._id)" href="javascript:;" class="text text-info"><i
+                                  class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="onClickEditDist(dist._id)" href="javascript:;" class="text text-warning"><i
+                                  class="fa fa-edit"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="setItemToDelete(dist._id)" (click)="open(deleteModalDistinction)"
+                                href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+
+                          </tr>
+                        </ng-template>
+
+                      </p-table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="activity"></i> Montée En Gamme
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Montée en gamme du produit</h5>
+                  <div class="custom-datatable">
+                    <button class="btn btn-primary mr-1 mb-3" style="float: right;" (click)="addMeg()">Add</button>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of monteeEnGammeHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let meg of listMonteeEnGammes">
+                            <td>
+                              <img [lazyLoad]="meg.iconeSymbol" [defaultImage]="'assets/images/user.png'"
+                                style="border-radius:100%; height:48px; width:48px;">
+                            </td>
+                            <td [ngSwitch]="meg.typeMonteeEnGamme">
+                              <span *ngSwitchCase="'Nationale'"
+                                class="badge badge-success">{{meg.typeMonteeEnGamme}}</span>
+                              <span *ngSwitchCase="'Régionale'"
+                                class="badge badge-info">{{meg.typeMonteeEnGamme}}</span>
+                              <span *ngSwitchCase="'Internationale'"
+                                class="badge badge-warning">{{meg.typeMonteeEnGamme}}</span>
+
+                            </td>
+                            <td>{{meg.description}}</td>
+                            <td><a (click)="onClickShowMeg(meg._id)" href="javascript:;" class="text text-info"><i
+                                  class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="onClickEditMeg(meg._id)" href="javascript:;" class="text text-warning"><i
+                                  class="fa fa-edit"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="setItemToDelete(meg._id)" (click)="open(deleteModalMonteeEnGamme)"
+                                href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="thermometer"></i> Critère Calculable
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Critères calculables du produit</h5>
+                  <div class="custom-datatable">
+                    <button class="btn btn-primary mr-1 mb-3" style="float: right;" (click)="addCritCalc()">Add</button>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th >Reference</th>
+                            <th >Groupe</th>
+                            <th >Label</th>
+                            <th >Valeur</th>
+                            <th >Unité de valeur</th>
+                            <th >Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let critCalc of listCritereCalculables">
+                            <td>{{critCalc.refCritere}}</td>
+                            <td>{{critCalc.groupeCritere}}</td>
+                            <td>{{critCalc.label}}</td>
+                            <td>{{critCalc.valeur}}</td>
+                            <td>{{critCalc.uniteValeur}}</td>
+                            <td><a (click)="onClickShowCritCalc(critCalc._id)" href="javascript:;"
+                                class="text text-info"><i class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="onClickEditCritCalc(critCalc._id)" href="javascript:;"
+                                class="text text-warning"><i class="fa fa-edit"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="setItemToDelete(critCalc._id)" (click)="open(deleteModalCritereCalculable)"
+                                href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Instance Caractéristique
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Instances caractéristiques du produit</h5>
+                  <div class="custom-datatable">
+                    <button class="btn btn-primary mr-1 mb-3" style="float: right;"
+                      (click)="open(addModalInstCaracteristique)">Add</button>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of instCaracteristiqueHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let instCaract of listInstCaracteristiques">
+                            <td>{{instCaract.refInstCaracterist}}</td>
+                            <td>{{instCaract.affichagePrive}}</td>
+                            <td>{{instCaract.groupeCaracterist}}</td>
+                            <td>{{instCaract.labelCaracterist}}</td>
+                            <td>{{instCaract.valeurCaracterist}}</td>
+                            <td>{{instCaract.uniteCaracterist}}</td>
+                            <td>{{instCaract.ordreCaracterist}}</td>
+                            <td>{{instCaract.typeCoutAdditionnel}}</td>
+                            <td>{{instCaract.valeurCoutAdditionnel}}</td>
+                            <td><a (click)="onClickShowInstCaract(instCaract._id)" href="javascript:;"
+                                class="text text-info"><i class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="removeInstCaracteristiqueFromProduct(instCaract._id)" href="javascript:;"
+                                class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Instance Classification
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Instances classifications du produit</h5>
+                  <div class="custom-datatable">
+                    <button class="btn btn-primary mr-1 mb-3" style="float: right;"
+                      (click)="open(addModalInstClassification)">Add Instance Classification To Product</button>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of instClassificationHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let instClassif of listInstClassifications">
+                            <td>{{instClassif.ref_classif_valeur}}</td>
+                            <td>{{instClassif.label_texte}}</td>
+                            <td>{{instClassif.domaine}}</td>
+                            <td>{{instClassif.valeur}}</td>
+                            <td><a (click)="onClickShowInstClassif(instClassif._id)" href="javascript:;"
+                                class="text text-info"><i class="fa fa-eye"></i></a>&nbsp;
+                              |&nbsp;
+                              <a (click)="removeInstClassificationFromProduct(instClassif._id)" href="javascript:;"
+                                class="text text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <app-feather-icons [icon]="'clipboard'"></app-feather-icons>
+                Instance Caractéristique Variante
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                  aria-labelledby="top-profile-tab">
+                  <h5 class="f-w-600"> Instance Caractéristique Variante du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="package"></i> Indication Promo
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Indication Promo du produit</h5>
+                  <div class="custom-datatable">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col" *ngFor="let header of indPromoHeaders">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let indPromo of listIndPromo">
+                            <td>{{indPromo.ref_pricing_rule}}</td>
+                            <td>{{indPromo.period_debut}}</td>
+                            <td>{{indPromo.period_fin}}</td>
+                            <td>{{indPromo.description}}</td>
+                            <td>{{indPromo.commentaire}}</td>
+                            <td>{{indPromo.etat_pricing_rule}}</td>
+                            <td><a (click)="onClickShowIndPromo(indPromo._id)" href="javascript:;"
+                                class="text text-info"><i class="fa fa-eye"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="life-buoy"></i> Indication Frais Additionnel
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Indication Frais Additionnel du produit</h5>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col" *ngFor="let header of indFraisAddHeaders">{{header}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ifa of listIndFraisAdd">
+                          <td>{{ifa.refFrais}}</td>
+                          <td>{{ifa.natureCoutAdd}}</td>
+                          <td>{{ifa.valeurCoutAdd}}</td>
+                          <td>{{ifa.description}}</td>
+                          <td><a (click)="onClickShowIndFraisAdd(ifa._id)" href="javascript:;" class="text text-info"><i
+                                class="fa fa-eye"></i></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="box"></i> Indication Stock
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Indication Stock du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="truck"></i> Expédition
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Expédition du produit</h5>
+
+                      <div class="container-fluid">
+                        <form [formGroup]="expeditionForm">
+                          <div class="row product-adding">
+                            <div class="col-xl-6">
+                              <div class="card">
+                                <div class="card-header">
+                                  <h5>General</h5>
+                                </div>
+                                <div class="card-body">
+                                  <div class="digital-add needs-validation">
+                                    <div class="form-group">
+                                        <label for="refExp" class="col-form-label"><span>*</span> Réference</label>
+                                        <input class="form-control" id="refExp" type="text" required=""
+                                         formControlName="refExp">
+                                        <div *ngIf="refExp.invalid && (refExp.touched || refExp.dirty)" class="text text-danger">
+                                        <div *ngIf="refExp.errors?.required">
+                                          The Réference is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="poids" class="col-form-label"><span>*</span> Poids</label>
+                                      <input class="form-control" id="poids" type="number" required="" formControlName="poids">
+                                      <div *ngIf="poids.invalid && (poids.touched || poids.dirty)" class="text text-danger">
+                                        <div *ngIf="poids.errors?.required">
+                                          The Poids is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="unitePoids" class="col-form-label"><span>*</span> Unité Poids</label>
+                                      <ng-multiselect-dropdown id="unitePoids" name="unitePoids" [data]="listUnitePoids"
+                                        formControlName="unitePoids" [settings]="dropdownUnitePoidsSettings"
+                                        [placeholder]="'-- Select Unité Poids --'">
+                                      </ng-multiselect-dropdown>
+                                      <div *ngIf="unitePoids.invalid && unitePoids.touched" class="text text-danger">
+
+                                        <div *ngIf="unitePoids.errors?.required">
+                                          The Unité Poids is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="classeLivraison" class="col-form-label"><span>*</span> Classe Livraison</label>
+                                      <ng-multiselect-dropdown id="classeLivraison" name="classeLivraison" [data]="listClasseLivraison"
+                                        formControlName="classeLivraison" [settings]="dropdownClasseLivraisonSettings"
+                                        [placeholder]="'-- Select Classe Livraison --'">
+                                      </ng-multiselect-dropdown>
+                                      <div *ngIf="classeLivraison.invalid && classeLivraison.touched" class="text text-danger">
+
+                                        <div *ngIf="classeLivraison.errors?.required">
+                                          The Classe Livraison is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6">
+                              <div class="card">
+                                <div class="card-header">
+                                  <h5>Dimensions</h5>
+                                </div>
+                                <div class="card-body">
+                                  <div class="digital-add needs-validation">
+                                    <div class="form-group">
+                                      <label for="largeur" class="col-form-label"><span>*</span> Largeur</label>
+                                      <input class="form-control" id="largeur" type="number" required="" formControlName="largeur">
+                                      <div *ngIf="largeur.invalid && (largeur.touched || largeur.dirty)" class="text text-danger">
+                                        <div *ngIf="largeur.errors?.required">
+                                          The largeur is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="hauteur" class="col-form-label"><span>*</span> Hauteur</label>
+                                      <input class="form-control" id="hauteur" type="number" required="" formControlName="hauteur">
+                                      <div *ngIf="hauteur.invalid && (hauteur.touched || hauteur.dirty)" class="text text-danger">
+                                        <div *ngIf="hauteur.errors?.required">
+                                          The hauteur is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="profondeur" class="col-form-label"><span>*</span> Profondeur</label>
+                                      <input class="form-control" id="profondeur" type="number" required="" formControlName="profondeur">
+                                      <div *ngIf="profondeur.invalid && (profondeur.touched || profondeur.dirty)" class="text text-danger">
+                                        <div *ngIf="profondeur.errors?.required">
+                                          The profondeur is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="uniteDimension" class="col-form-label"><span>*</span> Unité Dimension</label>
+                                      <ng-multiselect-dropdown id="uniteDimension" name="uniteDimension" [data]="listUniteDimension"
+                                        formControlName="uniteDimension" [settings]="dropdownUniteDimensionSettings"
+                                        [placeholder]="'-- Select Unité Dimension --'">
+                                      </ng-multiselect-dropdown>
+                                      <div *ngIf="uniteDimension.invalid && uniteDimension.touched" class="text text-danger">
+
+                                        <div *ngIf="uniteDimension.errors?.required">
+                                          The Unité Dimension is required.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                      <div class="product-buttons text-center">
+                                        <button type="button" class="btn btn-primary mr-1" (click)="editExpedition()">Update</button>
+                                        <button type="button"  class="btn btn-light">Discard</button>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+
+                      </div>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Garantie Assurance
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Garantie Assurance du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Contenu multimedia
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Contenu multimedia du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Instance commentaire interne
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Instance commentaire interne du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Marque
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Marque du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Produit composant
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Produit composant du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <i data-feather="clipboard"></i> Produit associé
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="account-setting">
+                  <h5 class="f-w-600">Produit associé du produit</h5>
+
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+
+      <ng-template #deleteModalTs let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des tarifs du produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteTs()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalGt let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des grilles tarifaires du
+              produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteGt()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalIndPromo let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des indication promo du
+              produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteIndPromo()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalIndFraisAdd let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des indications frais
+              additionnels du
+              produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteIndFraisAdd()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalTuv let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des tarifs unitaires
+              variables du produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteTuv()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalDistinction let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des distinction du produit
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteDist()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalCritereCalculable let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des critères calculables
+              du produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteCritCalc()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalAnnotation let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des annotations du produit
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteAnnot()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalInstCaracteristique let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des instance
+              caractéristiques du produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteInstCaract()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #deleteModalMonteeEnGamme let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des montée en gamme du
+              produit</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="padding: 20px 20px;">
+              <div style="text-align: center;margin-bottom: 15px;  ">
+                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+              <h4 style="text-align: center;">
+                Êtes-vous sûr?
+              </h4>
+            </div>
+            <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+              <p style="line-height:15px;">
+                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                annulé.</p>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+              data-dismiss="modal">
+
+              Annuler
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteMeg()"
+              (click)="modal.dismiss('Cross click')">
+              Supprimer
+            </button>
+
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #addModalInstClassification let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Add Instance Classification to product
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" *ngFor="let header of instClassificationHeadersV2">{{header}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let instClassif of notAffectedInstanceClassifications">
+                    <td>{{instClassif.label_texte}}</td>
+                    <td>{{instClassif.domaine.domaine}}</td>
+                    <td><a (click)="addInstClassificationToProduct(instClassif._id)" href="javascript:;"
+                        class="text text-success" ngbTooltip="Add product to pricing rule"
+                        (click)="modal.dismiss('Cross click')"><i class="fa fa-plus"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template #addModalInstCaracteristique let-modal>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="myModal_delete_produit">Add Instance Caracteristique to product
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" *ngFor="let header of instCaracteristiqueHeadersV2">{{header}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let instCaract of notAffectedInstanceCaracteristiques">
+                    <td>{{instCaract.nature_info}}</td>
+                    <td>{{instCaract.label}}</td>
+                    <td>{{instCaract.unite}}</td>
+                    <td>{{instCaract.groupe?.label}}</td>
+                    <td><a (click)="addInstCaracteristiqueToProduct(instCaract._id)" href="javascript:;"
+                        class="text text-success" ngbTooltip="Add product to pricing rule"
+                        (click)="modal.dismiss('Cross click')"><i class="fa fa-plus"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->

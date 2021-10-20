@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    <form [formGroup]="prodCompForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="typeProduit" class="col-form-label"><span>*</span> Type Produit</label>
+                                <ng-multiselect-dropdown id="typeProduit" name="typeProduit" [data]="listTProd"
+                                    formControlName="typeProduit" [settings]="dropdownTProdSettings"
+                                    [placeholder]="'-- Select Réference typeProduit --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="typeProduit.invalid && (typeProduit.touched || typeProduit.dirty)" class="text text-danger">
+
+                                    <div *ngIf="typeProduit.errors?.required">
+                                        The Type de produit is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="qteProduit" class="col-form-label"><span>*</span> Quantité produit</label>
+                                <input class="form-control" id="qteProduit" type="number" required=""
+                                    formControlName="qteProduit">
+                                <div *ngIf="qteProduit.invalid && (qteProduit.touched || qteProduit.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="qteProduit.errors?.required">
+                                        The Quantité produit is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="uniteQte" class="col-form-label"><span>*</span> Unité quantité</label>
+                                <ng-multiselect-dropdown id="uniteQte" name="uniteQte" [data]="listUq"
+                                    formControlName="uniteQte" [settings]="dropdownUqSettings"
+                                    [placeholder]="'-- Select Unité Quantité --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="uniteQte.invalid && (uniteQte.touched || uniteQte.dirty)" class="text text-danger">
+
+                                    <div *ngIf="uniteQte.errors?.required">
+                                        The Unité quantité is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Complémentaire</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="refProdComposant" class="col-form-label"><span>*</span> Produit Composant</label>
+                                <ng-multiselect-dropdown id="refProdComposant" name="refProdComposant" [settings]="dropdownProdCntSettings" 
+                                    formControlName="refProdComposant" [data]="listProdCnt"
+                                    [placeholder]="'-- Select Produit Composant --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="refProdComposant.invalid && (refProdComposant.touched || refProdComposant.dirty)" class="text text-danger">
+
+                                    <div *ngIf="refProdComposant.errors?.required">
+                                        The Produit Composant is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="refProdCompose" class="col-form-label"><span>*</span> Produit Composé</label>
+                                <ng-multiselect-dropdown id="refProdCompose" name="refProdCompose" [settings]="dropdownProdCseSettings"
+                                    formControlName="refProdCompose" [data]="listProdCse"
+                                    [placeholder]="'-- Select Produit Composé --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="refProdCompose.invalid && (refProdCompose.touched || refProdCompose.dirty)" class="text text-danger">
+
+                                    <div *ngIf="refProdCompose.errors?.required">
+                                        The Produit Composé is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="addProdComp()">Add</button>
+                                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

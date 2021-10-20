@@ -1,0 +1,408 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'box'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row1.div1.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="productCount" [from]="0"
+                                    [duration]="2">{{productCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'cloud'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row1.div2.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="tarSaiCount" [from]="0"
+                                    [duration]="2">{{tarSaiCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'layout'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row1.div3.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="griTarCount" [from]="0"
+                                    [duration]="2">{{griTarCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'users'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row1.div4.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="tarUniVarCount" [from]="0"
+                                    [duration]="2">{{tarUniVarCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'star'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row2.div1.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="annoCount" [from]="0"
+                                    [duration]="2">{{annoCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'file-plus'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row2.div2.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="distCount" [from]="0"
+                                    [duration]="2">{{distCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'activity'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row2.div3.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="megCount" [from]="0"
+                                    [duration]="2">{{megCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'thermometer'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row2.div4.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="critCalcCount" [from]="0"
+                                    [duration]="2">{{critCalcCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'truck'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row3.div1.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="productCount" [from]="0"
+                                    [duration]="2">{{productCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'dollar-sign'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row3.div2.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="6659" [from]="0"
+                                    [duration]="2">6659</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'package'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row3.div3.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="893" [from]="0"
+                                    [duration]="2">893</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'box'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row3.div4.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="45631" [from]="0"
+                                    [duration]="2">45631</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row4.div1.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="instCaractCount" [from]="0"
+                                    [duration]="2">{{instCaractCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row4.div2.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="instCaractVarCount" [from]="0"
+                                    [duration]="2">{{instCaractVarCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row4.div3.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="instClassifCount" [from]="0"
+                                    [duration]="2">{{instClassifCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row4.div4.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="45631" [from]="0"
+                                    [duration]="2">45631</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row5.div1.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="productCount" [from]="0"
+                                    [duration]="2">{{productCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row5.div2.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="6659" [from]="0"
+                                    [duration]="2">6659</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row5.div3.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="893" [from]="0"
+                                    [duration]="2">893</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row5.div4.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="45631" [from]="0"
+                                    [duration]="2">45631</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row6.div1.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="productCount" [from]="0"
+                                    [duration]="2">{{productCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'clipboard'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row6.div2.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="6659" [from]="0"
+                                    [duration]="2">6659</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'users'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">{{'dashboard.row6.div3.title' | translate}}</span>
+                            <h3 class="mb-0">{{'dashboard.total' | translate}} <span class="counter" [CountTo]="utilCount" [from]="0"
+                                    [duration]="2">{{utilCount}}</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Container-fluid Ends-->

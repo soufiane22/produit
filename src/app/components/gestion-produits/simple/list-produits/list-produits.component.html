@@ -1,0 +1,117 @@
+<p-toast></p-toast>
+<div class="container-fluid">
+  <div class="card">
+    <p-toolbar>
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="btn btn-primary mr-1"
+          (click)="addProduit()"></button>
+      </ng-template>
+
+      <ng-template pTemplate="left">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search..." />
+          </span>
+        </div>
+      </ng-template>
+    </p-toolbar>
+    <p-table #dt2 [value]="listProducts" [rows]="4" [paginator]="true"
+      [globalFilterFields]="['typePS','designation','pays','tarifUHT']" responsiveLayout="scroll" [rowHover]="true"
+      dataKey="id" [resizableColumns]="true" [autoLayout]="true">
+
+
+      <ng-template pTemplate="header">
+        <tr style="font-size: medium;">
+
+          <th style="width: 5rem">Image</th>
+          <th *ngFor="let col of atrProduit" pSortableColumn="{{col.field}}" [style.width]="col.width">
+            {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+          </th>
+
+          <th style="width: 6rem">Action</th>
+        </tr>
+
+        <tr style="font-size: medium;">
+          <th><img [lazyLoad]="null" [defaultImage]="'assets/images/user.png'"
+              style="border-radius:100%; height:48px; width:48px;"></th>
+              
+          <th *ngFor="let col of atrProduit" [ngSwitch]="col.field">
+            <input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, 'contains')"
+              placeholder="Search..." [style.width]="col.width" />
+
+          </th>
+          <th><i class="fa fa-cogs" style="font-size:35px"></i></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-produit>
+        <tr style="height: 25px;font-size: medium;" >
+          <td>
+            <img [lazyLoad]="firstImage(produit?.imgPD)" [defaultImage]="'assets/images/user.png'"
+              style="border-radius:100%; height:48px; width:48px;">
+          </td>
+          <td>{{produit.refProduit}}</td>
+          <td>{{produit.typePS}}</td>
+          <td>{{produit.translations[0]?.__designation}}</td>
+          <td>{{produit.pays}}</td>
+          <td>{{produit.tarifUHT}}</td>
+          <td><a (click)="onClickShow(produit._id)" href="javascript:;" class="text text-info"><i
+                class="fa fa-eye"></i></a>&nbsp;
+            |&nbsp;
+            <a (click)="onClickEdit(produit._id)" href="javascript:;" class="text text-warning"><i
+                class="fa fa-edit"></i></a>&nbsp;
+            |&nbsp;
+            <a (click)="setProduitToDelete(produit._id)" (click)="open(deleteModal)" href="javascript:;"
+              class="text text-danger"><i class="fa fa-trash"></i></a>
+          </td>
+
+        </tr>
+      </ng-template>
+
+    </p-table>
+
+
+    <ng-template #deleteModal let-modal>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer le produit</h5>
+        </div>
+        <div class="modal-body">
+          <div class="container" style="padding: 20px 20px;">
+            <div style="text-align: center;margin-bottom: 15px;  ">
+              <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                aria-hidden="true"></i>
+            </div>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <h4 style="text-align: center;">
+              Êtes-vous sûr?
+            </h4>
+          </div>
+          <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+            <p style="line-height:15px;">
+              Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+              annulé.</p>
+          </div>
+
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+            data-dismiss="modal">
+
+            Annuler
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDelete()"
+            (click)="modal.dismiss('Cross click')">
+            Supprimer
+          </button>
+
+        </div>
+      </div>
+
+    </ng-template>
+
+  </div>
+</div>

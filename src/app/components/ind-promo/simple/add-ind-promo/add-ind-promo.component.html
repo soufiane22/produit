@@ -1,0 +1,289 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <div class="card-header">
+          <h5>{{'ind_promo.add.title' | translate}}</h5>
+        </div>
+        <div class="card-body">
+          <form class="needs-validation" [formGroup]="indPromoForm" novalidate>
+            <ngb-tabset class="tab-coupon profile-tabs">
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                    class="badge badge-info">{{'ind_promo.ngb_tab1.title' | translate}}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="ref_pricing_rule" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.ref_pricing_rule' | translate}}</label>
+                          <input class="form-control" id="ref_pricing_rule" type="text" required=""
+                            formControlName="ref_pricing_rule">
+                          <div *ngIf="ref_pricing_rule.invalid && (ref_pricing_rule.touched || ref_pricing_rule.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="ref_pricing_rule.errors?.required">
+                              {{'ind_promo.validators.ref_pricing_rule.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="period_debut" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.period_debut'
+                            | translate}}</label>
+                          <div class="input-group col-md-12 input-grp-p">
+                            <input class="datepicker-here form-control digits" ngbDatepicker
+                              formControlName="period_debut" #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                            <div class="input-group-append">
+                              <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                                  class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                          <div *ngIf="period_debut.invalid && (period_debut.touched || period_debut.dirty)"
+                            class="text text-danger">
+
+                            <div *ngIf="period_debut.errors?.required">
+                              {{'ind_promo.validators.period_debut.required' | translate}}
+                            </div>
+                            <div *ngIf="period_debut.errors?.invalidValue">
+                              {{'ind_promo.validators.period_debut.invalid' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="period_fin" class="col-form-label"><span>*</span> {{'ind_promo.fields.period_fin'
+                            |
+                            translate}}</label>
+                          <div class="input-group col-md-12 input-grp-p">
+                            <input class="datepicker-here form-control digits" ngbDatepicker
+                              formControlName="period_fin" #f="ngbDatepicker" placeholder="dd/mm/yyyy">
+                            <div class="input-group-append">
+                              <button class="btn calendar" (click)="f.toggle()" type="button"><i
+                                  class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                          <div *ngIf="period_fin.invalid && (period_fin.touched || period_fin.dirty)"
+                            class="text text-danger">
+
+                            <div *ngIf="period_fin.errors?.required">
+                              {{'ind_promo.validators.period_fin.required' | translate}}
+                            </div>
+                            <div *ngIf="period_fin.errors?.invalidValue">
+                              {{'ind_promo.validators.period_fin.invalid' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="etat_pricing_rule" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.etat_pricing_rule' |
+                            translate}}</label>
+                          <ng-multiselect-dropdown id="etat_pricing_rule" name="etat_pricing_rule" [data]="listEtat"
+                            formControlName="etat_pricing_rule" [settings]="dropdownEtatSettings"
+                            [placeholder]="'-- Select Etat --'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="etat_pricing_rule.invalid && etat_pricing_rule.touched" class="text text-danger">
+
+                            <div *ngIf="etat_pricing_rule.errors?.required">
+                              {{'ind_promo.validators.etat_pricing_rule.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                    class="badge badge-info">{{'ind_promo.ngb_tab2.title' | translate}}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="reduction_type" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.reduction.type' |
+                            translate}}</label>
+                          <ng-multiselect-dropdown id="reduction_type" name="reduction_type" [data]="listNature"
+                            formControlName="reduction_type" [settings]="dropdownNatureSettings"
+                            [placeholder]="'-- Select Reduction type --'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="reduction_type.invalid && reduction_type.touched" class="text text-danger">
+
+                            <div *ngIf="reduction_type.errors?.required">
+                              {{'ind_promo.validators.reduction_type.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="reduction_valeur" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.reduction.valeur' | translate}}</label>
+                          <input class="form-control" id="reduction_valeur" type="number" required=""
+                            formControlName="reduction_valeur">
+                          <div *ngIf="reduction_valeur.invalid && (reduction_valeur.touched || reduction_valeur.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="reduction_valeur.errors?.required">
+                              {{'ind_promo.validators.reduction.type.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span
+                    class="badge badge-info">{{'ind_promo.ngb_tab3.title' | translate}}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="interessement_global_value" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.interessement.global_value' | translate}}</label>
+                          <input class="form-control" id="interessement_global_value" type="number" required=""
+                            formControlName="interessement_global_value">
+                          <div
+                            *ngIf="interessement_global_value.invalid && (interessement_global_value.touched || interessement_global_value.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="interessement_global_value.errors?.required">
+                              {{'ind_promo.validators.interessement.global_value.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+
+                      </div>
+                    </div>
+                  </div>
+                  <h5 class="f-w-600">{{'ind_promo.ngb_tab3.subtitle' | translate}}</h5>
+                  <div class="row product-adding">
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="advantage_designation" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.interessement.advantage.designation' | translate}}</label>
+                          <input class="form-control" id="advantage_designation" type="text" required=""
+                            formControlName="advantage_designation">
+                          <div
+                            *ngIf="advantage_designation.invalid && (advantage_designation.touched || advantage_designation.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="advantage_designation.errors?.required">
+                              {{'ind_promo.validators.interessement.advantage.designation.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="advantage_value" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.interessement.advantage.value' | translate}}</label>
+                          <input class="form-control" id="advantage_value" type="number" required=""
+                            formControlName="advantage_value">
+                          <div *ngIf="advantage_value.invalid && (advantage_value.touched || advantage_value.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="advantage_value.errors?.required">
+                              {{'ind_promo.validators.interessement.advantage.value.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="digital-add needs-validation">
+                        <div class="form-group">
+                          <label for="advantage_type" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.interessement.advantage.type' |
+                            translate}}</label>
+                          <ng-multiselect-dropdown id="advantage_type" name="advantage_type" [data]="listAdvantageType"
+                            formControlName="advantage_type" [settings]="dropdownAdvantageTypeSettings"
+                            [placeholder]="'-- Select Advantage type --'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="advantage_type.invalid && (advantage_type.touched || advantage_type.dirty)" class="text text-danger">
+
+                            <div *ngIf="advantage_type.errors?.required">
+                              {{'ind_promo.validators.interessement.advantage.type.required' | translate}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="advantage_description" class="col-form-label"><span>*</span>
+                            {{'ind_promo.fields.interessement.advantage.description' | translate}} </label>
+                          <textarea class="form-control" name="advantage_description" id="advantage_description"
+                            cols="30" rows="2" formControlName="advantage_description"></textarea>
+                          <div
+                            *ngIf="advantage_description.invalid && (advantage_description.touched || advantage_description.dirty)"
+                            class="text text-danger">
+                            {{'ind_promo.validators.interessement.advantage.description.required' | translate}}
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="account-setting">
+                    <button [disabled]="!isAdvantageValid()" class="btn btn-success mr-1 mb-3" style="float: right;"
+                        (click)="addAdvantageToInteressement()">{{'ind_promo.ngb_tab3.button.add' | translate}}</button>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" *ngFor="let header of advantageHeaders">{{header}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let advantage of interessement_advantages">
+                                    <td >{{advantage.type}}</td>
+                                    <td>{{advantage.designation}}</td>
+                                    <td>{{advantage.value}}</td>
+                                    <td>{{advantage.description}}</td>
+                                    <td>
+                                        <a (click)="removeAdvantageFromInteressement(advantage)" href="javascript:;"
+                                            class="text text-danger"
+                                            ngbTooltip="Remove product acheté to buy get"><i
+                                                class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+            <div class="form-group row mb-0">
+              <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                <button type="button" class="btn btn-primary mr-1" (click)="addIndPromo()">{{'button.save' |
+                  translate}}</button>
+                <button type="button" class="btn btn-light" (click)="clearValues()">{{'button.discard' |
+                  translate}}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Container-fluid Ends-->

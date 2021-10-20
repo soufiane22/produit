@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <form [formGroup]="annotationForm" *ngIf="annotationForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'annotation.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="date" class="col-form-label"><span>*</span>
+                                    {{'annotation.fields.date' | translate}}</label>
+                                <div class="input-group col-md-12 input-grp-p">
+                                    <input class="datepicker-here form-control digits" ngbDatepicker
+                                        formControlName="date" #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                                                class="fa fa-calendar"></i></button>
+                                    </div>
+                                </div>
+                                <div *ngIf="date.invalid && (date.touched || date.dirty)" class="text text-danger">
+
+                                    <div *ngIf="date.errors?.required">
+                                        {{'annotation.validators.date.required' | translate}}
+                                    </div>
+                                    <div *ngIf="date.errors?.invalidValue">
+                                        {{'annotation.validators.date.invalid' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label"><span>*</span>
+                                    {{'annotation.fields.email' | translate}}</label>
+                                <input class="form-control" id="email" type="email" required="" formControlName="email">
+                                <div *ngIf="email.invalid && (email.touched || email.dirty)" class="text text-danger">
+
+                                    <div *ngIf="email.errors?.required">
+                                        {{'annotation.validators.email.required' | translate}}
+                                    </div>
+                                    <div *ngIf="email.errors?.email">
+                                        {{'annotation.validators.email.invalid' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'annotation.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="note" class="col-form-label"><span>*</span>
+                                    {{'annotation.fields.note' | translate}}</label>
+                                <input class="form-control" id="note" type="number" required="" formControlName="note">
+                                <div *ngIf="note.invalid && (note.touched || note.dirty)" class="text text-danger">
+
+                                    <div *ngIf="note.errors?.required">
+                                        {{'annotation.validators.note.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> {{'annotation.fields.commentaire' |
+                                    translate}}
+                                </label>
+                                <textarea class="form-control" name="commentaire" id="" cols="30" rows="2"
+                                    formControlName="commentaire"></textarea>
+                                <div *ngIf="commentaire.invalid && (commentaire.touched || commentaire.dirty)"
+                                    class="text text-danger">
+                                    {{'annotation.validators.commentaire.required' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button type="button" class="btn btn-primary mr-1" (click)="editAnno()">{{'button.edit' |
+                    translate}}</button>
+                <button type="button" (click)="clearValues()" class="btn btn-light">{{'button.discard' |
+                    translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

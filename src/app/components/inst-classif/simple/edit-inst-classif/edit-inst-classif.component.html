@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <form [formGroup]="instClassifForm" *ngIf="instClassifForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'inst_classif.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="ref_classif_valeur" class="col-form-label"><span>*</span>
+                                    {{'inst_classif.fields.ref_classif_valeur' | translate}}</label>
+                                <input class="form-control" id="ref_classif_valeur" type="text" required=""
+                                    formControlName="ref_classif_valeur">
+                                <div *ngIf="ref_classif_valeur.invalid && (ref_classif_valeur.touched || ref_classif_valeur.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="ref_classif_valeur.errors?.required">
+                                        {{'inst_classif.validators.ref_classif_valeur.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'inst_classif.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="label_texte" class="col-form-label"><span>*</span>
+                                    {{'inst_classif.fields.label_texte' | translate}}</label>
+                                <input class="form-control" id="label_texte" type="text" required=""
+                                    formControlName="label_texte">
+                                <div *ngIf="label_texte.invalid && (label_texte.touched || label_texte.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="label_texte.errors?.required">
+                                        {{'inst_classif.validators.label_texte.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button type="button" class="btn btn-primary mr-1" (click)="editInstClassif()">{{'button.edit' |
+                    translate}}</button>
+                <button type="button" (click)="clearValues()" class="btn btn-light">{{'button.discard' |
+                    translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

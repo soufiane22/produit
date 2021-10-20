@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <form [formGroup]="instComIntForm">
+      <div class="row product-adding">
+        <div class="col-xl-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>General</h5>
+            </div>
+            <div class="card-body">
+              <div class="digital-add needs-validation">
+                <div class="form-group">
+                  <label for="date" class="col-form-label"><span>*</span> Date</label>
+                  <div class="input-group col-md-12 input-grp-p">
+                    <input class="datepicker-here form-control digits" ngbDatepicker formControlName="date"
+                      #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                    <div class="input-group-append">
+                      <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                    </div>
+                  </div>
+                  <div *ngIf="date.invalid && (date.touched || date.dirty)" class="text text-danger">
+  
+                    <div *ngIf="date.errors?.required">
+                      The Date is required.
+                    </div>
+                    <div *ngIf="date.errors?.invalidValue">
+                      The Date is not valid. (Format: dd/mm/yyyy)
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="auteur" class="col-form-label"><span>*</span> Auteur</label>
+                  <input class="form-control" id="auteur" type="auteur" required="" formControlName="auteur">
+                  <div *ngIf="auteur.invalid && (auteur.touched || auteur.dirty)" class="text text-danger">
+  
+                    <div *ngIf="auteur.errors?.required">
+                      The Auteur is required.
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>Complémentaire</h5>
+            </div>
+            <div class="card-body">
+              <div class="digital-add needs-validation">
+                <div class="form-group">
+                  <label class="col-form-label"><span>*</span> Commentaire </label>
+                  <textarea class="form-control" name="commentaire" id="" cols="30" rows="2"
+                    formControlName="commentaire"></textarea>
+                  <div *ngIf="commentaire.invalid && (commentaire.touched || commentaire.dirty)" class="text text-danger">
+                    The commentaire is required
+                  </div>
+                </div>
+                <div class="form-group mb-0">
+                  <div class="product-buttons text-center">
+                    <button type="button" class="btn btn-primary mr-1" (click)="addInstComInt()">Add</button>
+                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  </div>
+  

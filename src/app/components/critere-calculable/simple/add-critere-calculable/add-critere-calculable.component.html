@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <form [formGroup]="critCalcForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'critere_calculable.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="groupeCritere" class="col-form-label"><span>*</span>
+                                    {{'critere_calculable.fields.groupeCritere' | translate}}</label>
+                                <ng-multiselect-dropdown id="groupeCritere" name="groupeCritere" [data]="listGroupes"
+                                    formControlName="groupeCritere" [settings]="dropdownGroupesSettings"
+                                    [placeholder]="'-- Select Groupe --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="groupeCritere.invalid && groupeCritere.touched" class="text text-danger">
+
+                                    <div *ngIf="groupeCritere.errors?.required">
+                                        {{'critere_calculable.validators.groupeCritere.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="refCritere" class="col-form-label"><span>*</span>
+                                    {{'critere_calculable.fields.refCritere' | translate}}</label>
+                                <input class="form-control" id="refCritere" type="text" required=""
+                                    formControlName="refCritere">
+                                <div *ngIf="refCritere.invalid && (refCritere.touched || refCritere.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="refCritere.errors?.required">
+                                        {{'critere_calculable.validators.refCritere.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'critere_calculable.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="uniteValeur" class="col-form-label"><span>*</span>
+                                    {{'critere_calculable.fields.uniteValeur' | translate}}</label>
+                                <ng-multiselect-dropdown id="uniteValeur" name="uniteValeur" [data]="listUnites"
+                                    formControlName="uniteValeur" [settings]="dropdownUnitesSettings"
+                                    [placeholder]="'-- Select Unité --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="uniteValeur.invalid && (uniteValeur.touched || uniteValeur.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="uniteValeur.errors?.required">
+                                        {{'critere_calculable.validators.uniteValeur.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="label" class="col-form-label"><span>*</span>
+                                    {{'critere_calculable.fields.label' | translate}}</label>
+                                <input class="form-control" id="label" type="text" required="" formControlName="label">
+                                <div *ngIf="label.invalid && (label.touched || label.dirty)" class="text text-danger">
+
+                                    <div *ngIf="label.errors?.required">
+                                        {{'critere_calculable.validators.label.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="valeur" class="col-form-label"><span>*</span>
+                                    {{'critere_calculable.fields.valeur' | translate}}</label>
+                                <input class="form-control" id="valeur" type="text" required=""
+                                    formControlName="valeur">
+                                <div *ngIf="valeur.invalid && (valeur.touched || valeur.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="valeur.errors?.required">
+                                        {{'critere_calculable.validators.valeur.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button type="button" class="btn btn-primary mr-1"
+                    (click)="addCritCalc()">{{'button.add' | translate}}</button>
+                <button type="button" (click)="clearValues()"
+                    class="btn btn-light">{{'button.discard' | translate}}</button>
+            </div>
+        </div>
+    </form>
+
+</div>

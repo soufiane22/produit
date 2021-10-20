@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <form [formGroup]="distForm" *ngIf="distForm">
+    <div class="row product-adding">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>General</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="typeD" class="col-form-label"><span>*</span> Type</label>
+                <ng-multiselect-dropdown id="typeD" name="typeD" [data]="listTypes"
+                  formControlName="typeD" [settings]="dropdownTypesSettings"
+                  [placeholder]="'-- Select Type Distinction --'">
+                </ng-multiselect-dropdown>
+
+              </div>
+              <div class="form-group">
+                <label for="designation" class="col-form-label"><span>*</span> Designation</label>
+                <input class="form-control" id="designation" type="text" required="" formControlName="designation">
+              </div>
+              <div class="form-group">
+                <label for="logo" class="col-form-label"><span>*</span> Logo</label>
+                <div class="add-product" style="width: 70%; height: 70%;">
+                  <div class="row">
+                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                      <img alt="" class="img-fluid image_zoom_1" [lazyLoad]="logo.value"
+                        [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                    </div>
+                    <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                      <ul class="file-upload-product">
+                        <li>
+                          <div class="box-input-file">
+                            <input class="upload" type="file" disabled>
+                            <img class="imgUpload" alt="" [lazyLoad]="logo.value"
+                              [defaultImage]="'assets/images/user.png'"
+                              style="border-radius:100%; height:48px; width:48px;">
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>Complémentaire</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="dateObtention" class="col-form-label"><span>*</span> Date D'obtention</label>
+                <div class="input-group col-md-12 input-grp-p">
+                  <input class="datepicker-here form-control digits" ngbDatepicker formControlName="dateObtention"
+                    #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                  <div class="input-group-append">
+                    <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                        class="fa fa-calendar"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="duree" class="col-form-label"><span>*</span> Durée</label>
+                <input class="form-control" id="duree" type="number" required="" formControlName="duree">
+              </div>
+              <div class="form-group">
+                <label for="uniteDuree" class="col-form-label"><span>*</span> Unité Durée</label>
+                <ng-multiselect-dropdown id="uniteDuree" name="uniteDuree" [data]="listUnites"
+                  formControlName="uniteDuree" [settings]="dropdownUnitesSettings"
+                  [placeholder]="'-- Select Unité durée --'">
+                </ng-multiselect-dropdown>
+              </div>
+              <div class="form-group mb-0">
+                <div class="product-buttons text-center">
+                  <button *ngIf="distToShow.produitService" type="button" class="btn btn-primary mr-1"
+                    (click)="associatedProduct()">Produit associé</button>
+                  <button type="button" (click)="goToList()" class="btn btn-light">Liste</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Montée en gamme</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col" *ngFor="let header of megHeaders">{{header}}</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let meg of listMegs">
+                                    <td>
+                                      <img [lazyLoad]="meg.iconeSymbol" [defaultImage]="'assets/images/user.png'"
+                                        style="border-radius:100%; height:48px; width:48px;">
+                                    </td>
+                                    <td [ngSwitch]="meg.typeMonteeEnGamme">
+                                      <span *ngSwitchCase="'Nationale'" class="badge badge-success">{{meg.typeMonteeEnGamme}}</span>
+                                      <span *ngSwitchCase="'Régionale'" class="badge badge-info">{{meg.typeMonteeEnGamme}}</span>
+                                      <span *ngSwitchCase="'Internationale'" class="badge badge-warning">{{meg.typeMonteeEnGamme}}</span>
+        
+                                    </td>
+                                    <td>{{meg.description}}</td>
+                                    <td><a (click)="onClickShowMeg(meg._id)" href="javascript:;" class="text text-info"><i
+                                          class="fa fa-eye"></i></a>&nbsp;
+                                      |&nbsp;
+                                      <a (click)="onClickEditMeg(meg._id)" href="javascript:;" class="text text-warning"><i
+                                          class="fa fa-edit"></i></a>&nbsp;
+                                      |&nbsp;
+                                      <a (click)="setMegToDelete(meg._id)" (click)="open(deleteModalMonteeEnGamme)"
+                                        href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #deleteModalMonteeEnGamme let-modal>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des montée en gamme du
+                      produit</h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container" style="padding: 20px 20px;">
+                      <div style="text-align: center;margin-bottom: 15px;  ">
+                        <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                          aria-hidden="true"></i>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                      <h4 style="text-align: center;">
+                        Êtes-vous sûr?
+                      </h4>
+                    </div>
+                    <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+                      <p style="line-height:15px;">
+                        Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                        annulé.</p>
+                    </div>
+        
+                  </div>
+                  <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+                      data-dismiss="modal">
+        
+                      Annuler
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteMeg()"
+                      (click)="modal.dismiss('Cross click')">
+                      Supprimer
+                    </button>
+        
+                  </div>
+                </div>
+        
+              </ng-template>
+
+        </div>
+    </div>
+</div>

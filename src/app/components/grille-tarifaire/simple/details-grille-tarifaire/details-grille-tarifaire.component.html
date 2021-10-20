@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <form [formGroup]="gtForm" *ngIf="gtForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'grille_tarifaire.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="ref_grille" class="col-form-label"><span>*</span>
+                                    {{'grille_tarifaire.fields.ref_grille' | translate}}</label>
+                                <input class="form-control" id="ref_grille" type="text" required=""
+                                    formControlName="ref_grille">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> Qte Inf </label>
+                                <div class="qty-box1">
+                                    <div class="input-group">
+                                        <input class="form-control" name="minCom" type="text" formControlName="qte_inf"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> Qte Sup </label>
+                                <div class="qty-box1">
+                                    <div class="input-group">
+                                        <input class="form-control" name="maxCom" type="text" formControlName="qte_sup"
+                                            required>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'grille_tarifaire.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="tuht" class="col-form-label"><span>*</span>
+                                    {{'grille_tarifaire.fields.tarif_unitaire_ht' | translate}}</label>
+                                <input class="form-control" id="tuht" type="number" required=""
+                                    formControlName="tarif_unitaire_ht">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="valeur" class="col-form-label"><span>*</span>
+                                    {{'grille_tarifaire.fields.valeur' | translate}}</label>
+                                <input class="form-control" id="valeur" type="number" required=""
+                                    formControlName="valeur">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="monnaie" class="col-form-label"><span>*</span>
+                                    {{'grille_tarifaire.fields.monnaie' | translate}}</label>
+                                <ng-multiselect-dropdown name="monnaie" [placeholder]="'-- Select Monnaie --'"
+                                    [settings]="dropdownMonnaieSettings" formControlName="monnaie"
+                                    [data]="listMonnaies">
+                                    <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                                        let-isSelected="isSelected">
+                                        <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                            <img [src]="getMonnaies[id].image" style="width: 18px; margin: 0 20px;" />
+                                            <label style="color: #333;min-width: 130px;"
+                                                [ngStyle]="{ 'color': getMonnaies[id].isDisabled? 'lightgrey':''}">
+                                                {{getMonnaies[id].item_text}}
+                                            </label>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                                        <div>
+                                            <img [src]="getMonnaies[id].image"
+                                                style="width: 18px; margin-right: 2px;" />
+                                            {{option}}
+                                        </div>
+                                    </ng-template>
+                                </ng-multiselect-dropdown>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="digital-add needs-validation">
+            <div class="form-group mb-0">
+                <div class="product-buttons text-center">
+                    <button type="button" class="btn btn-primary mr-1" (click)="goToProduct()" *ngIf="idProduct">{{'button.go_to_product' |
+                        translate}}</button>
+                    <button type="button" (click)="goToList()" class="btn btn-light">{{'button.go_to_list' |
+                        translate}}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

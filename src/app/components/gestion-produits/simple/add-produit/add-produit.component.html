@@ -1,0 +1,791 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <div class="card-header">
+          <h5>Add Product</h5>
+        </div>
+        <div class="card-body">
+          <form class="needs-validation" [formGroup]="productForm" novalidate>
+            <ngb-tabset class="tab-coupon profile-tabs">
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span class="badge badge-info">1</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-5">
+                      <div class="add-product form-group">
+                        <label><span>*</span> Image Produit:</label>
+                        <div class="row">
+                          <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="urlToShow.includes('assets/')">
+                            <!--<img src="assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1">-->
+                            <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1" [lazyLoad]="urlToShow"
+                              [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                            <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                              [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                          </div>
+                          <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                            <ul class="file-upload-product">
+                              <li *ngFor="let item of url; let i=index">
+                                <div class="box-input-file">
+                                  <input class="upload" type="file" (change)="readUrl($event,i)">
+                                  <img class="imgUpload" alt="" [src]="item.img"
+                                    style="border-radius:100%; height:48px; width:48px;">
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div *ngIf="imgPD.invalid && (imgPD.touched || imgPD.dirty)" class="text text-danger">
+                          <div *ngIf="imgPD.errors?.required">
+                            The Image Produit is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-7">
+                      <div class="add-product-form">
+                        <div class="form-group row">
+                          <label for="refProduit" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Réference:</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="refProduit" type="text"
+                            formControlName="refProduit" name="refProduit" required>
+                          <div *ngIf="refProduit.invalid && (refProduit.touched || refProduit.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="refProduit.errors?.required">
+                              The refProduit is required.
+                            </div>
+                            <div *ngIf="refProduit.errors?.pattern">
+                              The refProduit must be a string with at least 4 characters.
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group row">
+                          <label for="typePS" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type Produit:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="typePS" name="typePS"
+                            [data]="listTP" formControlName="typePS" [settings]="dropdownTPSettings"
+                            [placeholder]="'-- Select Type Produit--'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="typePS.invalid && typePS.touched" class="text text-danger">
+
+                            <div *ngIf="typePS.errors?.required">
+                              The Type is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Nouveau</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-nv">
+                              <input class="radio_animated" id="oui-nv" type="radio" value="Oui" name="nouveau"
+                                formControlName="nouveau" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-nv">
+                              <input class="radio_animated" id="non-nv" type="radio" value="Non" name="nouveau"
+                                formControlName="nouveau" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="nouveau.invalid && nouveau.touched" class="text text-danger">
+
+                            <div *ngIf="nouveau.errors?.required">
+                              The Nouveau is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="designation" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Designation :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="designation" type="text"
+                            formControlName="designation" required>
+                          <div *ngIf="designation.invalid && (designation.touched || designation.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="designation.errors?.required">
+                              The designation is required.
+                            </div>
+                            <div *ngIf="designation.errors?.pattern">
+                              The designation must be a string with at least 4 characters.
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group row">
+                          <label for="slogan" class="col-xl-3 col-sm-4"><span>*</span>Slogan :</label>
+                          <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                            <textarea class="form-control" name="slogan" id="slogan" cols="30" rows="2"
+                              formControlName="slogan"></textarea>
+
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="madeIn" class="col-xl-3 col-sm-4 mb-0"><span>*</span>MadeIn:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" name="madeIn"
+                            [placeholder]="'-- Select Pays --'" [settings]="dropdownMISettings" formControlName="madeIn"
+                            [data]="listMI">
+                            <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                              let-isSelected="isSelected">
+                              <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                <img [src]="getMI[id].image" style="width: 18px; margin: 0 20px;" />
+                                <label style="color: #333;min-width: 130px;"
+                                  [ngStyle]="{ 'color': getMI[id].isDisabled? 'lightgrey':''}">
+                                  {{getMI[id].item_text}}
+                                </label>
+                              </div>
+                            </ng-template>
+                            <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                              <div>
+                                <img [src]="getMI[id].image" style="width: 18px; margin-right: 2px;" />
+                                {{option}}
+                              </div>
+                            </ng-template>
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="madeIn.invalid && madeIn.touched" class="text text-danger">
+                            <div *ngIf="madeIn.errors?.required">
+                              The madeIn is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4"><span>*</span>Descriptif :</label>
+                          <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                            <textarea class="form-control" name="descriptif" id="descriptif" cols="30" rows="2"
+                              formControlName="descriptif"></textarea>
+
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="resumeDescriptif" class="col-xl-3 col-sm-4"><span>*</span>Résumé desc :</label>
+                          <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                            <textarea class="form-control" name="resumeDescriptif" id="resumeDescriptif" cols="30"
+                              rows="2" formControlName="resumeDescriptif"></textarea>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span class="badge badge-info">2</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-5">
+                      <div class="add-product form-group">
+                        <label><span>*</span> Code Barre:</label>
+                        <div class="row">
+                          <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="urlCB.img.includes('assets/')">
+                            <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1" [lazyLoad]="urlCB.img"
+                              [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                            <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                              [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                          </div>
+                          <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                            <ul class="file-upload-product">
+                              <li>
+                                <div class="box-input-file">
+                                  <input class="upload" type="file" (change)="readUrlCB($event)">
+                                  <img class="imgUpload" alt="" [src]="urlCB.img"
+                                    style="border-radius:100%; height:48px; width:48px;">
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div *ngIf="refCB.invalid && (refCB.touched || refCB.dirty)" class="text text-danger">
+                          <div *ngIf="refCB.errors?.required">
+                            The Image Produit is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-7">
+                      <div class="add-product-form">
+                        <div class="form-group row">
+                          <label for="tag" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Tag:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="tag" name="tag"
+                            [data]="listTag" formControlName="tag" [settings]="dropdownTagSettings"
+                            [placeholder]="'-- Select Tag --'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="tag.invalid && tag.touched" class="text text-danger">
+
+                            <div *ngIf="tag.errors?.required">
+                              The Tag is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Virtuel:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-vt">
+                              <input class="radio_animated" id="oui-vt" type="radio" value="Oui" name="virtuel"
+                                formControlName="virtuel" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-vt">
+                              <input class="radio_animated" id="non-vt" type="radio" value="Non" name="virtuel"
+                                formControlName="virtuel" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="virtuel.invalid && virtuel.touched" class="text text-danger">
+
+                            <div *ngIf="virtuel.errors?.required">
+                              The Virtuel is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Téléchargeable:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-tele">
+                              <input class="radio_animated" id="oui-tele" type="radio" value="Oui" name="telechargeable"
+                                formControlName="telechargeable" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-tele">
+                              <input class="radio_animated" id="non-tele" type="radio" value="Non" name="telechargeable"
+                                formControlName="telechargeable" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="telechargeable.invalid && telechargeable.touched" class="text text-danger">
+
+                            <div *ngIf="telechargeable.errors?.required">
+                              The Téléchargeable is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="urlExterne" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Url externe :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="urlExterne" type="text"
+                            formControlName="urlExterne" required>
+                          <div *ngIf="urlExterne.invalid && (urlExterne.touched || urlExterne.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="urlExterne.errors?.required">
+                              The urlExterne is required.
+                            </div>
+                            <div *ngIf="urlExterne.errors?.pattern">
+                              The urlExterne must be a string with at least 4 characters.
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group row">
+                          <label for="msgBtnComExterne" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Message Btn Externe
+                            :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="msgBtnComExterne" type="text"
+                            formControlName="msgBtnComExterne" required>
+                          <div *ngIf="msgBtnComExterne.invalid && (msgBtnComExterne.touched || msgBtnComExterne.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="msgBtnComExterne.errors?.required">
+                              The msgBtnComExterne is required.
+                            </div>
+                            <div *ngIf="msgBtnComExterne.errors?.pattern">
+                              The msgBtnComExterne must be a string with at least 4 characters.
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Affichage publique:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-affpub">
+                              <input class="radio_animated" id="oui-affpub" type="radio" value="Oui" name="affPublique"
+                                formControlName="affPublique" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-affpub">
+                              <input class="radio_animated" id="non-affpub" type="radio" value="Non" name="affPublique"
+                                formControlName="affPublique" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="affPublique.invalid && affPublique.touched" class="text text-danger">
+
+                            <div *ngIf="affPublique.errors?.required">
+                              The Téléchargeable is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Affichage Tarif:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label *ngFor="let at of listAT; let i=index" class="d-block" [for]="'afftar-'+i">
+                              <input class="radio_animated" [id]="'afftar-'+i" type="radio" [value]="at"
+                                name="affTarif" formControlName="affTarif" />
+                              {{at}}
+                            </label>
+                          </div>
+                          <div *ngIf="affTarif.invalid && affTarif.touched" class="text text-danger">
+
+                            <div *ngIf="affTarif.errors?.required">
+                              The Affichage tarif is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Vente Seule:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-vs">
+                              <input class="radio_animated" id="oui-vs" type="radio" value="Oui" name="venteSeule"
+                                formControlName="venteSeule" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-vs">
+                              <input class="radio_animated" id="non-vs" type="radio" value="Non" name="venteSeule"
+                                formControlName="venteSeule" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="venteSeule.invalid && venteSeule.touched" class="text text-danger">
+
+                            <div *ngIf="venteSeule.errors?.required">
+                              The Vente Seule is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span class="badge badge-info">3</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-5">
+                      <div class="add-product form-group">
+                        <label><span>*</span> Code QR:</label>
+                        <div class="row">
+                          <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="urlQR.img.includes('assets/')">
+                            <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1" [lazyLoad]="urlQR.img"
+                              [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                            <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                              [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                          </div>
+                          <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                            <ul class="file-upload-product">
+                              <li>
+                                <div class="box-input-file">
+                                  <input class="upload" type="file" (change)="readUrlQR($event)">
+                                  <img class="imgUpload" alt="" [src]="urlQR.img"
+                                    style="border-radius:100%; height:48px; width:48px;">
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div *ngIf="refCB.invalid && (refCB.touched || refCB.dirty)" class="text text-danger">
+                          <div *ngIf="refCB.errors?.required">
+                            The Image Produit is required.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-7">
+                      <div class="add-product-form">
+                        <div class="form-group row">
+                          <label for="typeVente" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type Vente:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="typeVente" name="typeVente"
+                            [data]="listTV" formControlName="typeVente" [settings]="dropdownTVSettings"
+                            [placeholder]="'-- Select Type Vente--'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="typeVente.invalid && typeVente.touched" class="text text-danger">
+
+                            <div *ngIf="typeVente.errors?.required">
+                              The Type Vente is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="uniteProduit" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Unité Produit:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="uniteProduit"
+                            name="uniteProduit" [data]="listUP" formControlName="uniteProduit"
+                            [settings]="dropdownUPSettings" [placeholder]="'-- Select Unité Produit--'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="uniteProduit.invalid && uniteProduit.touched" class="text text-danger">
+
+                            <div *ngIf="uniteProduit.errors?.required">
+                              The Unité Produit is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>Qte Min :</label>
+                          <div class="qty-box1">
+                            <div class="input-group">
+                              <i class="fa fa-minus btnGtr1" (click)="decrement('min')"></i>
+                              <input class="touchspin1 text-center" name="minCom" type="text"
+                                formControlName="minCommande" required>
+                              <i class="fa fa-plus btnLess1" (click)="increment('min')"></i>
+                            </div>
+                          </div>
+                          <div *ngIf="productForm.errors?.invalidValue && (minCommande.touched || minCommande.dirty)"
+                            class="text text-danger">
+                            The min commande must be less than the max commande.
+                          </div>
+                          <div *ngIf="minCommande.invalid && minCommande.touched" class="text text-danger">
+                            <div *ngIf="minCommande.errors?.pattern">
+                              The min commande is required.
+                            </div>
+
+                            <div *ngIf="minCommande.errors?.pattern">
+                              The min commande must be great than 0.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span>Qte Max :</label>
+                          <div class="qty-box1">
+                            <div class="input-group">
+                              <i class="fa fa-minus btnGtr1" (click)="decrement('max')"></i>
+                              <input class="touchspin1 text-center" name="maxCom" type="text"
+                                formControlName="maxCommande" required>
+                              <i class="fa fa-plus btnLess1" (click)="increment('max')"></i>
+                            </div>
+                          </div>
+                          <div *ngIf="productForm.errors?.invalidValue && (maxCommande.touched || maxCommande.dirty)"
+                            class="text text-danger">
+                            The max commande must be great than the min commande.
+                          </div>
+                          <div *ngIf="maxCommande.invalid && maxCommande.touched" class="text text-danger">
+                            <div *ngIf="minCommande.errors?.pattern">
+                              The max commande is required.
+                            </div>
+                            <div *ngIf="maxCommande.errors?.pattern">
+                              The max commande must be great than 0.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="typeTarif" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Type Tarif:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="typeTarif" name="typeTarif"
+                            [data]="listTT" formControlName="typeTarif" [settings]="dropdownTTSettings"
+                            [placeholder]="'-- Select Type Tarif--'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="typeTarif.invalid && typeTarif.touched" class="text text-danger">
+
+                            <div *ngIf="typeTarif.errors?.required">
+                              The Type Tarif is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="tarifUHT" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Tarif UHT :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="tarifUHT" type="number"
+                            formControlName="tarifUHT" required="">
+                          <div *ngIf="tarifUHT.invalid && (tarifUHT.touched || tarifUHT.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="tarifUHT.errors?.required">
+                              The tarifUHT is required.
+                            </div>
+                            <div *ngIf="tarifUHT.errors?.pattern">
+                              The tarifUHT must be a number.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="tVA" class="col-xl-3 col-sm-4 mb-0"><span>*</span>TVA :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="tVA" type="number" formControlName="tVA"
+                            required="">
+                          <div *ngIf="tVA.invalid && (tVA.touched || tVA.dirty)" class="text text-danger">
+                            <div *ngIf="tVA.errors?.required">
+                              The tVA is required.
+                            </div>
+                            <div *ngIf="tVA.errors?.pattern">
+                              The tVA must be a number.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="pays" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Product Pays:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" name="pays"
+                            [placeholder]="'-- Select Pays --'" [settings]="dropdownPaysSettings" formControlName="pays"
+                            [data]="listPays">
+                            <ng-template #optionsTemplate let-item let-option="option" let-id="id"
+                              let-isSelected="isSelected">
+                              <div style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                <img [src]="getPays[id].image" style="width: 18px; margin: 0 20px;" />
+                                <label style="color: #333;min-width: 130px;"
+                                  [ngStyle]="{ 'color': getPays[id].isDisabled? 'lightgrey':''}">
+                                  {{getPays[id].item_text}}
+                                </label>
+                              </div>
+                            </ng-template>
+                            <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+                              <div>
+                                <img [src]="getPays[id].image" style="width: 18px; margin-right: 2px;" />
+                                {{option}}
+                              </div>
+                            </ng-template>
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="pays.invalid && pays.touched" class="text text-danger">
+                            <div *ngIf="pays.errors?.required">
+                              The pays is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>
+                  <app-feather-icons [icon]="'settings'"></app-feather-icons> <span class="badge badge-info">4</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="row product-adding">
+                    <div class="col-xl-5">
+                      <div class="add-product-form">
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Saison:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-tvs">
+                              <input class="radio_animated" id="oui-tvs" type="radio" value="Oui" name="tarVarParSaison"
+                                formControlName="tarVarParSaison" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-tvs">
+                              <input class="radio_animated" id="non-tvs" type="radio" value="Non" name="tarVarParSaison"
+                                formControlName="tarVarParSaison" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="tarVarParSaison.invalid && tarVarParSaison.touched" class="text text-danger">
+
+                            <div *ngIf="tarVarParSaison.errors?.required">
+                              The Tarif Variable par saison is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Zone Géographique:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-tvzg">
+                              <input class="radio_animated" id="oui-tvzg" type="radio" value="Oui" name="tarVarParZoneGeo"
+                                formControlName="tarVarParZoneGeo" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-tvzg">
+                              <input class="radio_animated" id="non-tvzg" type="radio" value="Non" name="tarVarParZoneGeo"
+                                formControlName="tarVarParZoneGeo" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="tarVarParZoneGeo.invalid && tarVarParZoneGeo.touched" class="text text-danger">
+
+                            <div *ngIf="tarVarParZoneGeo.errors?.required">
+                              The Tarif Variable par Zone Géographique is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Distributeur:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-tvd">
+                              <input class="radio_animated" id="oui-tvd" type="radio" value="Oui" name="tarVarParDsbtr"
+                                formControlName="tarVarParDsbtr" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-tvd">
+                              <input class="radio_animated" id="non-tvd" type="radio" value="Non" name="tarVarParDsbtr"
+                                formControlName="tarVarParDsbtr" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="tarVarParDsbtr.invalid && tarVarParDsbtr.touched" class="text text-danger">
+
+                            <div *ngIf="tarVarParDsbtr.errors?.required">
+                              The Tarif Variable par Distributeur is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Variante:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-tvv">
+                              <input class="radio_animated" id="oui-tvv" type="radio" value="Oui" name="tarVarParVrte"
+                                formControlName="tarVarParVrte" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-tvv">
+                              <input class="radio_animated" id="non-tvv" type="radio" value="Non" name="tarVarParVrte"
+                                formControlName="tarVarParVrte" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="tarVarParVrte.invalid && tarVarParVrte.touched" class="text text-danger">
+
+                            <div *ngIf="tarVarParVrte.errors?.required">
+                              The Tarif Variable par Variante is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Tarif Variable Par Quantité:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-tvq">
+                              <input class="radio_animated" id="oui-tvq" type="radio" value="Oui" name="tarVarParQte"
+                                formControlName="tarVarParQte" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-tvq">
+                              <input class="radio_animated" id="non-tvq" type="radio" value="Non" name="tarVarParQte"
+                                formControlName="tarVarParQte" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="tarVarParQte.invalid && tarVarParQte.touched" class="text text-danger">
+
+                            <div *ngIf="tarVarParQte.errors?.required">
+                              The Tarif Variable par Quantité is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-7">
+                      <div class="add-product-form">
+                        <div class="form-group row">
+                          <label for="notation" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Notation :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="notation" type="number"
+                            formControlName="notation" required="">
+                          <div *ngIf="notation.invalid && (notation.touched || notation.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="notation.errors?.required">
+                              The notation is required.
+                            </div>
+                            <div *ngIf="notation.errors?.pattern">
+                              The notation must be a number.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Afficher Avis:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-aa">
+                              <input class="radio_animated" id="oui-aa" type="radio" value="Oui" name="affAvis"
+                                formControlName="affAvis" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-aa">
+                              <input class="radio_animated" id="non-aa" type="radio" value="Non" name="affAvis"
+                                formControlName="affAvis" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="affAvis.invalid && affAvis.touched" class="text text-danger">
+
+                            <div *ngIf="affAvis.errors?.required">
+                              The Afficher avis is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="etatPub" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Etat Publication:</label>
+                          <ng-multiselect-dropdown class="col-xl-8 col-sm-7 m-0 p-0" id="etatPub" name="etatPub"
+                            [data]="listEP" formControlName="etatPub" [settings]="dropdownEPSettings"
+                            [placeholder]="'-- Select Etat Publication --'">
+                          </ng-multiselect-dropdown>
+                          <div *ngIf="etatPub.invalid && etatPub.touched" class="text text-danger">
+
+                            <div *ngIf="etatPub.errors?.required">
+                              The Etat publication is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="msgAchat" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Message à l'achat :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="msgAchat" type="text"
+                            formControlName="msgAchat" required>
+                          <div *ngIf="msgAchat.invalid && (msgAchat.touched || msgAchat.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="msgAchat.errors?.required">
+                              The message à l'achat is required.
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group row">
+                          <label for="ordreAff" class="col-xl-3 col-sm-4 mb-0"><span>*</span>Ordre affichage :</label>
+                          <input class="form-control col-xl-8 col-sm-7" id="ordreAff" type="number"
+                            formControlName="ordreAff" required>
+                          <div *ngIf="ordreAff.invalid && (ordreAff.touched || ordreAff.dirty)"
+                            class="text text-danger">
+                            <div *ngIf="ordreAff.errors?.required">
+                              The Ordre affichage  is required.
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Gestion de stock:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-gs">
+                              <input class="radio_animated" id="oui-gs" type="radio" value="Oui" name="gestStock"
+                                formControlName="gestStock" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-gs">
+                              <input class="radio_animated" id="non-gs" type="radio" value="Non" name="gestStock"
+                                formControlName="gestStock" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="gestStock.invalid && gestStock.touched" class="text text-danger">
+
+                            <div *ngIf="gestStock.errors?.required">
+                              The Gestion de stock is required.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-sm-4 mb-0"><span>*</span> Indiquer etat stock:</label>
+                          <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated col-xl-8 col-sm-7">
+                            <label class="d-block" for="oui-ies">
+                              <input class="radio_animated" id="oui-ies" type="radio" value="Oui" name="indEtatStock"
+                                formControlName="indEtatStock" />
+                              Oui
+                            </label>
+                            <label class="d-block" for="non-ies">
+                              <input class="radio_animated" id="non-ies" type="radio" value="Non" name="indEtatStock"
+                                formControlName="indEtatStock" />
+                              Non
+                            </label>
+                          </div>
+                          <div *ngIf="indEtatStock.invalid && indEtatStock.touched" class="text text-danger">
+
+                            <div *ngIf="indEtatStock.errors?.required">
+                              The Indiquer Etat Stock is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </form>
+          <div class="form-group row mb-0">
+            <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+              <button type="button" class="btn btn-primary mr-1" (click)="addProduit()">Add</button>
+              <button type="button" class="btn btn-light" (click)="resetForm()">Discard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Container-fluid Ends-->

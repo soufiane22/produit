@@ -1,0 +1,222 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <ngb-tabset class="tab-coupon profile-tabs">
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <app-feather-icons [icon]="'layout'"></app-feather-icons>Distinction
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                                    aria-labelledby="top-profile-tab">
+                                    <h5 class="f-w-600"> Informations</h5>
+                                    <form [formGroup]="distForm" *ngIf="distForm">
+                                        <div class="row product-adding">
+                                            <div class="col-xl-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>General</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="digital-add needs-validation">
+                                                            <div class="form-group">
+                                                                <label for="typeD" class="col-form-label"><span>*</span>
+                                                                    Type</label>
+                                                                <ng-multiselect-dropdown id="typeD" name="typeD"
+                                                                    [data]="listTypes" formControlName="typeD"
+                                                                    [settings]="dropdownTypesSettings"
+                                                                    [placeholder]="'-- Select Type Distinction --'">
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="typeD.invalid && typeD.touched"
+                                                                    class="text text-danger">
+
+                                                                    <div *ngIf="typeD.errors?.required">
+                                                                        The Type distinction is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="designation"
+                                                                    class="col-form-label"><span>*</span>
+                                                                    Designation</label>
+                                                                <input class="form-control" id="designation" type="text"
+                                                                    required="" formControlName="designation">
+                                                                <div *ngIf="designation.invalid && (designation.touched || designation.dirty)"
+                                                                    class="text text-danger">
+
+                                                                    <div *ngIf="designation.errors?.required">
+                                                                        The Designation is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="logo" class="col-form-label"><span>*</span>
+                                                                    Logo</label>
+                                                                <div class="add-product"
+                                                                    style="width: 70%; height: 70%;">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                                                            <img alt="" class="img-fluid image_zoom_1"
+                                                                                [lazyLoad]="logoUrl"
+                                                                                [defaultImage]="'assets/images/pro3/1.jpg'"
+                                                                                class="img-fluid image_zoom_1">
+                                                                        </div>
+                                                                        <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                                            <ul class="file-upload-product">
+                                                                                <li>
+                                                                                    <div class="box-input-file">
+                                                                                        <input class="upload"
+                                                                                            type="file"
+                                                                                            (change)="readUrl($event)">
+                                                                                        <img class="imgUpload" alt=""
+                                                                                            [lazyLoad]="logoUrl"
+                                                                                            [defaultImage]="'assets/images/user.png'"
+                                                                                            style="border-radius:100%; height:48px; width:48px;">
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div *ngIf="logo.invalid && (logo.touched || logo.dirty)"
+                                                                    class="text text-danger">
+
+                                                                    <div *ngIf="logo.errors?.required">
+                                                                        The Logo is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Complémentaire</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="digital-add needs-validation">
+                                                            <div class="form-group">
+                                                                <label for="dateObtention"
+                                                                    class="col-form-label"><span>*</span> Date
+                                                                    D'obtention</label>
+                                                                <div class="input-group col-md-12 input-grp-p">
+                                                                    <input class="datepicker-here form-control digits"
+                                                                        ngbDatepicker formControlName="dateObtention"
+                                                                        #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn calendar"
+                                                                            (click)="d.toggle()" type="button"><i
+                                                                                class="fa fa-calendar"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="dateObtention.invalid && (dateObtention.touched || dateObtention.dirty)"
+                                                                    class="text text-danger">
+
+                                                                    <div *ngIf="dateObtention.errors?.required">
+                                                                        The Date d'obtention is required.
+                                                                    </div>
+                                                                    <div *ngIf="dateObtention.errors?.invalidValue">
+                                                                        The Date d'obtention is not valid. (Format:
+                                                                        dd/mm/yyyy)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="duree" class="col-form-label"><span>*</span>
+                                                                    Durée</label>
+                                                                <input class="form-control" id="duree" type="number"
+                                                                    required="" formControlName="duree">
+                                                                <div *ngIf="duree.invalid && (duree.touched || duree.dirty)"
+                                                                    class="text text-danger">
+
+                                                                    <div *ngIf="duree.errors?.required">
+                                                                        The Durée is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="uniteDuree"
+                                                                    class="col-form-label"><span>*</span> Unité
+                                                                    Durée</label>
+                                                                <ng-multiselect-dropdown id="uniteDuree"
+                                                                    name="uniteDuree" [data]="listUnites"
+                                                                    formControlName="uniteDuree"
+                                                                    [settings]="dropdownUnitesSettings"
+                                                                    [placeholder]="'-- Select Unité durée --'">
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="uniteDuree.invalid && uniteDuree.touched"
+                                                                    class="text text-danger">
+
+                                                                    <div *ngIf="uniteDuree.errors?.required">
+                                                                        The Unité durée is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group mb-0">
+                                                                <div class="product-buttons text-center">
+                                                                    <button type="button" class="btn btn-primary mr-1"
+                                                                        (click)="editDist()">Edit</button>
+                                                                    <button type="button" (click)="clearValues()"
+                                                                        class="btn btn-light">Discard</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="cloud"></i> Produit
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Produit associé à la grille tarifaire</h5>
+                                    <form [formGroup]="distProduitForm" *ngIf="distProduitForm">
+                                        <div class="digital-add needs-validation">
+                                            <div class="form-group">
+                                                <label for="produitService" class="col-form-label pt-0"><span>*</span>
+                                                    Produit</label>
+                                                <ng-multiselect-dropdown id="produitService" name="produitService"
+                                                    [settings]="dropdownProduitSettings"
+                                                    formControlName="produitService" [data]="listProduits"
+                                                    [placeholder]="'-- Select Produit --'">
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="produitService.invalid && produitService.touched"
+                                                    class="text text-danger">
+                                                    <div *ngIf="produitService.errors?.required">
+                                                        The Produit is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-0">
+                                            <div class="product-buttons text-center">
+                                                <button type="button" class="btn btn-primary mr-1"
+                                                    [disabled]="distProduitForm.invalid"
+                                                    (click)="onclickAddToDist()">Add to
+                                                    distinction</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container-fluid">
+    <form [formGroup]="marqueForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="refMarque" class="col-form-label"><span>*</span> Réference Marque</label>
+                                <input class="form-control" id="refMarque" type="text" required=""
+                                    formControlName="refMarque">
+                                <div *ngIf="refMarque.invalid && (refMarque.touched || refMarque.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="refMarque.errors?.required">
+                                        The Réference marque is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="marque" class="col-form-label"><span>*</span> Marque</label>
+                                <ng-multiselect-dropdown id="marque" name="marque" [data]="listMarque"
+                                    formControlName="marque" [settings]="dropdownMarqueSettings"
+                                    [placeholder]="'-- Select Réference marque --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="marque.invalid && (marque.touched || marque.dirty)" class="text text-danger">
+
+                                    <div *ngIf="marque.errors?.required">
+                                        The Réference marque is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Complémentaire</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="model" class="col-form-label"><span>*</span> Modèle</label>
+                                <ng-multiselect-dropdown id="model" name="model" [data]="listModele"
+                                    formControlName="model" [settings]="dropdownModeleSettings"
+                                    [placeholder]="'-- Select Modèle --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="model.invalid && (model.touched || model.dirty)" class="text text-danger">
+
+                                    <div *ngIf="model.errors?.required">
+                                        The Modèle is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sModel" class="col-form-label"><span>*</span> Sous Modèle</label>
+                                <ng-multiselect-dropdown id="sModel" name="sModel" [data]="listSModele"
+                                    formControlName="sModel" [settings]="dropdownSModeleSettings"
+                                    [placeholder]="'-- Select Sous Modèle --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="sModel.invalid && (sModel.touched || sModel.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="sModel.errors?.required">
+                                        The Sous Modèle is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sSModel" class="col-form-label"><span>*</span> Sous sous modèle</label>
+                                <ng-multiselect-dropdown id="sSModel" name="sSModel" [data]="listSSModele"
+                                    formControlName="sSModel" [settings]="dropdownSSModeleSettings"
+                                    [placeholder]="'-- Select Sous Sous Modèle --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="sSModel.invalid && (sSModel.touched || sSModel.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="sSModel.errors?.required">
+                                        The Sous Sous modèle is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="millissime" class="col-form-label"><span>*</span> Millisime</label>
+                                <div class="input-group col-md-12 input-grp-p">
+                                    <input class="datepicker-here form-control digits" ngbDatepicker
+                                        formControlName="millissime" #d="ngbDatepicker" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <button class="btn calendar" (click)="d.toggle()" type="button"><i
+                                                class="fa fa-calendar"></i></button>
+                                    </div>
+                                </div>
+                                <div *ngIf="millissime.invalid && (millissime.touched || millissime.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="millissime.errors?.required">
+                                        The Millisime is required.
+                                    </div>
+                                    <div *ngIf="millissime.errors?.invalidValue">
+                                        The Millisime is not valid. (Format: dd/mm/yyyy)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="addMarque()">Add</button>
+                                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

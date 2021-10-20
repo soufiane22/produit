@@ -1,0 +1,174 @@
+<div class="container-fluid">
+    <form [formGroup]="gtForm" *ngIf="gtForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'grille_tarifaire.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="ref_grille" class="col-form-label"><span>*</span> {{'grille_tarifaire.fields.ref_grille' | translate}}</label>
+                                <input class="form-control" id="ref_grille" type="text" required=""
+                                    formControlName="ref_grille">
+                                <div *ngIf="ref_grille.invalid && (ref_grille.touched || ref_grille.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="ref_grille.errors?.required">
+                                        {{'grille_tarifaire.validators.ref_grille.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> {{'grille_tarifaire.fields.qte_inf' | translate}}
+                                </label>
+                                <div class="qty-box1">
+                                    <div class="input-group">
+                                        <i class="fa fa-minus btnGtr1"
+                                            (click)="decrement('inf')"></i>
+                                        <input class="touchspin1 text-center"
+                                            name="minCom" type="text"
+                                            formControlName="qte_inf" required>
+                                        <i class="fa fa-plus btnLess1"
+                                            (click)="increment('inf')"></i>
+                                    </div>
+                                </div>
+                                <div *ngIf="qte_inf.invalid && qte_inf.touched"
+                                    class="text text-danger">
+                                    <div *ngIf="qte_inf.errors?.required">
+                                        {{'grille_tarifaire.validators.qte_inf.required' | translate}}
+                                    </div>
+
+                                    <div *ngIf="qte_inf.errors?.min">
+                                        {{'grille_tarifaire.validators.qte_inf.min' | translate}}
+                                    </div>
+
+                                    <div *ngIf="qte_inf.errors?.pattern">
+                                        {{'grille_tarifaire.validators.qte_inf.integer' | translate}}
+                                    </div>
+                                </div>
+                                <div *ngIf="gtForm.errors?.invalidValue && (qte_inf.touched || qte_inf.dirty)"
+                                    class="text text-danger">
+                                    {{'grille_tarifaire.validators.qte_inf.invalid' | translate}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> {{'grille_tarifaire.fields.qte_sup' | translate}}
+                                </label>
+                                <div class="qty-box1">
+                                    <div class="input-group">
+                                        <i class="fa fa-minus btnGtr1"
+                                            (click)="decrement('sup')"></i>
+                                        <input class=" text-center" name="maxCom"
+                                            type="text" formControlName="qte_sup"
+                                            required>
+                                        <i class="fa fa-plus btnLess1"
+                                            (click)="increment('sup')"></i>
+                                    </div>
+                                </div>
+                                <div *ngIf="gtForm.errors?.invalidValue && (qte_sup.touched || qte_sup.dirty)"
+                                    class="text text-danger">
+                                    {{'grille_tarifaire.validators.qte_sup.invalid' | translate}}
+                                </div>
+                                <div *ngIf="qte_sup.invalid && (qte_sup.touched || qte_sup.dirty)"
+                                    class="text text-danger">
+                                    <div *ngIf="qte_sup.errors?.required">
+                                        {{'grille_tarifaire.validators.qte_sup.required' | translate}}
+                                    </div>
+                                    <div *ngIf="qte_sup.errors?.min">
+                                        {{'grille_tarifaire.validators.qte_sup.min' | translate}}
+                                    </div>
+                                    <div *ngIf="qte_sup.errors?.pattern">
+                                        {{'grille_tarifaire.validators.qte_sup.integer' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'grille_tarifaire.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="tuht" class="col-form-label"><span>*</span>
+                                    {{'grille_tarifaire.fields.tarif_unitaire_ht' | translate}}</label>
+                                <input class="form-control" id="tuht" type="number"
+                                    required="" formControlName="tarif_unitaire_ht">
+                                <div *ngIf="tarif_unitaire_ht.invalid && (tarif_unitaire_ht.touched || tarif_unitaire_ht.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="tarif_unitaire_ht.errors?.required">
+                                        {{'grille_tarifaire.validators.tarif_unitaire_ht.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="valeur"
+                                    class="col-form-label"><span>*</span> {{'grille_tarifaire.fields.valeur' | translate}}</label>
+                                <input class="form-control" id="valeur" type="number"
+                                    required="" formControlName="valeur">
+                                <div *ngIf="valeur.invalid && (valeur.touched || valeur.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="valeur.errors?.required">
+                                        {{'grille_tarifaire.validators.valeur.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monnaie"
+                                    class="col-form-label"><span>*</span>
+                                    {{'grille_tarifaire.fields.monnaie' | translate}}</label>
+                                <ng-multiselect-dropdown name="monnaie"
+                                    [placeholder]="'-- Select Monnaie --'"
+                                    [settings]="dropdownMonnaieSettings"
+                                    formControlName="monnaie" [data]="listMonnaies">
+                                    <ng-template #optionsTemplate let-item
+                                        let-option="option" let-id="id"
+                                        let-isSelected="isSelected">
+                                        <div
+                                            style="padding:1px 10px;margin-right:10px;right:2px;top:-2px">
+                                            <img [src]="getMonnaies[id].image"
+                                                style="width: 18px; margin: 0 20px;" />
+                                            <label style="color: #333;min-width: 130px;"
+                                                [ngStyle]="{ 'color': getMonnaies[id].isDisabled? 'lightgrey':''}">
+                                                {{getMonnaies[id].item_text}}
+                                            </label>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #optionSelectedTemplate
+                                        let-option="option" let-id="id">
+                                        <div>
+                                            <img [src]="getMonnaies[id].image"
+                                                style="width: 18px; margin-right: 2px;" />
+                                            {{option}}
+                                        </div>
+                                    </ng-template>
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="monnaie.invalid && (monnaie.touched||monnaie.dirty)"
+                                    class="text text-danger">
+
+                                    <div *ngIf="monnaie.errors?.required">
+                                        {{'grille_tarifaire.validators.monnaie.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button type="button" class="btn btn-primary mr-1" (click)="editGt()">{{'button.edit' | translate}}</button>
+                <button type="button" (click)="clearValues()" class="btn btn-light">{{'button.discard' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

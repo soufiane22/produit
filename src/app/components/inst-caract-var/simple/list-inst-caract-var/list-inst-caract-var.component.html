@@ -1,0 +1,100 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Instance Caractéristique Variable</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <button class="btn btn-primary mr-1 mb-3" style="float: right;"
+                            (click)="addInstCaractVar()">Add</button>
+                        <div class="clearfix"></div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" *ngFor="let header of instCarVarHeaders">{{header}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let instCarVar of listInstCarVar">
+                                        <td>{{instCarVar.refInstCaractVar}}</td>
+                                        <td [ngSwitch]="instCarVar.affUniqPriv">
+                                            <span *ngSwitchCase="true" class="badge badge-success">Publique</span>
+                                            <span *ngSwitchDefault class="badge badge-danger">Privée</span>
+                                        </td>
+                                        <td>{{instCarVar.groupe}}</td>
+                                        <td>{{instCarVar.label}}</td>
+                                        <td>{{instCarVar.valeur}}</td>
+                                        <td>{{instCarVar.unite}}</td>
+                                        <td>{{instCarVar.ordre}}</td>
+                                        <td [ngSwitch]="instCarVar.coutAdd">
+                                            <span *ngSwitchCase="true" class="badge badge-success">Oui</span>
+                                            <span *ngSwitchDefault class="badge badge-info">Non</span>
+                                        </td>
+                                        <td>{{instCarVar.typeCoutAdd}}</td>
+                                        <td>{{instCarVar.valeurCoutAdd}}</td>
+                                        <td>{{instCarVar.prix}}</td>
+                                        <td><a (click)="onClickShowInstCaractVar(instCarVar._id)" href="javascript:;"
+                                                class="text text-info"><i class="fa fa-eye"></i></a>&nbsp;
+                                            |&nbsp;
+                                            <a (click)="onClickEditInstCaractVar(instCarVar._id)" href="javascript:;"
+                                                class="text text-warning"><i class="fa fa-edit"></i></a>&nbsp;
+                                            |&nbsp;
+                                            <a (click)="setInstCaractVarToDelete(instCarVar._id)"
+                                                (click)="open(deleteModalGt)" href="javascript:;"
+                                                class="text text-danger"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #deleteModalGt let-modal>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer l'instance caractéristique
+                            variante</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container" style="padding: 20px 20px;">
+                            <div style="text-align: center;margin-bottom: 15px;  ">
+                                <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                                    aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="text-align: center;">
+                                Êtes-vous sûr?
+                            </h4>
+                        </div>
+                        <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+                            <p style="line-height:15px;">
+                                Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                                annulé.</p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer" style="text-align: center;">
+                        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')"
+                            href="javascript:;" data-dismiss="modal">
+
+                            Annuler
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDelete()"
+                            (click)="modal.dismiss('Cross click')">
+                            Supprimer
+                        </button>
+
+                    </div>
+                </div>
+
+            </ng-template>
+
+        </div>
+    </div>
+</div>

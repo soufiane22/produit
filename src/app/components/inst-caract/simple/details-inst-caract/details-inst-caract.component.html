@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <form [formGroup]="instCaractForm" *ngIf="instCaractForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'inst_caract.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="refInstCaracterist" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.refInstCaracterist' | translate}}</label>
+                                <input class="form-control" id="refInstCaracterist" type="text" required=""
+                                    formControlName="refInstCaracterist">
+                            </div>
+                            <div class="form-group">
+                                <label for="groupeCaracterist" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.groupeCaracterist' | translate}}</label>
+                                <input class="form-control" id="groupeCaracterist" type="text" required=""
+                                    formControlName="groupeCaracterist">
+                            </div>
+                            <div class="form-group">
+                                <label for="uniteCaracterist" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.uniteCaracterist' | translate}}</label>
+                                <input class="form-control" id="uniteCaracterist" type="text" required=""
+                                    formControlName="uniteCaracterist">
+                            </div>
+                            <div class="form-group">
+                                <label for="labelCaracterist" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.labelCaracterist' | translate}}</label>
+                                <input class="form-control" id="labelCaracterist" type="text" required=""
+                                    formControlName="labelCaracterist">
+                            </div>
+                            <div class="form-group" >
+                                <label for="valeurCaracterist" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.valeurCaracterist' | translate}}</label>
+                                <input class="form-control" id="valeurCaracterist" type="text" required=""
+                                    formControlName="valeurCaracterist">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'inst_caract.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group" >
+                                <label for="typeCoutAdditionnel" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.typeCoutAdditionnel' | translate}}</label>
+                                <input class="form-control" id="typeCoutAdditionnel" type="text" required=""
+                                    formControlName="typeCoutAdditionnel">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="valeurCoutAdditionnel" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.valeurCoutAdditionnel' |
+                                    translate}}</label>
+                                <input class="form-control" id="valeurCoutAdditionnel" type="number" required=""
+                                    formControlName="valeurCoutAdditionnel">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> {{'inst_caract.fields.affichagePrive' |
+                                    translate}}</label>
+                                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                    <label class="d-block" for="oui-affPr">
+                                        <input class="radio_animated" id="oui-affPr" type="radio" value="Oui"
+                                            name="affichagePrive" formControlName="affichagePrive" />
+                                        {{'radio.value1' | translate}}
+                                    </label>
+                                    <label class="d-block" for="non-affPr">
+                                        <input class="radio_animated" id="non-affPr" type="radio" value="Non"
+                                            name="affichagePrive" formControlName="affichagePrive" />
+                                        {{'radio.value2' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ordreCaracterist" class="col-form-label"><span>*</span>
+                                    {{'inst_caract.fields.ordreCaracterist' | translate}}</label>
+                                <input class="form-control" id="ordreCaracterist" type="number" required=""
+                                    formControlName="ordreCaracterist">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button *ngIf="idProduct" type="button" class="btn btn-primary mr-1"
+                    (click)="associatedProduct()">{{'button.go_to_product' | translate}}</button>
+                <button type="button" (click)="goToList()" class="btn btn-light">{{'button.go_to_list' |
+                    translate}}</button>
+            </div>
+        </div>
+    </form>
+
+</div>

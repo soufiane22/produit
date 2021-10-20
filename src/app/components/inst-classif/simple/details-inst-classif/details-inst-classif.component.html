@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <form [formGroup]="instClassifForm" *ngIf="instClassifForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'inst_classif.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="ref_classif_valeur" class="col-form-label"><span>*</span>
+                                    {{'inst_classif.fields.ref_classif_valeur' | translate}}</label>
+                                <input class="form-control" id="ref_classif_valeur" type="text" required=""
+                                    formControlName="ref_classif_valeur">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'inst_classif.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="label_texte" class="col-form-label"><span>*</span>
+                                    {{'inst_classif.fields.label_texte' | translate}}</label>
+                                <input class="form-control" id="label_texte" type="text" required=""
+                                    formControlName="label_texte">
+                            </div>
+                            <div class="form-group">
+                                <label for="valeur" class="col-form-label"><span>*</span>
+                                    {{'inst_classif.fields.valeur' | translate}}</label>
+                                <input class="form-control" id="valeur" type="text" required=""
+                                    formControlName="valeur">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button type="button" class="btn btn-primary mr-1"
+                    (click)="associatedProduct()" *ngIf="idProduct">{{'button.go_to_product' | translate}}</button>
+                <button type="button" (click)="goToList()" class="btn btn-light">{{'button.go_to_list' |
+                    translate}}</button>
+            </div>
+        </div>
+    </form>
+
+</div>

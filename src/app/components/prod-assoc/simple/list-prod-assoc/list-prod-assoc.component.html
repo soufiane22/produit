@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="ard">
+    <p-toolbar>
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="btn btn-primary mr-1"
+        routerLink="/prod-assoc/simple/add-prod-assoc" routerLinkActive="active">
+
+        </button>
+      </ng-template>
+
+      <ng-template pTemplate="left">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search..." />
+          </span>
+        </div>
+      </ng-template>
+
+    </p-toolbar>
+
+
+    <p-table #dt2 [value]="listProdAsooc" [rows]="4" [paginator]="true"
+    [globalFilterFields]="['refContenu','titreDoc', 'typeContenu', 'formatDoc']"
+    responsiveLayout="scroll" [rowHover]="true" dataKey="id" [resizableColumns]="true"
+    [autoLayout]="true">
+    <ng-template pTemplate="header">
+      <tr  style="font-size: medium;">
+        <th *ngFor="let col of colProdAssoc" pSortableColumn="{{col.field}}" [style.width]="col.width">
+          {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+        </th>
+
+        <th style="width: 6rem">Action</th>
+      </tr>
+
+      <!-- <tr style="font-size: medium;">
+
+        <th *ngFor="let col of colProdAssoc" [ngSwitch]="col.field">
+          <input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, 'contains')"
+            placeholder="Search..." [style.width]="col.width" />
+        </th>
+        <th><i class="fa fa-cogs" style="font-size:35px"></i></th>
+      </tr> -->
+
+    </ng-template>
+
+
+    <ng-template pTemplate="body" let-prodAssoc>
+      <tr style="height: 25px;font-size: medium;" >
+        <td>{{prodAssoc.typeAssociation}}</td>
+        <td>{{prodAssoc.produitService1}}</td>
+        <td>{{prodAssoc.produitService2}}</td>
+        <td>
+          <a href="javascript:;" class="text text-info" routerLink="/prod-assoc/simple/details-prod-assoc/{{prodAssoc._id}}">
+            <i  class="fa fa-eye"></i>
+          </a>&nbsp;
+
+          |&nbsp;
+       <!--    <a (click)="onClickEditContMmedia(contMmedia._id)" href="javascript:;" class="text text-warning"><i
+              class="fa fa-edit"></i></a>&nbsp;
+          |&nbsp;
+          <a (click)="setContMmediaToDelete(content,contMmedia._id)" href="javascript:;"
+            class="text text-danger"><i class="fa fa-trash"></i></a> -->
+        </td>
+
+      </tr>
+    </ng-template>
+    </p-table>
+
+  </div>
+</div>

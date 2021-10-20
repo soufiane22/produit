@@ -1,0 +1,187 @@
+<div class="container-fluid">
+  <form [formGroup]="indStockForm">
+    <div class="row product-adding">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>General</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="refStock" class="col-form-label"><span>*</span> Réference Stock</label>
+                <input class="form-control" id="refStock" type="text" required="" formControlName="refStock">
+                <div *ngIf="refStock.invalid && (refStock.touched || refStock.dirty)" class="text text-danger">
+                  <div *ngIf="refStock.errors?.required">
+                    The Réference stock is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="refPartenaire" class="col-form-label"><span>*</span> Réference Partenaire</label>
+                <input class="form-control" id="refPartenaire" type="text" required="" formControlName="refPartenaire">
+                <div *ngIf="refPartenaire.invalid && (refPartenaire.touched || refPartenaire.dirty)" class="text text-danger">
+                  <div *ngIf="refPartenaire.errors?.required">
+                    The Réference partenaire is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="etatStock" class="col-form-label"><span>*</span> Etat Stock</label>
+                <ng-multiselect-dropdown id="etatStock" name="etatStock" [data]="listEtat"
+                  formControlName="etatStock" [settings]="dropdownEtatSettings"
+                  [placeholder]="'-- Select Stock --'">
+                </ng-multiselect-dropdown>
+                <div *ngIf="etatStock.invalid && etatStock.touched" class="text text-danger">
+
+                  <div *ngIf="etatStock.errors?.required">
+                    The Etat Stock is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label"><span>*</span> Indiquer quantité disponible</label>
+                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                  <label class="d-block" for="oui-iqd">
+                    <input class="radio_animated" id="oui-iqd" type="radio" value="Oui" name="indQteDispo"
+                      formControlName="indQteDispo" />
+                    Oui
+                  </label>
+                  <label class="d-block" for="non-iqd">
+                    <input class="radio_animated" id="non-iqd" type="radio" value="Non" name="indQteDispo"
+                      formControlName="indQteDispo" />
+                    Non
+                  </label>
+                </div>
+                <div *ngIf="indQteDispo.invalid && indQteDispo.touched" class="text text-danger">
+
+                  <div *ngIf="indQteDispo.errors?.required">
+                    The Indiquer quantité disponible is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="qteDisponible" class="col-form-label"><span>*</span> Quantité disponible</label>
+                <input class="form-control" id="qteDisponible" type="number" required="" formControlName="qteDisponible">
+                <div *ngIf="qteDisponible.invalid && (qteDisponible.touched || qteDisponible.dirty)" class="text text-danger">
+                  <div *ngIf="qteDisponible.errors?.required">
+                    The quantité disponible is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>Complémentaires</h5>
+          </div>
+          <div class="card-body">
+            <div class="digital-add needs-validation">
+              <div class="form-group">
+                <label for="refRFIDStock" class="col-form-label"><span>*</span> Réference RFID</label>
+                <div class="add-product" style="width: 70%; height: 70%;">
+                  <div class="row">
+                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                      <img alt="" class="img-fluid image_zoom_1" [lazyLoad]="rfidUrl"
+                        [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                    </div>
+                    <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                      <ul class="file-upload-product">
+                        <li>
+                          <div class="box-input-file">
+                            <input class="upload" type="file" (change)="readRfidUrl($event)">
+                            <img class="imgUpload" alt="" [lazyLoad]="rfidUrl"
+                              [defaultImage]="'assets/images/user.png'"
+                              style="border-radius:100%; height:48px; width:48px;">
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="refRFIDStock.invalid && (refRFIDStock.touched || refRFIDStock.dirty)" class="text text-danger">
+
+                  <div *ngIf="refRFIDStock.errors?.required">
+                    The Réference RFID is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="refQRStock" class="col-form-label"><span>*</span> Réference QR</label>
+                <div class="add-product" style="width: 70%; height: 70%;">
+                  <div class="row">
+                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                      <img alt="" class="img-fluid image_zoom_1" [lazyLoad]="rqrUrl"
+                        [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                    </div>
+                    <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                      <ul class="file-upload-product">
+                        <li>
+                          <div class="box-input-file">
+                            <input class="upload" type="file" (change)="readQrUrl($event)">
+                            <img class="imgUpload" alt="" [lazyLoad]="rqrUrl"
+                              [defaultImage]="'assets/images/user.png'"
+                              style="border-radius:100%; height:48px; width:48px;">
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="refQRStock.invalid && (refQRStock.touched || refQRStock.dirty)" class="text text-danger">
+
+                  <div *ngIf="refQRStock.errors?.required">
+                    The Réference QR is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="refCodeBarreStock" class="col-form-label"><span>*</span> Réference Code barre</label>
+                <div class="add-product" style="width: 70%; height: 70%;">
+                  <div class="row">
+                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                      <img alt="" class="img-fluid image_zoom_1" [lazyLoad]="rcbUrl"
+                        [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                    </div>
+                    <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                      <ul class="file-upload-product">
+                        <li>
+                          <div class="box-input-file">
+                            <input class="upload" type="file" (change)="readCodeBarreUrl($event)">
+                            <img class="imgUpload" alt="" [lazyLoad]="rcbUrl"
+                              [defaultImage]="'assets/images/user.png'"
+                              style="border-radius:100%; height:48px; width:48px;">
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="refCodeBarreStock.invalid && (refCodeBarreStock.touched || refCodeBarreStock.dirty)" class="text text-danger">
+
+                  <div *ngIf="refCodeBarreStock.errors?.required">
+                    The Réference Code barre is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <div class="product-buttons text-center">
+                  <button type="button" class="btn btn-primary mr-1" (click)="addIndStock()">Add</button>
+                  <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

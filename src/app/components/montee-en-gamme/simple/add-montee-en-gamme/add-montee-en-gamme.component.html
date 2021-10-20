@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <form [formGroup]="megForm">
+      <div class="row product-adding">
+        <div class="col-xl-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>General</h5>
+            </div>
+            <div class="card-body">
+              <div class="digital-add needs-validation">
+                <div class="form-group">
+                  <label for="iconeSymbol" class="col-form-label"><span>*</span> Icone</label>
+                  <div class="add-product" style="width: 70%; height: 70%;">
+                    <div class="row">
+                      <div class="col-xl-9 xl-50 col-sm-6 col-9" [ngSwitch]="url.img.includes('assets/')">
+                        <img *ngSwitchCase="false" alt="" class="img-fluid image_zoom_1" [lazyLoad]="url.img"
+                          [defaultImage]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                        <img *ngSwitchDefault alt="" class="img-fluid image_zoom_1"
+                          [lazyLoad]="'assets/images/pro3/1.jpg'" class="img-fluid image_zoom_1">
+                      </div>
+                      <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                        <ul class="file-upload-product">
+                          <li>
+                            <div class="box-input-file">
+                              <input class="upload" type="file" (change)="readUrl($event)">
+                              <img class="imgUpload" alt="" [lazyLoad]="url.img"
+                                [defaultImage]="'assets/images/user.png'"
+                                style="border-radius:100%; height:48px; width:48px;">
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div *ngIf="iconeSymbol.invalid && (iconeSymbol.touched || iconeSymbol.dirty)" class="text text-danger">
+  
+                    <div *ngIf="iconeSymbol.errors?.required">
+                      The Logo is required.
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>Complémentaire</h5>
+            </div>
+            <div class="card-body">
+              <div class="digital-add needs-validation">
+                <div class="form-group">
+                    <label for="typeMonteeEnGamme" class="col-form-label"><span>*</span> Type</label>
+                    <ng-multiselect-dropdown id="typeMonteeEnGamme" name="typeMonteeEnGamme" [data]="listTypes"
+                      formControlName="typeMonteeEnGamme" [settings]="dropdownTypesSettings"
+                      [placeholder]="'-- Select Type Distinction --'">
+                    </ng-multiselect-dropdown>
+                    <div *ngIf="typeMonteeEnGamme.invalid && typeMonteeEnGamme.touched" class="text text-danger">
+    
+                      <div *ngIf="typeMonteeEnGamme.errors?.required">
+                        The Type Montée en gamme is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="description" class="col-form-label"><span>*</span> Description</label>
+                    <input class="form-control" id="description" type="text" required="" formControlName="description">
+                    <div *ngIf="description.invalid && (description.touched || description.dirty)" class="text text-danger">
+    
+                      <div *ngIf="description.errors?.required">
+                        The Description is required.
+                      </div>
+                    </div>
+                  </div>
+                <div class="form-group mb-0">
+                  <div class="product-buttons text-center">
+                    <button type="button" class="btn btn-primary mr-1" (click)="addDist()">Add</button>
+                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  </div>
+  

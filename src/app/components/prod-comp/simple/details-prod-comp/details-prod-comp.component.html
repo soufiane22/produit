@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <form [formGroup]="prodCompForm" *ngIf="prodCompForm">
+      <div class="row product-adding">
+          <div class="col-xl-6">
+              <div class="card">
+                  <div class="card-header">
+                      <h5>General</h5>
+                  </div>
+                  <div class="card-body">
+                      <div class="digital-add needs-validation">
+                          <div class="form-group">
+                              <label for="typeProduit" class="col-form-label"><span>*</span> Type Produit</label>
+                              <input class="form-control" id="typeProduit" type="text" disabled
+                              value="{{prodComp.typeProduit}}">
+                          </div>
+                          <div class="form-group">
+                              <label for="qteProduit" class="col-form-label"><span>*</span> Quantité produit</label>
+                              <input class="form-control" id="qteProduit" type="number" disabled
+                                 value="{{prodComp.qteProduit}}" >
+                          </div>
+                          <div class="form-group">
+                              <label for="uniteQte" class="col-form-label"><span>*</span> Unité quantité</label>
+                              <input class="form-control" id="uniteQte" type="text"  value="{{prodComp.uniteQte}}" disabled>
+
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-6">
+              <div class="card">
+                  <div class="card-header">
+                      <h5>Complémentaire</h5>
+                  </div>
+                  <div class="card-body">
+                      <div class="digital-add needs-validation">
+                          <div class="form-group">
+                              <label for="refProdComposant" class="col-form-label"><span>*</span> Produit Composant</label>
+                              <input class="form-control" id="refProdComposant" type="text" disabled
+                               value="{{prodComp.refProdComposant.translations[0].__designation }}" >
+                               <!-- .translations[0].__designation -->
+
+
+                          </div>
+                          <div class="form-group">
+                              <label for="refProdCompose" class="col-form-label"><span>*</span> Produit Composé</label>
+                              <input class="form-control" id="refProdCompose" type="text" disabled
+                              value="{{prodComp.refProdCompose.translations[0].__designation }}">
+
+                          </div>
+
+                          <div class="form-group mb-0">
+                              <div class="product-buttons text-center">
+                                  <button type="button" class="btn btn-primary mr-1" routerLinkActive="active"
+                                  routerLink="/prod-comp/simple/list-prod-comp">
+                                    Returne
+                                  </button>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </form>
+
+</div>

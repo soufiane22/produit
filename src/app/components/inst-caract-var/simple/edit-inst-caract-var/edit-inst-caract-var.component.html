@@ -1,0 +1,400 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-body">
+                    <ngb-tabset class="tab-coupon profile-tabs">
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <app-feather-icons [icon]="'clipboard'"></app-feather-icons>Instance Caractéristique Variante
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                                    aria-labelledby="top-profile-tab">
+                                    <h5 class="f-w-600"> Informations</h5>
+                                    <form [formGroup]="instCarVarForm" *ngIf="instCarVarForm">
+                                        <div class="row product-adding">
+                                            <div class="col-xl-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>General</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="digital-add needs-validation">
+                                                            <div class="form-group">
+                                                                <label for="refInstCaractVar" class="col-form-label pt-0"><span>*</span>
+                                                                    Réference</label>
+                                                                <input class="form-control" id="refInstCaractVar" type="text" required=""
+                                                                    formControlName="refInstCaractVar">
+                                                                <div *ngIf="refInstCaractVar.invalid && (refInstCaractVar.touched || refInstCaractVar.dirty)"
+                                                                    class="text text-danger">
+                                                                    <div *ngIf="refInstCaractVar.errors?.required">
+                                                                        The Reference is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="affUniqPriv" class="col-form-label"><span>*</span> Affichage Uniquement
+                                                                    Privé</label>
+                                                                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                                    <label class="d-block" for="oui-aff">
+                                                                        <input class="radio_animated" id="oui-aff" type="radio" value="Oui"
+                                                                            name="affUniqPriv" formControlName="affUniqPriv" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-aff">
+                                                                        <input class="radio_animated" id="non-aff" type="radio" value="Non"
+                                                                            name="affUniqPriv" formControlName="affUniqPriv" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                                <div *ngIf="affUniqPriv.invalid && affUniqPriv.touched" class="text text-danger">
+
+                                                                    <div *ngIf="affUniqPriv.errors?.required">
+                                                                        The Affichage uniquement privée is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="groupe" class="col-form-label pt-0"><span>*</span> Groupe</label>
+                                                                <ng-multiselect-dropdown id="groupe" name="groupe" [data]="listGroupe"
+                                                                    formControlName="groupe" [settings]="dropdownGroupeSettings"
+                                                                    [placeholder]="'-- Select Groupe --'">
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="groupe.invalid &&  groupe.touched" class="text text-danger">
+
+                                                                    <div *ngIf=" groupe.errors?.required">
+                                                                        The Groupe is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="label" class="col-form-label pt-0"><span>*</span>
+                                                                    Label</label>
+                                                                <input class="form-control" id="label" type="text" required="" formControlName="label"
+                                                                    name="label">
+                                                                <div *ngIf="label.invalid && (label.touched || label.dirty)" class="text text-danger">
+                                                                    <div *ngIf="label.errors?.required">
+                                                                        The Label is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="valeur" class="col-form-label pt-0"><span>*</span>
+                                                                    Valeur</label>
+                                                                <input class="form-control" id="valeur" name="valeur" type="text" required=""
+                                                                    formControlName="valeur">
+                                                                <div *ngIf="valeur.invalid && (valeur.touched || valeur.dirty)"
+                                                                    class="text text-danger">
+                                                                    <div *ngIf="valeur.errors?.required">
+                                                                        The Valeur is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="unite" class="col-form-label pt-0"><span>*</span> Unité</label>
+                                                                <ng-multiselect-dropdown id="unite" name="unite" [data]="listUnite"
+                                                                    formControlName="unite" [settings]="dropdownUniteSettings"
+                                                                    [placeholder]="'-- Select Unite --'">
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="unite.invalid &&  unite.touched" class="text text-danger">
+
+                                                                    <div *ngIf="unite.errors?.required">
+                                                                        The Unite is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="ordre" class="col-form-label pt-0"><span>*</span>
+                                                                    Ordre</label>
+                                                                <input class="form-control" id="ordre" type="number" required=""
+                                                                    formControlName="ordre">
+                                                                <div *ngIf="ordre.invalid && (ordre.touched || ordre.dirty)" class="text text-danger">
+                                                                    <div *ngIf="ordre.errors?.required">
+                                                                        The Ordre is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Complémentaires</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="digital-add needs-validation">
+                                                            <div class="form-group">
+                                                                <label for="coutAdd" class="col-form-label"><span>*</span> Coût Additionnel</label>
+                                                                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                                    <label class="d-block" for="oui-coutAdd">
+                                                                        <input class="radio_animated" id="oui-coutAdd" type="radio" value="Oui"
+                                                                            name="coutAdd" formControlName="coutAdd" />
+                                                                        Oui
+                                                                    </label>
+                                                                    <label class="d-block" for="non-coutAdd">
+                                                                        <input class="radio_animated" id="non-coutAdd" type="radio" value="Non"
+                                                                            name="coutAdd" formControlName="coutAdd" />
+                                                                        Non
+                                                                    </label>
+                                                                </div>
+                                                                <div *ngIf="coutAdd.invalid && coutAdd.touched" class="text text-danger">
+
+                                                                    <div *ngIf="coutAdd.errors?.required">
+                                                                        The Coût additionnel is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="type" class="col-form-label pt-0"><span>*</span> Types coût additionnel</label>
+                                                                <ng-multiselect-dropdown id="type" name="typeCoutAdd" [data]="listType"
+                                                                    formControlName="typeCoutAdd" [settings]="dropdownTypeSettings"
+                                                                    [placeholder]="'-- Select Type --'">
+                                                                </ng-multiselect-dropdown>
+                                                                <div *ngIf="typeCoutAdd.invalid &&  typeCoutAdd.touched" class="text text-danger">
+
+                                                                    <div *ngIf="typeCoutAdd.errors?.required">
+                                                                        The Type is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="valeurCoutAdd" class="col-form-label pt-0"><span>*</span>
+                                                                    Valeur coût additionnel</label>
+                                                                <input class="form-control" id="valeurCoutAdd" type="number" required=""
+                                                                    formControlName="valeurCoutAdd">
+                                                                <div *ngIf="valeurCoutAdd.invalid && (valeurCoutAdd.touched || valeurCoutAdd.dirty)"
+                                                                    class="text text-danger">
+                                                                    <div *ngIf="valeurCoutAdd.errors?.required">
+                                                                        The Valeur Coût Additionnel is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="prix" class="col-form-label pt-0"><span>*</span>
+                                                                    Prix par défaut</label>
+                                                                <input class="form-control" id="prix" type="number" required="" formControlName="prix">
+                                                                <div *ngIf="prix.invalid && (prix.touched || prix.dirty)" class="text text-danger">
+                                                                    <div *ngIf="prix.errors?.required">
+                                                                        The prix is required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group mb-0">
+                                                                <div class="product-buttons text-center">
+                                                                    <button type="button" class="btn btn-primary mr-1"
+                                                                        (click)="editInstCaractVar()">Edit</button>
+                                                                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="box"></i> Produit
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Produit de l'instance caractéristique variante</h5>
+                                    <form [formGroup]="instCarVarProduitForm" *ngIf="instCarVarProduitForm">
+                                      <div class="digital-add needs-validation">
+                                          <div class="form-group">
+                                              <label for="produitService" class="col-form-label pt-0"><span>*</span>
+                                                  Produit</label>
+                                              <ng-multiselect-dropdown id="produitService" name="produitService"
+                                                  [settings]="dropdownProduitSettings"
+                                                  formControlName="produitService" [data]="listProduits"
+                                                  [placeholder]="'-- Select Produit --'">
+                                              </ng-multiselect-dropdown>
+                                              <div *ngIf="produitService.invalid && produitService.touched"
+                                                  class="text text-danger">
+                                                  <div *ngIf="produitService.errors?.required">
+                                                      The Produit is required.
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group mb-0">
+                                          <div class="product-buttons text-center">
+                                              <button type="button" class="btn btn-primary mr-1"
+                                                  [disabled]="instCarVarProduitForm.invalid" (click)="editInstCarVarProduit()">Add
+                                                  to instance caractéristique variante</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="package"></i> Indication Promo
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Indication Promo de l'instance caractéristique variante</h5>
+                                    <form [formGroup]="instCarVarIndPromoForm" *ngIf="instCarVarIndPromoForm">
+                                      <div class="digital-add needs-validation">
+                                          <div class="form-group">
+                                              <label for="indPromo" class="col-form-label pt-0"><span>*</span>
+                                                  Indication Promo</label>
+                                              <ng-multiselect-dropdown id="indPromo" name="indPromo"
+                                                  [settings]="dropdownIndPromoSettings"
+                                                  formControlName="indPromo" [data]="listIndPromo"
+                                                  [placeholder]="'-- Select Indication Promo --'">
+                                              </ng-multiselect-dropdown>
+                                              <div *ngIf="indPromo.invalid && indPromo.touched"
+                                                  class="text text-danger">
+                                                  <div *ngIf="indPromo.errors?.required">
+                                                      The Indication Promo is required.
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group mb-0">
+                                          <div class="product-buttons text-center">
+                                              <button type="button" class="btn btn-primary mr-1"
+                                                  [disabled]="instCarVarIndPromoForm.invalid" (click)="editInstCarVarIndPromo()">Add
+                                                  to instance caractéristique variante</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="life-buoy"></i> Indication Frais Additionnel
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Indication Frais Additionnel de l'instance caractéristique
+                                        variante</h5>
+                                        <form [formGroup]="instCarVarIndFraisAddForm" *ngIf="instCarVarIndFraisAddForm">
+                                          <div class="digital-add needs-validation">
+                                              <div class="form-group">
+                                                  <label for="indFraisAdd" class="col-form-label pt-0"><span>*</span>
+                                                      Indication Frais Additionnel</label>
+                                                  <ng-multiselect-dropdown id="indFraisAdd" name="indFraisAdd"
+                                                      [settings]="dropdownIndFraisAddSettings"
+                                                      formControlName="indFraisAdd" [data]="listIndFraisAdd"
+                                                      [placeholder]="'-- Select Indication Frais Additionnel --'">
+                                                  </ng-multiselect-dropdown>
+                                                  <div *ngIf="indFraisAdd.invalid && indFraisAdd.touched"
+                                                      class="text text-danger">
+                                                      <div *ngIf="indFraisAdd.errors?.required">
+                                                          The Indication Frais Additionnel is required.
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="form-group mb-0">
+                                              <div class="product-buttons text-center">
+                                                  <button type="button" class="btn btn-primary mr-1"
+                                                      [disabled]="instCarVarIndFraisAddForm.invalid" (click)="editInstCarVarIndFraisAdd()">Add
+                                                      to instance caractéristique variante</button>
+                                              </div>
+                                          </div>
+                                      </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="box"></i> Indication Stock
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Indication Stock de l'instance caractéristique variante</h5>
+                                    <form [formGroup]="instCarVarIndStockForm" *ngIf="instCarVarIndStockForm">
+                                      <div class="digital-add needs-validation">
+                                          <div class="form-group">
+                                              <label for="indStock" class="col-form-label pt-0"><span>*</span>
+                                                  Indication Stock</label>
+                                              <ng-multiselect-dropdown id="indStock" name="indStock"
+                                                  [settings]="dropdownIndStockSettings"
+                                                  formControlName="indStock" [data]="listIndStock"
+                                                  [placeholder]="'-- Select Indication Stock --'">
+                                              </ng-multiselect-dropdown>
+                                              <div *ngIf="indStock.invalid && indStock.touched"
+                                                  class="text text-danger">
+                                                  <div *ngIf="indStock.errors?.required">
+                                                      The Indication Stock is required.
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group mb-0">
+                                          <div class="product-buttons text-center">
+                                              <button type="button" class="btn btn-primary mr-1"
+                                                  [disabled]="instCarVarIndStockForm.invalid" (click)="editInstCarVarIndStock()">Add
+                                                  to instance caractéristique variante</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i data-feather="truck"></i> Expédition
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="account-setting">
+                                    <h5 class="f-w-600">Expédition de l'instance caractéristique variante</h5>
+                                    <form [formGroup]="instCarVarExpForm" *ngIf="instCarVarExpForm">
+                                      <div class="digital-add needs-validation">
+                                          <div class="form-group">
+                                              <label for="expedition" class="col-form-label pt-0"><span>*</span>
+                                                  Expedition</label>
+                                              <ng-multiselect-dropdown id="expedition" name="expedition"
+                                                  [settings]="dropdownExpSettings"
+                                                  formControlName="expedition" [data]="listExp"
+                                                  [placeholder]="'-- Select Expedition --'">
+                                              </ng-multiselect-dropdown>
+                                              <div *ngIf="expedition.invalid && expedition.touched"
+                                                  class="text text-danger">
+                                                  <div *ngIf="expedition.errors?.required">
+                                                      The Expedition is required.
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group mb-0">
+                                          <div class="product-buttons text-center">
+                                              <button type="button" class="btn btn-primary mr-1"
+                                                  [disabled]="instCarVarExpForm.invalid" (click)="editInstCarVarExp()">Add
+                                                  to instance caractéristique variante</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

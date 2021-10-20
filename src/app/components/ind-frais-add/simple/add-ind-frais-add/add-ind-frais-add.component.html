@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <form [formGroup]="indFraisAddForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'ind_frais_add.div1.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="refFrais" class="col-form-label"><span>*</span> {{'ind_frais_add.fields.refFrais' | translate}}</label>
+                                <input class="form-control" id="refFrais" type="text" required=""
+                                    formControlName="refFrais">
+                                <div *ngIf="refFrais.invalid && (refFrais.touched || refFrais.dirty)"
+                                    class="text text-danger">
+                                    <div *ngIf="refFrais.errors?.required">
+                                        {{'ind_frais_add.validators.refFrais.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> {{'ind_frais_add.fields.natureCoutAdd' | translate}}</label>
+                                <ng-multiselect-dropdown id="natureCoutAdd" name="natureCoutAdd" [data]="listNature"
+                                    formControlName="natureCoutAdd" [settings]="dropdownNatureSettings"
+                                    [placeholder]="'-- Select Nature Coût Additionnel --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="natureCoutAdd.invalid && natureCoutAdd.touched" class="text text-danger">
+
+                                    <div *ngIf="natureCoutAdd.errors?.required">
+                                        {{'ind_frais_add.validators.natureCoutAdd.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="valeurCoutAdd" class="col-form-label"><span>*</span> {{'ind_frais_add.fields.valeurCoutAdd' | translate}}</label>
+                                <input class="form-control" id="valeurCoutAdd" type="number" required=""
+                                    formControlName="valeurCoutAdd">
+                                <div *ngIf="valeurCoutAdd.invalid && (valeurCoutAdd.touched || valeurCoutAdd.dirty)"
+                                    class="text text-danger">
+                                    <div *ngIf="valeurCoutAdd.errors?.required">
+                                        {{'ind_frais_add.validators.valeurCoutAdd.required' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{'ind_frais_add.div2.title' | translate}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label class="col-form-label" for="description"><span>*</span> {{'ind_frais_add.fields.description' | translate}} </label>
+                                <textarea class="form-control" name="description" id="description" cols="30" rows="2"
+                                    formControlName="description"></textarea>
+                                <div *ngIf="description.invalid && (description.touched || description.dirty)"
+                                    class="text text-danger">
+                                    {{'ind_frais_add.validators.description.required' | translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-0">
+            <div class="product-buttons text-center">
+                <button type="button" class="btn btn-primary mr-1"
+                    (click)="addIndFraisAdd()">{{'button.add' | translate}}</button>
+                <button type="button" (click)="clearValues()" class="btn btn-light">{{'button.discard' | translate}}</button>
+            </div>
+        </div>
+    </form>
+
+</div>

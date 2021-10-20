@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <form [formGroup]="prodAssocForm">
+        <div class="row product-adding">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="typeAssociation" class="col-form-label"><span>*</span> Type Association</label>
+                                <ng-multiselect-dropdown id="typeAssociation" name="typeAssociation" [data]="listTAssoc"
+                                    formControlName="typeAssociation" [settings]="dropdownTAssocSettings"
+                                    [placeholder]="'-- Select Type Association --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="typeAssociation.invalid && (typeAssociation.touched || typeAssociation.dirty)" class="text text-danger">
+
+                                    <div *ngIf="typeAssociation.errors?.required">
+                                        The Type association is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Complémentaire</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="produitService1" class="col-form-label"><span>*</span> Produit 1</label>
+                                <ng-multiselect-dropdown id="produitService1" name="produitService1" [settings]="dropdownProd1Settings" 
+                                    formControlName="produitService1" [data]="listProd1"
+                                    [placeholder]="'-- Select Produit 1 --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="produitService1.invalid && (produitService1.touched || produitService1.dirty)" class="text text-danger">
+
+                                    <div *ngIf="produitService1.errors?.required">
+                                        The Produit 1 is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="produitService2" class="col-form-label"><span>*</span> Produit 2</label>
+                                <ng-multiselect-dropdown id="produitService2" name="produitService2" [settings]="dropdownProd2Settings"
+                                    formControlName="produitService2" [data]="listProd2"
+                                    [placeholder]="'-- Select Produit 2 --'">
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="produitService2.invalid && (produitService2.touched || produitService2.dirty)" class="text text-danger">
+
+                                    <div *ngIf="produitService2.errors?.required">
+                                        The Produit 2 is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0">
+                                <div class="product-buttons text-center">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="addProdComp()">Add</button>
+                                    <button type="button" (click)="clearValues()" class="btn btn-light">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Garantie Assurance</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                      <button class="btn btn-primary mr-1 mb-3" style="float: right;" (click)="goToaddGarAssur()">Add
+                        Garantie Assurance</button>
+                      <div class="clearfix"></div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col" *ngFor="let header of garAssurHeaders" style="text-align: center;">{{header}}</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let garAssur of listGarAssurs">
+                                    <td>{{garAssur.refGarAssur}}</td>
+                                    <td>{{garAssur.typeGarAssur}}</td>
+                                    <td>{{garAssur.valid_de}}</td>
+                                    <td>{{garAssur.duree}}</td>
+                                    <td>{{garAssur.uniteDureeGar}}</td>
+                                    <td>{{garAssur.valeurGar}}</td>
+                                    <td>{{garAssur.monnaie}}</td>
+                                    <td>{{garAssur.translations[0]?.__descriptif}}</td>
+                                    <td style="text-align: center;">
+                                      <a (click)="openFile(garAssur.contratModel)"
+                                      href="javascript:;"  ><i class="fa fa-download"></i></a>
+                                    </td>
+                                    <td>
+                                      <a (click)="onClickShowGarAssur(garAssur._id)" href="javascript:;" class="text text-info"><i
+                                          class="fa fa-eye"></i></a>&nbsp;
+                                      |&nbsp;
+                                      <a (click)="onClickEditGarAssur(garAssur._id)" href="javascript:;" class="text text-warning"><i
+                                          class="fa fa-edit"></i></a>&nbsp;
+                                      |&nbsp;
+                                      <a (click)="setGarAssurToDelete(garAssur._id,deleteModalGarAssur)"
+                                        href="javascript:;" class="text text-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #deleteModalGarAssur let-modal>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title f-w-600" id="myModal_delete_produit">Supprimer de la liste des garantie assurance du produit
+                    </h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container" style="padding: 20px 20px;">
+                      <div style="text-align: center;margin-bottom: 15px;  ">
+                        <i class="fa fa-exclamation-triangle fa-5x" style="text-align: center; color: red;"
+                          aria-hidden="true"></i>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                      <h4 style="text-align: center;">
+                        Êtes-vous sûr?
+                      </h4>
+                    </div>
+                    <div style="text-align: center; color: whitesmoke; margin-bottom: 20px;">
+                      <p style="line-height:15px;">
+                        Voulez-vous vraiment supprimer ces enregistrements? Ce processus ne peut pas être
+                        annulé.</p>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')" href="javascript:;"
+                      data-dismiss="modal">
+
+                      Annuler
+                    </button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary" href="javascript:;" (click)="onClickDeleteGarAssur()"
+                      (click)="modal.dismiss('Cross click')">
+                      Supprimer
+                    </button>
+
+                  </div>
+                </div>
+
+              </ng-template>
+
+        </div>
+    </div>
+</div>
